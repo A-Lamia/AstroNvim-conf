@@ -1,13 +1,13 @@
 -- local unmap = vim.keymap.del
-local keyset = require("user.util.keyset")
-
-
-local color = require("user.util.theme").setup()
-local normal = vim.api.nvim_get_hl_by_name("Normal", true)
-
-local function debug()
-  print(color.nav_icon_bg .. " " .. color.folder_icon_bg)
-end
+-- local keyset = require("user.util.keyset")
+--
+--
+-- local color = require("user.util.theme").setup()
+-- local normal = vim.api.nvim_get_hl_by_name("Normal", true)
+--
+-- local function debug()
+--   print(color.nav_icon_bg .. " " .. color.folder_icon_bg)
+-- end
 
 return {
   n = {
@@ -15,8 +15,8 @@ return {
     -- ["f"] = false,
     ["gh"] = false,
     -- Hop keymaps
-    ["\\"] = { keyset.toggle, desc = "Toggles Key Set" },
-    ["<F4>"] = { function() debug() end, desc = "Toggles Key Set" },
+    -- ["\\"] = { keyset.toggle, desc = "Toggles Key Set" },
+    -- ["<F4>"] = { function() debug() end, desc = "Toggles Key Set" },
     -- ["j"] = { function() keyset.command("HopChar1AC", "<Down>", "n") end,
     --     desc = "Default Move down or if toggled HopChar1AC"
     -- },
@@ -54,7 +54,7 @@ return {
 
     -- Others
     ["<F12>"] = { "<cmd>CellularAutomaton make_it_rain<CR>", desc = "Toggle Tagbar" },
-    ["<leader>uD"] = { ":lua require('lsp_lines').toggle()<cr>", desc = "Toggle diagnostics lines" },
+    ["<leader>uD"] = { ":lua require('lsp-inlayhints').toggle()<cr>", desc = "Toggle inlay hints" },
 
     -- Grapple
     ["gt"] = { ":GrappleToggle<cr>", desc = "Tags current buffer" },
