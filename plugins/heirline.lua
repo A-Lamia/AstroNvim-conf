@@ -1,14 +1,58 @@
 local status = require("user.util.statusline")
 THEME = require("user.util.theme").setup()
 
+local mode_bg = {
+  THEME.mode.normal,
+  THEME.mode.insert,
+  THEME.mode.visual,
+  THEME.mode.replace,
+  THEME.mode.command,
+}
+local grapple_bg = {
+  THEME.grapple.normal,
+  THEME.grapple.insert,
+  THEME.grapple.visual,
+  THEME.grapple.replace,
+  THEME.grapple.command,
+}
+local macro_bg = {
+  THEME.macro.normal,
+  THEME.macro.insert,
+  THEME.macro.visual,
+  THEME.macro.replace,
+  THEME.macro.command,
+}
+
 
 vim.api.nvim_create_autocmd("ColorScheme", {
   callback = function()
+
     THEME = require("user.util.theme").setup()
+
+    mode_bg = {
+      THEME.mode.normal,
+      THEME.mode.insert,
+      THEME.mode.visual,
+      THEME.mode.replace,
+      THEME.mode.command,
+    }
+    grapple_bg = {
+      THEME.grapple.normal,
+      THEME.grapple.insert,
+      THEME.grapple.visual,
+      THEME.grapple.replace,
+      THEME.grapple.command,
+    }
+    macro_bg = {
+      THEME.macro.normal,
+      THEME.macro.insert,
+      THEME.macro.visual,
+      THEME.macro.replace,
+      THEME.macro.command,
+    }
   end
 })
 
-local mode_background_color = { "#5B72AC", "#6D8866", "#7B6EAC", "#995C78", "#8E7965" }
 local mode_text_color_1 = { "#1C2A43", "#002627", "#1C1836", "#2B0000", "#1D1905" }
 local mode_text_color_2 = { "#E0FFFF", "#C8F7C5", "#FFECDB", "#FFECDB", "#FFFACD" }
 
@@ -35,8 +79,8 @@ local heirline = function(config)
         separator = "left",
         color = function()
           return {
-            main = astronvim.status.hl.mode_bg(),
-            right = status.mode_color(mode_background_color)
+            main = status.mode_color(mode_bg),
+            right = status.mode_color(grapple_bg)
           }
         end,
       },
@@ -49,7 +93,7 @@ local heirline = function(config)
       hl = function() return { fg = status.set_grapple_color(mode_text_color_2) } end,
       surround = {
         separator = "left",
-        color = function() return { main = status.mode_color(mode_background_color), right = "file_info_bg" } end,
+        color = function() return { main = status.mode_color(grapple_bg), right = status.mode_color(macro_bg) } end,
       },
     },
 
@@ -60,7 +104,7 @@ local heirline = function(config)
       -- hl = { fg = "#FF6347", bold = true },
       surround = {
         separator = "left",
-        color = { main = "file_info_bg", right = "bg" }
+        color = function() return { main = status.mode_color(macro_bg), right = "bg" } end,
       },
     },
 

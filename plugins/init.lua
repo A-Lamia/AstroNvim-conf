@@ -20,6 +20,8 @@ return {
 
   {
     "zbirenbaum/neodim",
+    opt = true,
+    setup = function() table.insert(astronvim.file_plugins, "neodim") end,
     config = function() require("neodim").setup() end,
   },
 
@@ -29,23 +31,37 @@ return {
   },
 
   {
-    "Maan2003/lsp_lines.nvim",
-    config = function() require("lsp_lines").setup() end,
+    "lvimuser/lsp-inlayhints.nvim",
+    module = "lsp-inlayhints",
+    config = function() require "user.plugins.lsp-inlayhints" end
   },
+
+  -- {
+  --   "Maan2003/lsp_lines.nvim",
+  --   opt = true,
+  --   setup = function() table.insert(astronvim.file_plugins, "lsp_lines.nvim") end,
+  --   config = function() require("lsp_lines").setup() end,
+  -- },
 
   {
     "folke/twilight.nvim",
+    opt = true,
+    setup = function() table.insert(astronvim.file_plugins, "twilight.nvim") end,
     config = function() require "user.plugins.twilight" end,
   },
 
   {
     "folke/todo-comments.nvim",
     requires = "nvim-lua/plenary.nvim",
+    opt = true,
+    setup = function() table.insert(astronvim.file_plugins, "todo-comments.nvim") end,
     config = function() require("todo-comments").setup {} end,
   },
 
   {
-    "pocco81/true-zen.nvim",
+    "A-Lamia/true-zen.nvim",
+    opt = true,
+    setup = function() table.insert(astronvim.file_plugins, "true-zen.nvim") end,
     config = function() require "user.plugins.true-zen" end,
   },
 
@@ -60,7 +76,8 @@ return {
 
   {
     "kevinhwang91/nvim-hlslens",
-    config = function() require("hlslens").setup() end,
+    keys = { "/", "?" },
+    config = function() require("hlslens").setup() end
   },
 
   {
@@ -69,11 +86,6 @@ return {
     event = "BufRead",
     config = function() require("hop").setup() end,
   },
-
-  -- { "ggandor/leap.nvim",
-  --   requires = "tpope/vim-repeat",
-  --   config = function() require "user.plugins.leap" end
-  -- },
 
   {
     "cbochs/grapple.nvim",
@@ -104,17 +116,31 @@ return {
   -- Text manipulation --
   {
     "kylechui/nvim-surround",
+    opt = true,
+    setup = function() table.insert(astronvim.file_plugins, "nvim-surround") end,
     config = function() require("nvim-surround").setup() end,
   },
 
   -- git --
-  { "sindrets/diffview.nvim" },
+  {
+    "sindrets/diffview.nvim",
+    opt = true,
+    setup = function() table.insert(astronvim.git_plugins, "diffview.nvim") end
+  },
 
   -- fun --
   { "eandrju/cellular-automaton.nvim" },
 
   --- Languages ---
   ----------------
+  {
+    "p00f/clangd_extensions.nvim",
+    after = "mason-lspconfig.nvim",
+    config = function() require "user.plugins.clangd_extensions" end,
+  },
+
+  { "simrat39/rust-tools.nvim" },
+
   { "folke/neodev.nvim" },
 
   { "sbdchd/neoformat" },
