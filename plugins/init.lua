@@ -1,4 +1,7 @@
 return {
+  ["mfussenegger/nvim-dap"] = { disable = false },
+  ["rcarriga/nvim-dap-ui"] = { disable = false },
+  ["jayp0521/mason-nvim-dap.nvim"] = { disable = false },
 
   --- disabled ---
   ----------------
@@ -74,11 +77,11 @@ return {
   --- Functionality ---
   ---------------------
 
-  {
-    "kevinhwang91/nvim-hlslens",
-    keys = { "/", "?" },
-    config = function() require("hlslens").setup() end
-  },
+  -- {
+  --   "kevinhwang91/nvim-hlslens",
+  --   keys = { "/", "?" },
+  --   config = function() require("hlslens").setup() end
+  -- },
 
   {
     "phaazon/hop.nvim",
@@ -119,6 +122,22 @@ return {
     opt = true,
     setup = function() table.insert(astronvim.file_plugins, "nvim-surround") end,
     config = function() require("nvim-surround").setup() end,
+  },
+
+  {
+    "Wansmer/treesj",
+    requires = { "nvim-treesitter" },
+    opt = true,
+    setup = function() table.insert(astronvim.file_plugins, "treesj") end,
+    config = function() require "user.plugins.treesj" end,
+  },
+
+  {
+    "Wansmer/sibling-swap.nvim",
+    requires = { "nvim-treesitter" },
+    opt = true,
+    setup = function() table.insert(astronvim.file_plugins, "sibling-swap.nvim") end,
+    config = function() require "user.plugins.sibling-swap" end,
   },
 
   -- git --
