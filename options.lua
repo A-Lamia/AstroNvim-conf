@@ -5,10 +5,11 @@ return {
     neovide_cursor_vfx_particle_lifetime = 1.5,
     neovide_cursor_vfx_particle_density = 15,
     neovide_transparency = 0.9,
+    heirline_bufferline = true,
   },
 
   opt = {
-    guifont = "VictorMono_NF,FiraCode_NF:h14",
+    guifont = "VictorMono_NF,FiraCode_NF:h13.5:e-subpixelantialias",
     -- guifont = "VictorMono_NF,FiraCode_NF:h14:#e-subpixelantialias:#n-none",
   },
 

@@ -1,0 +1,11 @@
+-- vim.api.nvim_create_augroup("relative_number_switch", { clear = true })
+-- vim.api.nvim_create_autocmd("InsertEnter", {
+--   pattern = "*",
+--   group = "relative_number_switch",
+--   command = "set norelativenumber",
+-- })
+-- vim.api.nvim_create_autocmd("InsertLeave", {
+--   pattern = "*",
+--   group = "relative_number_switch",
+--   command = "set relativenumber",
+-- })
