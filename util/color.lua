@@ -92,6 +92,7 @@ function M.lighten(rgb, int)
     b = clamp(rgb.b + int),
   }
 end
+
 function M.invert(rgb)
   return {
     r = clamp(255 - rgb.r),
@@ -99,6 +100,7 @@ function M.invert(rgb)
     b = clamp(255 - rgb.b),
   }
 end
+
 function M.invertValue(rgb)
   local r = rgb.r
   local g = rgb.g
@@ -123,4 +125,25 @@ end
 function M.getValue(rgb)
   return (0.299 * rgb.r) + (0.587 * rgb.g) + (0.114 * rgb.b)
 end
+
+function M.getOffset(rgb, origin, amount)
+  local main_value = M.getValue(rgb)
+  local origin_value = M.getValue(origin)
+  local difference = math.abs(origin_value - main_value)
+  local max_offset_amount = amount
+  local offset_amount = 0
+
+  if max_offset_amount >= difference then
+    offset_amount = offset_amount
+  elseif main_value > origin_value then
+    offset_amount = max_offset_amount - difference
+  elseif main_value < origin_value then
+    offset_amount = max_offset_amount + difference
+  elseif main_value == origin_value then
+    offset_amount = max_offset_amount
+  end
+  return offset_amount
+
+end
+
 return M
