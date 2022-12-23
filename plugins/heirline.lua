@@ -7,8 +7,20 @@ vim.api.nvim_create_autocmd("ColorScheme", {
   end
 })
 
-local mode_text_color_1 = { "#1C2A43", "#002627", "#1C1836", "#2B0000", "#1D1905" }
-local mode_text_color_2 = { "#E0FFFF", "#C8F7C5", "#FFECDB", "#FFECDB", "#FFFACD" }
+local mode_text_color_1 = {
+  "#1C2A43",
+  "#002627",
+  "#1C1836",
+  "#2B0000",
+  "#1D1905",
+}
+local mode_text_color_2 = {
+  normal = "#E0FFFF",
+  insert = "#C8F7C5",
+  visual = "#FFECDB",
+  replace = "#FFECDB",
+  command = "#FFFACD",
+}
 
 
 local heirline = function(config)
@@ -43,7 +55,7 @@ local heirline = function(config)
 
     -- Custom component for grapple
     astronvim.status.component.builder {
-      { provider = status.get_grapple },
+      { provider = status.grapple },
       hl = function() return { fg = status.set_grapple_color(mode_text_color_2) } end,
       surround = {
         separator = "left",
