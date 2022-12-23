@@ -1,4 +1,4 @@
 return {
-  channel = "nightly",
+  channel = "lazy", -- nightly
   skip_prompts = true,
 }
