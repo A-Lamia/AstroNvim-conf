@@ -99,4 +99,24 @@ function M.invert(rgb)
     b = clamp(255 - rgb.b),
   }
 end
+function M.invertValue(rgb)
+  local r = rgb.r
+  local g = rgb.g
+  local b = rgb.b
+
+  if r > g and r > b then
+    r = 255 - r
+  elseif g > r and g > b then
+    g = 255 - g
+  elseif b > r and b > g then
+    b = 255 - b
+  end
+
+  return {
+    r = clamp(r),
+    g = clamp(g),
+    b = clamp(b),
+  }
+end
+
 return M
