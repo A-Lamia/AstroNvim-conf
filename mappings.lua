@@ -1,38 +1,19 @@
--- local unmap = vim.keymap.del
--- local keyset = require("user.util.keyset")
---
---
--- local color = require("user.util.theme").setup()
--- local normal = vim.api.nvim_get_hl_by_name("Normal", true)
---
--- local function debug()
---   print(color.nav_icon_bg .. " " .. color.folder_icon_bg)
--- end
+local macro = require "user.util.macro"
 
 return {
   n = {
     -- Disable keymaps
-    -- ["f"] = false,
     ["gh"] = false,
-    -- Hop keymaps
-    -- ["\\"] = { keyset.toggle, desc = "Toggles Key Set" },
-    -- ["<F4>"] = { function() debug() end, desc = "Toggles Key Set" },
-    -- ["j"] = { function() keyset.command("HopChar1AC", "<Down>", "n") end,
-    --     desc = "Default Move down or if toggled HopChar1AC"
-    -- },
-    -- ["k"] = { function() keyset.command("HopChar1BC", "<Up>", "n") end,
-    --     desc = "Default Move up or if toggled HopChar1BC" },
-    -- ["h"] = {
-    --     function() keyset.command("HopChar1CurrentLineBC", "<Left>", "n") end,
-    --     desc = "Move down or if toggled HopChar1CurrentLineBC",
-    -- },
-    -- ["l"] = {
-    --     function() keyset.command("HopChar1CurrentLineAC", "<Right>", "n") end,
-    --     desc = "Default Move down or if toggled HopChar1CurrentLineBC",
-    -- },
 
+    -- Movement
     ["<M-o>"] = { "o<ESC>" },
     ["<M-O>"] = { "O<ESC>" },
+
+    ["<C-d>"] = { "<C-d>zz" },
+    ["<C-u>"] = { "<C-u>zz" },
+
+    ["n"] = { macro.better_search "n", desc = "Next search with center and unfold" },
+    ["N"] = { macro.better_search "N", desc = "previous search with center and unfold" },
 
     -- Rename
     ["yrw"] = { "yiw:s/\\C\\<<C-R>0\\>/" },
@@ -67,23 +48,7 @@ return {
     -- ["\\"] = { ToggleKeySet, desc = "Toggles Key Set" },
 
     -- Rename
-    -- ["<F3>"] = { "<cmd>lua require('spectre').open_visual()<CR>" },
-    -- ["<leader>n"] = { "<cmd>'<,'>TZNarrow<CR>", desc = "Focus selected code." },
-
-    -- Hop
-    -- ["j"] = { function() KeySet("HopLineAC", "j", "v") end, desc = "Default Move down or if toggled HopChar1AC" },
-    -- ["k"] = { function() KeySet("HopLineBC", "k", "v") end, desc = "Default Move up or if toggled HopChar1BC" },
-    -- ["h"] = {
-    -- function() KeySet("HopChar1CurrentLineBC", "h", "v") end,
-    -- desc = "Default Move down or if toggled HopChar1CurrentLineBC",
-    -- },
-    -- ["l"] = {
-    -- function() KeySet("HopChar1CurrentLineAC", "l", "v") end,
-    -- desc = "Default Move down or if toggled HopChar1CurrentLineBC",
-    -- },
-  },
-  V = {
-
+    ["<leader>n"] = { "<cmd>'<,'>TZNarrow<CR>", desc = "Focus selected code." },
   },
   i = {
     ["<M-o>"] = { "<C-o>o" },
@@ -91,5 +56,8 @@ return {
 
     ["<M-l>"] = { "<cmd>><cr>", desc = "indent" },
     ["<M-h>"] = { "<cmd><<cr>", desc = "indent" },
+  },
+  c = {
+    -- ["<CR>"] = { function() return vim.fn.getcmdtype() == '/' and '<CR>zzzv' or '<CR>' end }
   },
 }
