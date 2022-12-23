@@ -2,16 +2,52 @@ local color = require("user.util.color")
 
 M = {}
 
-
 function M.setup()
 
-  local function new_mode_color(c)
-    local base = color.rawToRgb(
+  local function genColor(main_color, base_color, max_offset)
+    local base_value = color.getValue(base_color)
+    local offset = color.getOffset(main_color, base_color, max_offset)
+    local new_color = main_color
+
+    if base_value >= 127.5 then
+      new_color = color.darken(main_color, offset)
+    elseif base_value < 127.5 then
+      new_color = color.lighten(main_color, offset)
+    end
+
+    return new_color
+  end
+
+  local function new_mode_color(hex)
+    local statusline = color.rawToRgb(
       vim.api.nvim_get_hl_by_name("StatusLine", true).background
     )
-    return color.toHex(
-      color.mix(base, color.toRgb(c))
-    )
+    local c = color.toRgb(hex)
+
+    local base_value = color.getValue(statusline)
+
+    local base = {
+      r = base_value,
+      g = base_value,
+      b = base_value,
+    }
+
+    if base_value >= 127.5 then
+      base = color.darken(base, 60)
+    elseif base_value < 127.5 then
+      base = color.lighten(base, 200)
+    end
+
+    return color.toHex {
+      r = (c.r * base.r) / 255,
+      g = (c.g * base.g) / 255,
+      b = (c.b * base.b) / 255,
+    }
+    -- return color.toHex {
+    --   r = (base.r),
+    --   g = (base.g),
+    --   b = (base.b),
+    -- }
   end
 
   local fallback = {
@@ -86,8 +122,22 @@ function M.setup()
 
   -- NOTE: Export final colors --
 
+  local c = {}
 
-  local grapple = {
+  c.nav_icon_bg = nav_icon_bg()
+  c.folder_icon_bg = folder_icon_bg()
+  c.nav_bg = nav_mix()
+  c.folder_bg = folder_mix()
+
+  c.mode = {
+    normal = hl.normal,
+    insert = hl.insert,
+    visual = hl.visual,
+    replace = hl.replace,
+    command = hl.command,
+  }
+
+  c.grapple = {
     normal = mix_mode_bg(hl.normal),
     insert = mix_mode_bg(hl.insert),
     visual = mix_mode_bg(hl.visual),
@@ -95,30 +145,12 @@ function M.setup()
     command = mix_mode_bg(hl.command),
   }
 
-  local c = {
-    nav_icon_bg = nav_icon_bg(),
-    folder_icon_bg = folder_icon_bg(),
-    nav_bg = nav_mix(),
-    folder_bg = folder_mix(),
-
-    mode = {
-      normal = hl.normal,
-      insert = hl.insert,
-      visual = hl.visual,
-      replace = hl.replace,
-      command = hl.command,
-    },
-
-    -- Grapple mode background
-    grapple = grapple,
-    -- Macro mode background
-    macro = {
-      normal = mix_mode_bg(grapple.normal),
-      insert = mix_mode_bg(grapple.insert),
-      visual = mix_mode_bg(grapple.visual),
-      replace = mix_mode_bg(grapple.replace),
-      command = mix_mode_bg(grapple.command),
-    }
+  c.macro = {
+    normal = mix_mode_bg(c.grapple.normal),
+    insert = mix_mode_bg(c.grapple.insert),
+    visual = mix_mode_bg(c.grapple.visual),
+    replace = mix_mode_bg(c.grapple.replace),
+    command = mix_mode_bg(c.grapple.command),
   }
 
   return c

@@ -1,14 +1,14 @@
 local M = {}
 
 
-function M.mode_color(colors)
+function M.mode_color(hl)
   local get_mode = vim.fn.mode()
   local mode = get_mode:lower()
-  if mode == "n" then return colors[1]
-  elseif mode == "i" or mode == "t" then return colors[2]
-  elseif mode == "v" or mode == "" or mode == "s" then return colors[3]
-  elseif mode == "r" then return colors[4]
-  elseif mode == "c" then return colors[5]
+  if mode == "n" then return hl.normal
+  elseif mode == "i" or mode == "t" then return hl.insert
+  elseif mode == "v" or mode == "" or mode == "s" then return hl.visual
+  elseif mode == "r" then return hl.replace
+  elseif mode == "c" then return hl.command
   end
 end
 
@@ -35,7 +35,7 @@ function M.macro_recording()
   end
 end
 
-function M.get_grapple()
+function M.grapple()
   local key_exists = require("grapple").exists()
   local key_name = "ﰠ "
   if key_exists then
@@ -45,11 +45,11 @@ function M.get_grapple()
   return key_name
 end
 
-function M.set_grapple_color(colors)
+function M.set_grapple_color(hl)
   local key = require("grapple").exists()
   local key_color = "bg"
   if key then
-    key_color = M.mode_color(colors)
+    key_color = M.mode_color(hl)
   end
   return key_color
 end

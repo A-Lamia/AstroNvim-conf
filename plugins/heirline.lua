@@ -1,55 +1,9 @@
 local status = require("user.util.statusline")
 THEME = require("user.util.theme").setup()
 
-local mode_bg = {
-  THEME.mode.normal,
-  THEME.mode.insert,
-  THEME.mode.visual,
-  THEME.mode.replace,
-  THEME.mode.command,
-}
-local grapple_bg = {
-  THEME.grapple.normal,
-  THEME.grapple.insert,
-  THEME.grapple.visual,
-  THEME.grapple.replace,
-  THEME.grapple.command,
-}
-local macro_bg = {
-  THEME.macro.normal,
-  THEME.macro.insert,
-  THEME.macro.visual,
-  THEME.macro.replace,
-  THEME.macro.command,
-}
-
-
 vim.api.nvim_create_autocmd("ColorScheme", {
   callback = function()
-
     THEME = require("user.util.theme").setup()
-
-    mode_bg = {
-      THEME.mode.normal,
-      THEME.mode.insert,
-      THEME.mode.visual,
-      THEME.mode.replace,
-      THEME.mode.command,
-    }
-    grapple_bg = {
-      THEME.grapple.normal,
-      THEME.grapple.insert,
-      THEME.grapple.visual,
-      THEME.grapple.replace,
-      THEME.grapple.command,
-    }
-    macro_bg = {
-      THEME.macro.normal,
-      THEME.macro.insert,
-      THEME.macro.visual,
-      THEME.macro.replace,
-      THEME.macro.command,
-    }
   end
 })
 
@@ -79,8 +33,8 @@ local heirline = function(config)
         separator = "left",
         color = function()
           return {
-            main = status.mode_color(mode_bg),
-            right = status.mode_color(grapple_bg)
+            main = status.mode_color(THEME.mode),
+            right = status.mode_color(THEME.grapple)
           }
         end,
       },
@@ -93,7 +47,7 @@ local heirline = function(config)
       hl = function() return { fg = status.set_grapple_color(mode_text_color_2) } end,
       surround = {
         separator = "left",
-        color = function() return { main = status.mode_color(grapple_bg), right = status.mode_color(macro_bg) } end,
+        color = function() return { main = status.mode_color(THEME.grapple), right = status.mode_color(THEME.macro) } end,
       },
     },
 
@@ -101,10 +55,9 @@ local heirline = function(config)
     astronvim.status.component.builder {
       { provider = status.macro_recording },
       hl = function() return { fg = status.mode_color(mode_text_color_2), bold = true } end,
-      -- hl = { fg = "#FF6347", bold = true },
       surround = {
         separator = "left",
-        color = function() return { main = status.mode_color(macro_bg), right = "bg" } end,
+        color = function() return { main = status.mode_color(THEME.macro), right = "bg" } end,
       },
     },
 
@@ -201,11 +154,20 @@ local heirline = function(config)
     },
   }
 
-  -- a second element in the heirline setup would override the winbar
-  -- by only providing a single element we will only override the statusline
-  -- and use the default winbar in AstroNvim
+  config[3][2] = astronvim.status.heirline.make_buflist {
+    {
+      provider = function(self) return self.is_visible and " " or " " end,
+      hl = { fg = "buffer_bg", bg = "buffer_visible_bg" },
+    },
+    astronvim.status.component.tabline_file_info { close_button = false },
+    {
+      provider = function(self) return self.is_visible and " " or " " end,
+      hl = { fg = "buffer_bg", bg = "buffer_visible_bg" },
+    },
+  }
 
-  -- return the final confiuration table
+  config[3][3] = astronvim.status.component.fill { hl = { bg = "buffer_visible_bg" } }
+
   return config
 end
 return heirline
