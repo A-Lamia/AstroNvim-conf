@@ -1,7 +1,14 @@
 return {
-  ["mfussenegger/nvim-dap"] = { enable = true },
-  ["rcarriga/nvim-dap-ui"] = { enable = true },
-  ["jayp0521/mason-nvim-dap.nvim"] = { enable = true },
+  ["mfussenegger/nvim-dap"] = {
+    enabled = true,
+    dependencies = {
+      -- ["theHamsta/nvim-dap-virtual-text"] = { config = function() require("nvim-dap-virtual-text").setup() end },
+    },
+  },
+
+  ["nvim-neo-tree/neo-tree.nvim"] = {
+    lazy = false,
+  },
 
   --- disabled ---
   ----------------
@@ -113,13 +120,13 @@ return {
   },
 
   -- Text manipulation --
-   ["nvim-treesitter/nvim-treesitter"] = {
+  ["nvim-treesitter/nvim-treesitter"] = {
     dependencies = {
       ["Wansmer/treesj"] = { config = function() require "user.plugins.treesj" end },
       ["Wansmer/sibling-swap.nvim"] = { config = function() require "user.plugins.sibling-swap" end }
     },
   },
-  
+
   {
     "kylechui/nvim-surround",
     init = function() table.insert(astronvim.file_plugins, "nvim-surround") end,
