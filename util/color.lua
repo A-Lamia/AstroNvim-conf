@@ -119,4 +119,8 @@ function M.invertValue(rgb)
   }
 end
 
+-- Algorithm based on http://alienryderflex.com/hsp.html
+function M.getValue(rgb)
+  return (0.299 * rgb.r) + (0.587 * rgb.g) + (0.114 * rgb.b)
+end
 return M
