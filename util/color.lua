@@ -42,20 +42,23 @@ function M.toRgb(hex)
   }
 end
 
-function M.mix(rgb1, rgb2)
-  local function average(c1, c2)
-    c1           = c1 * c1
-    c2           = c2 * c2
-    local add    = c1 + c2
+function M.mix(rgb1, rgb2, int)
+  local function mix(c1, c2)
+    c2 = c1 + (c2 - c1) * (int / 100)
+    c1 = c1 * c1
+    c2 = c2 * c2
+    local add = c1 + c2
     local devide = add / 2
-    local sum    = math.sqrt(devide)
+    local sum = math.sqrt(devide)
     return math.floor(sum)
   end
 
   return {
-    r = average(rgb1.r, rgb2.r),
-    g = average(rgb1.g, rgb2.g),
-    b = average(rgb1.b, rgb2.b),
+    r = mix(rgb1.r, rgb2.r),
+    g = mix(rgb1.g, rgb2.g),
+    b = mix(rgb1.b, rgb2.b),
+  }
+end
   }
 end
 
