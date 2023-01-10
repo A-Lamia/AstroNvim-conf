@@ -26,6 +26,7 @@ return {
 
     --
     ["<C-p>"] = { "<cmd>Telescope fd<CR>", desc = "Activates Telescope fd" },
+    ["<C-S-p>"] = { "<cmd>Telescope commands<CR>", desc = "Activates Telescope commands" },
     ["<C-f>"] = { "<cmd>Telescope live_grep<CR>", desc = "Activates Telescope live_grep" },
     ["<leader>n"] = { "<cmd>TZAtaraxis<CR>", desc = "Centers and mutes code" },
 
