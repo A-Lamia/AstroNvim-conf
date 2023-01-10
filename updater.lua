@@ -1,4 +1,5 @@
 return {
-  channel = "lazy", -- nightly
+  channel = "nightly",
+  branch = "v3",
   skip_prompts = true,
 }
