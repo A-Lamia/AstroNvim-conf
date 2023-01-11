@@ -1,7 +1,12 @@
 return {
-  { "goolord/alpha-nvim", enabled = false },
+  ------ disable ------
+  ---------------------
 
-  { "jayp0521/mason-nvim-dap.nvim", enabled = false },
+  { "goolord/alpha-nvim", enabled = false },
+  { "jay-babu/mason-nvim-dap.nvim", enabled = false },
+
+  ------ Visuals ------
+  ---------------------
 
   {
     "wsdjeg/vim-fetch",
@@ -10,16 +15,21 @@ return {
 
   {
     "nyoom-engineering/oxocarbon.nvim",
-    lazy = false,
+    -- lazy = false,
+  },
+
+  {
+    "kvrohit/mellow.nvim",
+    -- lazy = false,
   },
 
   {
     "gen740/SmoothCursor.nvim",
-    cond = vim.g.neovide,
+    cond = vim.g.neovide == nil,
+    lazy = false,
     opts = {
-      fancy = {
-        enable = true,
-      },
+      autostart = true,
+      fancy = { enable = true }
     }
   },
 
@@ -32,17 +42,9 @@ return {
   },
 
   {
-    "jinh0/eyeliner.nvim",
-    lazy = false,
-    opts = {
-      highlight_on_key = true,
-      dim = true,
-    }
-  },
-
-  {
     "folke/todo-comments.nvim",
     init = function() table.insert(astronvim.file_plugins, "todo-comments.nvim") end,
+    config = true,
   },
 
   {
@@ -63,6 +65,56 @@ return {
       integrations = {
         twilight = false
       },
+    }
+  },
+
+  ------ movement ------
+  ----------------------
+
+  {
+    "jinh0/eyeliner.nvim",
+    -- enabled = false,
+    lazy = false,
+    opts = {
+      highlight_on_key = true,
+      dim = true,
+    }
+  },
+
+  {
+    "phaazon/hop.nvim",
+    enabled = false,
+    lazy = false,
+    config = function()
+      local hop = require('hop')
+      hop.setup()
+      local directions = require('hop.hint').HintDirection
+      vim.keymap.set('', 'f', function()
+        hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = true })
+      end, { remap = true })
+      vim.keymap.set('', 'F', function()
+        hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true })
+      end, { remap = true })
+      vim.keymap.set('', 't', function()
+        hop.hint_char1({ direction = directions.AFTER_CURSOR, current_line_only = true, hint_offset = -1 })
+      end, { remap = true })
+      vim.keymap.set('', 'T', function()
+        hop.hint_char1({ direction = directions.BEFORE_CURSOR, current_line_only = true, hint_offset = 1 })
+      end, { remap = true })
+    end
+  },
+
+  {
+    "ggandor/leap.nvim",
+    enabled = false,
+    lazy = false,
+    dependencies = {
+      {
+        "ggandor/flit.nvim",
+        opts = {
+          multiline = false,
+        }
+      }
     }
   },
 
@@ -90,7 +142,9 @@ return {
 
   {
     "RishabhRD/nvim-cheat.sh",
-    dependencies = { "RishabhRD/popfix" },
+    dependencies = {
+      "RishabhRD/popfix",
+    },
   },
 
   { "gennaro-tedesco/nvim-jqx" },
@@ -114,29 +168,43 @@ return {
     }
   },
 
-  -- Text manipulation --
+  -- Text Manipulation --
+  -----------------------
+
+  {
+    "echasnovski/mini.ai",
+    init = function() table.insert(astronvim.file_plugins, "mini.ai") end,
+    config = function()
+      require("mini.ai").setup()
+    end,
+  },
 
   {
     "kylechui/nvim-surround",
-    enabled = false,
     init = function() table.insert(astronvim.file_plugins, "nvim-surround") end,
-    config = true,
+    opts = {
+      keymaps = {
+        normal = "sa",
+        normal_cur = "sv",
+        normal_line = "ss",
+        normal_curl_line = "sS",
+        visual = "s",
+        delete = 'sd',
+        change = 'sr',
+      },
+      aliases = {
+        ["u"] = { "}", "]", ")", ">", '"', "'", "`" },
+      },
+    }
   },
 
-  {
-    "machakann/vim-sandwich",
-    init = function() table.insert(astronvim.file_plugins, "nvim-surround") end,
-    config = true
-  },
+  ------ git ------
+  -----------------
 
-  -- git --
   {
     "sindrets/diffview.nvim",
     init = function() table.insert(astronvim.git_plugins, "diffview.nvim") end
   },
-
-  -- fun --
-  { "eandrju/cellular-automaton.nvim" },
 
   --- Languages ---
   -----------------
@@ -148,4 +216,9 @@ return {
   { "tikhomirov/vim-glsl" },
 
   { "habamax/vim-godot" },
+
+  ------ fun ------
+  -----------------
+
+  { "eandrju/cellular-automaton.nvim" },
 }

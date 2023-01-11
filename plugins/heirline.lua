@@ -1,7 +1,7 @@
 return {
   "rebelot/heirline.nvim",
   opts = function(_, opts)
-    
+
     local status = require("user.util.statusline")
     THEME = require("user.util.theme").setup()
 
@@ -18,7 +18,7 @@ return {
       "#2B0000",
       "#1D1905",
     }
-    
+
     local mode_text_color_2 = {
       normal = "#E0FFFF",
       insert = "#C8F7C5",
@@ -28,7 +28,7 @@ return {
     }
 
     -- the first element of the configuration table is the statusline
-    opts[1] = {
+    opts.statusline = {
       -- default highlight for the entire statusline
       hl = { fg = "fg", bg = "bg" },
 
@@ -169,12 +169,12 @@ return {
       },
     }
 
-    -- config[2] = astronvim.status.component.breadcrumbs {
+    -- opts.winbar = astronvim.status.component.breadcrumbs {
     --   condition = astronvim.status.condition.is_active,
     --   hl = { fg = "winbar_fg", bg = "winbar_fg" },
     -- }
 
-    opts[3][2] = astronvim.status.heirline.make_buflist {
+    opts.tabline[2] = astronvim.status.heirline.make_buflist {
       {
         provider = function(self) return self.is_visible and " " or " " end,
         hl = { fg = "buffer_bg", bg = "buffer_visible_bg" },
@@ -186,7 +186,7 @@ return {
       },
     }
 
-    opts[3][3] = astronvim.status.component.fill { hl = { bg = "buffer_visible_bg" } }
+    opts.tabline[3] = astronvim.status.component.fill { hl = { bg = "buffer_visible_bg" } }
 
     return opts
   end
