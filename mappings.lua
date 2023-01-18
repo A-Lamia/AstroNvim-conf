@@ -4,6 +4,8 @@ return {
   n = {
     -- Disable keymaps
     ["gh"] = false,
+    ["s"] = false,
+    ["Q"] = false,
 
     -- Movement
     ["<M-o>"] = { "o<ESC>" },
@@ -15,11 +17,17 @@ return {
     ["n"] = { macro.better_search "n", desc = "Next search with center and unfold" },
     ["N"] = { macro.better_search "N", desc = "previous search with center and unfold" },
 
+    ["<S-l>"] = { function() astronvim.nav_buf(vim.v.count > 0 and vim.v.count or 1) end, desc = "Next buffer" },
+    ["<S-h>"] = { function() astronvim.nav_buf(-(vim.v.count > 0 and vim.v.count or 1)) end, desc = "Previous buffer" },
+
     -- Rename
     ["yrw"] = { "yiw:s/\\C\\<<C-R>0\\>/" },
     ["yrW"] = { "yiW:s/\\C\\<<C-R>0\\>/" },
+    ["yre"] = { "yie:s/\\C\\<<C-R>0\\>/" },
+    ["yrE"] = { "yiE:s/\\C\\<<C-R>0\\>/" },
+
     ["<F2>"] = { "y:%s/<C-R>0/" },
-    ["<F2><F2>"] = { "y:s/<C-R>0/" },
+    ["<F2><F2>"] = { "y:%s/<C-R>0/" },
     ["<F3>"] = { "<cmd>lua require('spectre').open()<cr>" },
     ["<F3><F3>"] = { "<cmd>lua require('spectre').open_visual({select_word=true})<CR>" },
     ["<leader>r"] = { function() require("ssr").open() end, desc = "SSR" },
@@ -33,6 +41,8 @@ return {
     ["<leader>u1"] = { "<cmd>AerialToggle<CR>", desc = "Toggle Aerial" },
     ["<leader>u2"] = { "<cmd>TroubleToggle<CR>", desc = "Toggle Trouble" },
     ["<leader>u3"] = { "<cmd>TagbarToggle<CR>", desc = "Toggle Tagbar" },
+
+    ["sj"] = { "<cmd>TSJToggle<CR>", desc = "Treesj toggle" },
 
     -- Others
     ["<F12>"] = { "<cmd>CellularAutomaton make_it_rain<CR>", desc = "Toggle Tagbar" },
