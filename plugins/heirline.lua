@@ -3,13 +3,6 @@ return {
   opts = function(_, opts)
 
     local status = require("user.util.statusline")
-    THEME = require("user.util.theme").setup()
-
-    vim.api.nvim_create_autocmd("ColorScheme", {
-      callback = function()
-        THEME = require("user.util.theme").setup()
-      end
-    })
 
     local mode_text_color_1 = {
       "#1C2A43",
