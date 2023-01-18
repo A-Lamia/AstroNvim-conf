@@ -9,8 +9,8 @@ return {
   },
 
   opt = {
-    guifont = "VictorMono_NF,FiraCode_NF:h13.5:e-subpixelantialias",
-    -- guifont = "VictorMono_NF,FiraCode_NF:h14:#e-subpixelantialias:#n-none",
+    guifont = "VictorMono_NF,FiraCode_NF:h13.5",
+    -- guifont = "VictorMono_NF,FiraCode_NF:h13.5:#e-subpixelantialias:n-none",
   },
 
   o = {

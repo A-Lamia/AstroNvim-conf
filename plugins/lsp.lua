@@ -20,7 +20,7 @@ return {
   },
   {
     "simrat39/rust-tools.nvim",
-    ft = { "rs" },
     dependencies = { "williamboman/mason-lspconfig.nvim" },
+    ft = { "rs" },
   },
 }
