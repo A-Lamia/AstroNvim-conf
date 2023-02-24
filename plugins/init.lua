@@ -47,26 +47,6 @@ return {
     config = true,
   },
 
-  {
-    "A-Lamia/true-zen.nvim",
-    init = function() table.insert(astronvim.file_plugins, "true-zen.nvim") end,
-    dependencies = {
-      "folke/twilight.nvim",
-      opts = {
-        context = 20,
-      }
-    },
-    opts = {
-      modes = {
-        narrow = {
-          folds_style = "invisible",
-        },
-      },
-      integrations = {
-        twilight = false
-      },
-    }
-  },
 
   ------ movement ------
   ----------------------
