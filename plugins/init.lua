@@ -1,16 +1,6 @@
 local data = vim.fn.stdpath "data"
 local lazy = require("astronvim.utils")
 return {
-          modify_hl_groups = function(hl, c) hl.String.fg = c.my_pink end,
-          Comment = { fg = "#ff0000", bg = "NONE" },
-        },
-        astrodark = {
-          modify_hl_groups = function(hl, c) hl["@variable"].fg = c.my_blue end,
-          Comment = { fg = "#ff0000", bg = "NONE" },
-        },
-      },
-    },
-  },
   ------ disable ------
   ---------------------
 
