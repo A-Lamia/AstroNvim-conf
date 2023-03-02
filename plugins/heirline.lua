@@ -1,8 +1,11 @@
 return {
   "rebelot/heirline.nvim",
   opts = function(_, opts)
-
-    local status = require("user.util.statusline")
+    local status = {
+      user = require("user.util.statusline"),
+      astro = require("astronvim.utils.status"),
+    }
+    local icons = require("astronvim.icons.nerd_font")
 
     local mode_text_color_1 = {
       "#1C2A43",
@@ -24,16 +27,13 @@ return {
     opts.statusline = {
       -- default highlight for the entire statusline
       hl = { fg = "fg", bg = "bg" },
-
-
       -----------------------------------
       ---- NOTE: Left side of neovim.----
       -----------------------------------
 
-
       -- Vim mode compnonent, using custom
-      astronvim.status.component.builder {
-        { provider = status.mode },
+      status.astro.component.builder {
+        { provider = status.user.mode },
         -- mode_text = { icon = "test", padding = { right = 1, left = 1 } },
         -- hl = function() return { fg = mode_color(mode_text_color_1) } end,
         hl = { fg = "bg" },
@@ -41,71 +41,65 @@ return {
           separator = "left",
           color = function()
             return {
-              main = status.mode_color(THEME.mode),
-              right = status.mode_color(THEME.grapple)
+              main = status.user.mode_color(THEME.mode),
+              right = status.user.mode_color(THEME.grapple)
             }
           end,
         },
 
       },
-
-      -- Custo1 component for grapple
-      astronvim.status.component.builder {
-        { provider = status.grapple },
-        hl = function() return { fg = status.set_grapple_color(mode_text_color_2) } end,
+      -- Custom component for grapple
+      status.astro.component.builder {
+        { provider = status.user.grapple },
+        hl = function() return { fg = status.user.set_grapple_color(mode_text_color_2) } end,
         surround = {
           separator = "left",
-          color = function() return { main = status.mode_color(THEME.grapple), right = status.mode_color(THEME.tools) } end,
+          color = function()
+            return {
+              main = status.user.mode_color(THEME.grapple),
+              right = status.user.mode_color(THEME.tools)
+            }
+          end,
         },
       },
-
       -- Custom compnent for macro recordings
-      astronvim.status.component.builder {
-        { provider = status.macro_recording },
-        hl = function() return { fg = status.mode_color(mode_text_color_2), bold = true } end,
+      status.astro.component.builder {
+        { provider = status.user.macro_recording },
+        hl = function() return { fg = status.user.mode_color(mode_text_color_2), bold = true } end,
         surround = {
           separator = "left",
-          color = function() return { main = status.mode_color(THEME.tools), right = "bg" } end,
+          color = function() return { main = status.user.mode_color(THEME.tools), right = "bg" } end,
         },
       },
-
-
       -------------------------------------
       ---- NOTE: Center side of neovim.----
       -------------------------------------
 
 
       -- add a component for the current git branch if it exists and use no separator for the sections
-      astronvim.status.component.git_branch { surround = { separator = "none" } },
-
+      status.astro.component.git_branch { surround = { separator = "none" } },
       -- add a component for the current git diff if it exists and use no separator for the sections
-      astronvim.status.component.git_diff { padding = { left = 1 }, surround = { separator = "none" } },
-
+      status.astro.component.git_diff { padding = { left = 1 }, surround = { separator = "none" } },
       -- fill the rest of the statusline
       -- the elements after this will appear in the middle of the statusline
-      astronvim.status.component.fill(),
-
+      status.astro.component.fill(),
       -- add a component to display if the LSP is loading, disable showing running client names, and use no separator
-      astronvim.status.component.lsp { lsp_client_names = false, surround = { separator = "none", color = "bg" } },
-
+      status.astro.component.lsp { lsp_client_names = false, surround = { separator = "none", color = "bg" } },
       -- fill the rest of the statusline
       -- the elements after this will appear on the right of the statusline
-      astronvim.status.component.fill(),
-
+      status.astro.component.fill(),
       ------------------------------------
       ---- NOTE: Right side of neovim.----
       ------------------------------------
 
       -- add a component for the current diagnostics if it exists and use the right separator for the section
-      astronvim.status.component.diagnostics { surround = { separator = "space_right" } },
-
+      status.astro.component.diagnostics { surround = { separator = "space_right" } },
       -- add a component to display LSP clients, disable showing LSP progress, and use the right separator
-      astronvim.status.component.lsp { lsp_progress = false, surround = { separator = "space_right" } },
-
+      status.astro.component.lsp { lsp_progress = false, surround = { separator = "space_right" } },
       {
         -- define a simple component where the provider is just a folder icon
-        astronvim.status.component.builder {
-          { provider = astronvim.get_icon "FolderClosed" },
+        status.astro.component.builder {
+          { provider = icons.FolderClosed },
           padding = { right = 1 },
           hl = { fg = "bg" },
           surround = {
@@ -113,13 +107,13 @@ return {
             color = function() return { main = THEME.folder_icon_bg } end
           },
         },
-        astronvim.status.component.builder {
+        status.astro.component.builder {
           { provider = "" },
           surround = { separator = "right_accent",
             color = function() return { main = THEME.folder_icon_bg, right = THEME.folder_bg } end },
         },
         -- add a file information component and only show the current working directory name
-        astronvim.status.component.file_info {
+        status.astro.component.file_info {
           filename = { fname = function() return vim.fn.getcwd() end, padding = { left = 0 } },
           hl = function() return { fg = THEME.folder_icon_bg } end,
           file_icon = false,
@@ -131,10 +125,9 @@ return {
           },
         },
       },
-
       {
-        astronvim.status.component.builder {
-          { provider = astronvim.get_icon "DefaultFile" },
+        status.astro.component.builder {
+          { provider = icons.DefaultFile },
           padding = { right = 1 },
           hl = { fg = "bg" },
           surround = {
@@ -142,14 +135,14 @@ return {
             color = function() return { main = THEME.nav_icon_bg, left = THEME.folder_bg } end
           },
         },
-        astronvim.status.component.builder {
+        status.astro.component.builder {
           { provider = "" },
           surround = {
             separator = "right_accent",
             color = function() return { main = THEME.nav_icon_bg, right = THEME.nav_bg } end
           },
         },
-        astronvim.status.component.nav {
+        status.astro.component.nav {
           percentage = { padding = { left = 0, right = 1 } },
           ruler = false,
           scrollbar = false,
@@ -162,24 +155,26 @@ return {
       },
     }
 
-    -- opts.winbar = astronvim.status.component.breadcrumbs {
-    --   condition = astronvim.status.condition.is_active,
+    -- opts.winbar = status.astro.component.breadcrumbs {
+    --   condition = status.astro.condition.is_active,
     --   hl = { fg = "winbar_fg", bg = "winbar_fg" },
     -- }
 
-    opts.tabline[2] = astronvim.status.heirline.make_buflist {
+    opts.winbar = nil
+
+    opts.tabline[2] = status.astro.heirline.make_buflist {
       {
         provider = function(self) return self.is_visible and " " or " " end,
         hl = { fg = "buffer_bg", bg = "buffer_visible_bg" },
       },
-      astronvim.status.component.tabline_file_info { close_button = false },
+      status.astro.component.tabline_file_info { close_button = false },
       {
         provider = function(self) return self.is_visible and " " or " " end,
         hl = { fg = "buffer_bg", bg = "buffer_visible_bg" },
       },
     }
 
-    opts.tabline[3] = astronvim.status.component.fill { hl = { bg = "buffer_visible_bg" } }
+    opts.tabline[3] = status.astro.component.fill { hl = { bg = "buffer_visible_bg" } }
 
     return opts
   end
