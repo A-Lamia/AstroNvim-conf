@@ -1,3 +1,5 @@
+local status = require("astronvim.utils.status")
+
 local M = {}
 
 
@@ -13,7 +15,7 @@ function M.mode_color(hl)
 end
 
 function M.mode()
-  local mode_text = astronvim.status.env.modes[vim.fn.mode()][1]
+  local mode_text = status.env.modes[vim.fn.mode()][1]
   local get_mode = vim.fn.mode()
   local mode = get_mode:lower()
   local icon = "ﮊ "

@@ -1,108 +1,120 @@
+local data = vim.fn.stdpath "data"
+local lazy = require("astronvim.utils")
 return {
-  ["mfussenegger/nvim-dap"] = { disable = false },
-  ["rcarriga/nvim-dap-ui"] = { disable = false },
-  ["jayp0521/mason-nvim-dap.nvim"] = { disable = false },
+          modify_hl_groups = function(hl, c) hl.String.fg = c.my_pink end,
+          Comment = { fg = "#ff0000", bg = "NONE" },
+        },
+        astrodark = {
+          modify_hl_groups = function(hl, c) hl["@variable"].fg = c.my_blue end,
+          Comment = { fg = "#ff0000", bg = "NONE" },
+        },
+      },
+    },
+  },
+  ------ disable ------
+  ---------------------
 
-  --- disabled ---
-  ----------------
+  { "goolord/alpha-nvim",           enabled = false },
+  { "jay-babu/mason-nvim-dap.nvim", enabled = false },
 
-  --- CLI ---
-  -----------
-  { "wsdjeg/vim-fetch" },
+  ------ Visuals ------
+  ---------------------
 
-  --- Style and UI ---
-  --------------------
   {
-    "folke/tokyonight.nvim",
+    "wsdjeg/vim-fetch",
+    lazy = false,
+  },
+
+  {
+    "nyoom-engineering/oxocarbon.nvim",
+    -- lazy = false,
+  },
+
+  {
+    "kvrohit/mellow.nvim",
+    -- lazy = false,
+  },
+
+  {
+    "rose-pine/neovim",
+    name = "rose-pine",
+    lazy = false,
+    priority = 1000,
+    opts = {
+      dark_variant = "moon",
+      disable_italics = "true",
+      disable_float_background = "true",
+    },
   },
 
   {
     "gen740/SmoothCursor.nvim",
-    config = function() require "user.plugins.SmoothCursor" end,
+    cond = vim.g.neovide == nil,
+    lazy = false,
+    opts = {
+      autostart = true,
+      fancy = { enable = true },
+    },
   },
 
   {
     "zbirenbaum/neodim",
-    opt = true,
-    setup = function() table.insert(astronvim.file_plugins, "neodim") end,
-    config = function() require("neodim").setup() end,
-  },
-
-  {
-    "jinh0/eyeliner.nvim",
-    config = function() require "user.plugins.eyeliner" end,
-  },
-
-  {
-    "lvimuser/lsp-inlayhints.nvim",
-    module = "lsp-inlayhints",
-    config = function() require "user.plugins.lsp-inlayhints" end
-  },
-
-  -- {
-  --   "Maan2003/lsp_lines.nvim",
-  --   opt = true,
-  --   setup = function() table.insert(astronvim.file_plugins, "lsp_lines.nvim") end,
-  --   config = function() require("lsp_lines").setup() end,
-  -- },
-
-  {
-    "folke/twilight.nvim",
-    opt = true,
-    setup = function() table.insert(astronvim.file_plugins, "twilight.nvim") end,
-    config = function() require "user.plugins.twilight" end,
+    init = function() table.insert(astronvim.file_plugins, "neodim") end,
+    opts = {
+      alpha = 0.75,
+    },
   },
 
   {
     "folke/todo-comments.nvim",
-    requires = "nvim-lua/plenary.nvim",
-    opt = true,
-    setup = function() table.insert(astronvim.file_plugins, "todo-comments.nvim") end,
-    config = function() require("todo-comments").setup {} end,
+    init = function() table.insert(astronvim.file_plugins, "todo-comments.nvim") end,
+    config = true,
+  },
+
+  ------ movement ------
+  ----------------------
+
+  {
+    "jinh0/eyeliner.nvim",
+    enabled = false,
+    lazy = false,
+    opts = {
+      highlight_on_key = true,
+      dim = true,
+    },
   },
 
   {
-    "A-Lamia/true-zen.nvim",
-    opt = true,
-    setup = function() table.insert(astronvim.file_plugins, "true-zen.nvim") end,
-    config = function() require "user.plugins.true-zen" end,
-  },
-
-  {
-    "anuvyklack/windows.nvim",
-    requires = "anuvyklack/middleclass",
-    config = function() require("windows").setup() end,
+    "TheSafdarAwan/find-extender.nvim",
+    keys = {
+      "f",
+      "F",
+      "F",
+      "T",
+      "t",
+      "t",
+      "T",
+    },
+    config = true,
   },
 
   --- Functionality ---
   ---------------------
 
-  -- {
-  --   "kevinhwang91/nvim-hlslens",
-  --   keys = { "/", "?" },
-  --   config = function() require("hlslens").setup() end
-  -- },
-
-  {
-    "phaazon/hop.nvim",
-    branch = "v2",
-    event = "BufRead",
-    config = function() require("hop").setup() end,
-  },
-
-  {
-    "cbochs/grapple.nvim",
-    config = function() require "user.plugins.grapple" end
-  },
-
   -- tagbar, needs ctags to work.
-  { "preservim/tagbar" },
+  {
+    "preservim/tagbar",
+    cmd = "TagbarToggle",
+  },
 
   { "folke/trouble.nvim" },
 
-  { "RishabhRD/popfix" },
-
-  { "RishabhRD/nvim-cheat.sh" },
+  {
+    "RishabhRD/nvim-cheat.sh",
+    dependencies = {
+      "RishabhRD/popfix",
+    },
+  },
 
   { "gennaro-tedesco/nvim-jqx" },
 
@@ -113,52 +125,57 @@ return {
   -- Structual Search and Replace
   {
     "cshuaimin/ssr.nvim",
-    module = "ssr"
+    ft = "<leader>r",
+    opts = {
+      min_width = 50,
+      min_height = 5,
+      keymaps = {
+        close = "q",
+        next_match = "n",
+        prev_match = "N",
+        replace_all = "<leader><cr>",
+      },
+    },
   },
 
-  -- Text manipulation --
+  -- Text Manipulation --
+  -----------------------
+
+  {
+    "echasnovski/mini.ai",
+    init = function() table.insert(astronvim.file_plugins, "mini.ai") end,
+    config = function() require("mini.ai").setup() end,
+  },
+
   {
     "kylechui/nvim-surround",
-    opt = true,
-    setup = function() table.insert(astronvim.file_plugins, "nvim-surround") end,
-    config = function() require("nvim-surround").setup() end,
+    init = function() table.insert(astronvim.file_plugins, "nvim-surround") end,
+    opts = {
+      keymaps = {
+        normal = "sa",
+        normal_cur = "sv",
+        normal_line = "ss",
+        normal_curl_line = "sS",
+        visual = "s",
+        delete = "sd",
+        change = "sr",
+      },
+      aliases = {
+        ["u"] = { "}", "]", ")", ">", '"', "'", "`" },
+      },
+    },
   },
 
-  {
-    "Wansmer/treesj",
-    requires = { "nvim-treesitter" },
-    opt = true,
-    setup = function() table.insert(astronvim.file_plugins, "treesj") end,
-    config = function() require "user.plugins.treesj" end,
-  },
+  ------ git ------
+  -----------------
 
-  {
-    "Wansmer/sibling-swap.nvim",
-    requires = { "nvim-treesitter" },
-    opt = true,
-    setup = function() table.insert(astronvim.file_plugins, "sibling-swap.nvim") end,
-    config = function() require "user.plugins.sibling-swap" end,
-  },
-
-  -- git --
   {
     "sindrets/diffview.nvim",
-    opt = true,
-    setup = function() table.insert(astronvim.git_plugins, "diffview.nvim") end
+    init = function() table.insert(astronvim.git_plugins, "diffview.nvim") end,
   },
-
-  -- fun --
-  { "eandrju/cellular-automaton.nvim" },
 
   --- Languages ---
-  ----------------
-  {
-    "p00f/clangd_extensions.nvim",
-    after = "mason-lspconfig.nvim",
-    config = function() require "user.plugins.clangd_extensions" end,
-  },
-
-  { "simrat39/rust-tools.nvim" },
+  -----------------
 
   { "folke/neodev.nvim" },
 
@@ -166,5 +183,13 @@ return {
 
   { "tikhomirov/vim-glsl" },
 
-  { "habamax/vim-godot" },
+
+  ------ fun ------
+  -----------------
+
+  {
+    "eandrju/cellular-automaton.nvim",
+    cmd = "CellularAutomaton",
+    config = true,
+  },
 }

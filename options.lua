@@ -7,12 +7,10 @@ return {
     neovide_transparency = 0.9,
     heirline_bufferline = true,
   },
-
   opt = {
-    guifont = "VictorMono_NF,FiraCode_NF:h13.5:e-subpixelantialias",
-    -- guifont = "VictorMono_NF,FiraCode_NF:h14:#e-subpixelantialias:#n-none",
+    guifont = "VictorMono_NF,Hack_NF:h13.5:#h-normal",
+    -- guifont = "VictorMono_NF,FiraCode_NF:h13.5:#e-subpixelantialias:n-none",
   },
-
   o = {
     autoread = true,
     winwidth = 10,
