@@ -1,6 +1,18 @@
 return {
   "nvim-treesitter/nvim-treesitter",
-  config = true,
+  opts = {
+    ensure_installed = {
+      "c",
+      "lua",
+      "vim",
+      "help",
+      "rust",
+      "cpp",
+      "python",
+      "gdscript",
+      -- "gdresource"
+    },
+  },
   dependencies = {
     {
       "Wansmer/treesj",
@@ -19,5 +31,9 @@ return {
         }
       }
     },
+    {
+      "nvim-treesitter/playground",
+      cmd = "TSPlaygroundToggle"
+    }
   },
 }
