@@ -1,8 +1,20 @@
+local data = vim.fn.stdpath "data"
+local lazy = require("astronvim.utils")
 return {
+          modify_hl_groups = function(hl, c) hl.String.fg = c.my_pink end,
+          Comment = { fg = "#ff0000", bg = "NONE" },
+        },
+        astrodark = {
+          modify_hl_groups = function(hl, c) hl["@variable"].fg = c.my_blue end,
+          Comment = { fg = "#ff0000", bg = "NONE" },
+        },
+      },
+    },
+  },
   ------ disable ------
   ---------------------
 
-  { "goolord/alpha-nvim", enabled = false },
+  { "goolord/alpha-nvim",           enabled = false },
   { "jay-babu/mason-nvim-dap.nvim", enabled = false },
 
   ------ Visuals ------
@@ -10,7 +22,7 @@ return {
 
   {
     "wsdjeg/vim-fetch",
-    lazy = false
+    lazy = false,
   },
 
   {
@@ -34,22 +46,23 @@ return {
       disable_float_background = "true",
     },
   },
+
   {
     "gen740/SmoothCursor.nvim",
     cond = vim.g.neovide == nil,
     lazy = false,
     opts = {
       autostart = true,
-      fancy = { enable = true }
-    }
+      fancy = { enable = true },
+    },
   },
 
   {
     "zbirenbaum/neodim",
     init = function() table.insert(astronvim.file_plugins, "neodim") end,
     opts = {
-      alpha = 0.75
-    }
+      alpha = 0.75,
+    },
   },
 
   {
@@ -58,42 +71,41 @@ return {
     config = true,
   },
 
-
   ------ movement ------
   ----------------------
 
   {
     "jinh0/eyeliner.nvim",
-    -- enabled = false,
+    enabled = false,
     lazy = false,
     opts = {
       highlight_on_key = true,
       dim = true,
-    }
+    },
   },
 
   {
+    "TheSafdarAwan/find-extender.nvim",
+    keys = {
+      "f",
+      "F",
+      "F",
+      "T",
+      "t",
+      "t",
+      "T",
+    },
+    config = true,
   },
 
   --- Functionality ---
   ---------------------
 
-  {
-    "cbochs/grapple.nvim",
-    lazy = false,
-    config = function()
-      require("grapple").setup({
-        setup = require("grapple.scope").fallback({
-          require("grapple").resolvers.lsp_fallback,
-          require("grapple").resolvers.git_fallback,
-          require("grapple").resolvers.static
-        })
-      })
-    end
-  },
-
   -- tagbar, needs ctags to work.
-  { "preservim/tagbar" },
+  {
+    "preservim/tagbar",
+    cmd = "TagbarToggle",
+  },
 
   { "folke/trouble.nvim" },
 
@@ -113,6 +125,7 @@ return {
   -- Structual Search and Replace
   {
     "cshuaimin/ssr.nvim",
+    ft = "<leader>r",
     opts = {
       min_width = 50,
       min_height = 5,
@@ -121,8 +134,8 @@ return {
         next_match = "n",
         prev_match = "N",
         replace_all = "<leader><cr>",
-      }
-    }
+      },
+    },
   },
 
   -- Text Manipulation --
@@ -131,9 +144,7 @@ return {
   {
     "echasnovski/mini.ai",
     init = function() table.insert(astronvim.file_plugins, "mini.ai") end,
-    config = function()
-      require("mini.ai").setup()
-    end,
+    config = function() require("mini.ai").setup() end,
   },
 
   {
@@ -146,13 +157,13 @@ return {
         normal_line = "ss",
         normal_curl_line = "sS",
         visual = "s",
-        delete = 'sd',
-        change = 'sr',
+        delete = "sd",
+        change = "sr",
       },
       aliases = {
         ["u"] = { "}", "]", ")", ">", '"', "'", "`" },
       },
-    }
+    },
   },
 
   ------ git ------
@@ -160,7 +171,7 @@ return {
 
   {
     "sindrets/diffview.nvim",
-    init = function() table.insert(astronvim.git_plugins, "diffview.nvim") end
+    init = function() table.insert(astronvim.git_plugins, "diffview.nvim") end,
   },
 
   --- Languages ---
@@ -172,10 +183,13 @@ return {
 
   { "tikhomirov/vim-glsl" },
 
-  { "habamax/vim-godot" },
 
   ------ fun ------
   -----------------
 
-  { "eandrju/cellular-automaton.nvim" },
+  {
+    "eandrju/cellular-automaton.nvim",
+    cmd = "CellularAutomaton",
+    config = true,
+  },
 }
