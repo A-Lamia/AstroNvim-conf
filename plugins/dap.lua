@@ -1,4 +1,3 @@
--- require("notify") { CODELLDB_DIR }
 return {
   "mfussenegger/nvim-dap",
   enabled = true,
@@ -55,10 +54,10 @@ return {
       type = 'codelldb',
       request = "launch",
       program = function()
-        -- if not vim.g.dap_program or #vim.g.dap_program == 0 then
-        --     vim.g.dap_program = vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
-        -- end
-        -- return vim.g.dap_program
+        if not vim.g.dap_program or #vim.g.dap_program == 0 then
+          vim.g.dap_program = vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+        end
+        return vim.g.dap_program
       end,
       cwd = '${workspaceFolder}',
       stopOnEntry = false,
