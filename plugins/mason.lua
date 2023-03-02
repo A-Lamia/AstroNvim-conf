@@ -8,7 +8,7 @@ return {
         "neocmake",
         "jsonls",
         "pyright",
-        "sumneko_lua",
+        "lua_ls"
       },
     },
   },
