@@ -1,11 +1,20 @@
 return {
+  {
+    "williamboman/mason-lspconfig.nvim",
+    opts = {
+      ensure_installed = {
+        "lua-language-server",
+        "rust_analyzer"
+      }
+    }
+  },
   -- {"neovim/nvim-lspconfig",}
   { "lvimuser/lsp-inlayhints.nvim", config = true },
-  -- {
-  --   "Maan2003/lsp_lines.nvim",
-  --   init = function() table.insert(astronvim.file_plugins, "lsp_lines.nvim") end,
-  --   config = function() require("lsp_lines").setup() end,
-  -- },
+  {
+    "Maan2003/lsp_lines.nvim",
+    init = function() table.insert(astronvim.file_plugins, "lsp_lines.nvim") end,
+    config = function() require("lsp_lines").setup() end,
+  },
 
   {
     "p00f/clangd_extensions.nvim",
@@ -22,5 +31,10 @@ return {
     "simrat39/rust-tools.nvim",
     dependencies = { "williamboman/mason-lspconfig.nvim" },
     ft = { "rs" },
+    opts = function()
+      return {
+        server = astronvim.lsp.server_settings "rust_analyzer"
+      }
+    end
   },
 }
