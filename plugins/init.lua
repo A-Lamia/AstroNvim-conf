@@ -26,18 +26,6 @@ return {
   },
 
   {
-    "rose-pine/neovim",
-    name = "rose-pine",
-    lazy = false,
-    priority = 1000,
-    opts = {
-      dark_variant = "moon",
-      disable_italics = "true",
-      disable_float_background = "true",
-    },
-  },
-
-  {
     "gen740/SmoothCursor.nvim",
     cond = vim.g.neovide == nil,
     lazy = false,
