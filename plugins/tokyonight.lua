@@ -22,5 +22,15 @@ return {
     hide_inactive_statusline = false, -- Enabling this option, will hide inactive statuslines and replace them with a thin border instead. Should work with the standard **StatusLine** and **LuaLine**. |
     dim_inactive = false, -- dims inactive windows
     lualine_bold = false, -- When `true`, section headers in the lualine theme will be bold|
+
+    on_highlights = function(hl, _)
+      hl.TSRainbowRed = { link = "rainbowcol1" }
+      hl.TSRainbowOrange = { link = "rainbowcol2" }
+      hl.TSRainbowGreen = { link = "rainbowcol3" }
+      hl.TSRainbowCyan = { link = "rainbowcol4" }
+      hl.TSRainbowBlue = { link = "rainbowcol5" }
+      hl.TSRainbowViolet = { link = "rainbowcol6" }
+      hl.TSRainbowYellow = { link = "rainbowcol7" }
+    end
   }
 }
