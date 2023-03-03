@@ -1,5 +1,3 @@
-local data = vim.fn.stdpath "data"
-local lazy = require("astronvim.utils")
 return {
   ------ disable ------
   ---------------------
