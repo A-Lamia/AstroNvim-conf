@@ -4,15 +4,15 @@ return {
     opts = {
       ensure_installed = {
         "lua-language-server",
-        "rust_analyzer"
-      }
-    }
+        "rust_analyzer",
+      },
+    },
   },
   -- {"neovim/nvim-lspconfig",}
   { "lvimuser/lsp-inlayhints.nvim", config = true },
   {
     "Maan2003/lsp_lines.nvim",
-    init = function() table.insert(astronvim.file_plugins, "lsp_lines.nvim") end,
+    event = "User AstroFile",
     config = function() require("lsp_lines").setup() end,
   },
 
@@ -23,7 +23,7 @@ return {
     opts = function()
       return {
         server = astronvim.lsp.server_settings "clangd",
-        extensions = { autoSetHints = false }
+        extensions = { autoSetHints = false },
       }
     end,
   },
@@ -33,8 +33,8 @@ return {
     ft = { "rs" },
     opts = function()
       return {
-        server = astronvim.lsp.server_settings "rust_analyzer"
+        server = astronvim.lsp.server_settings "rust_analyzer",
       }
-    end
+    end,
   },
 }

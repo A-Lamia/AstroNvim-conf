@@ -35,7 +35,7 @@ return {
 
   {
     "zbirenbaum/neodim",
-    init = function() table.insert(astronvim.file_plugins, "neodim") end,
+    event = "User AstroFile",
     opts = {
       alpha = 0.75,
     },
@@ -43,7 +43,7 @@ return {
 
   {
     "folke/todo-comments.nvim",
-    init = function() table.insert(astronvim.file_plugins, "todo-comments.nvim") end,
+    event = "User AstroFile",
     config = true,
   },
 
@@ -119,13 +119,13 @@ return {
 
   {
     "echasnovski/mini.ai",
-    init = function() table.insert(astronvim.file_plugins, "mini.ai") end,
+    event = "User AstroFile",
     config = function() require("mini.ai").setup() end,
   },
 
   {
     "kylechui/nvim-surround",
-    init = function() table.insert(astronvim.file_plugins, "nvim-surround") end,
+    event = "User AstroFile",
     opts = {
       keymaps = {
         normal = "sa",
@@ -147,7 +147,7 @@ return {
 
   {
     "sindrets/diffview.nvim",
-    init = function() table.insert(astronvim.git_plugins, "diffview.nvim") end,
+    event = "User AstroGitFile",
   },
 
   --- Languages ---
