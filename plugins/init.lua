@@ -47,6 +47,17 @@ return {
     config = true,
   },
 
+  {
+    "folke/which-key.nvim",
+    opts = function(_, opts)
+      return require("astronvim.utils").extend_tbl(opts, {
+        window = {
+          winblend = vim.g.winblend,
+        },
+      })
+    end,
+  },
+
   ------ movement ------
   ----------------------
 
@@ -62,15 +73,7 @@ return {
 
   {
     "TheSafdarAwan/find-extender.nvim",
-    keys = {
-      "f",
-      "F",
-      "F",
-      "T",
-      "t",
-      "t",
-      "T",
-    },
+    keys = { "f", "F", "F", "T", "t", "t", "T" },
     config = true,
   },
 
@@ -158,7 +161,6 @@ return {
   { "sbdchd/neoformat" },
 
   { "tikhomirov/vim-glsl" },
-
 
   ------ fun ------
   -----------------

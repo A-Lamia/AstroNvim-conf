@@ -2,11 +2,12 @@ return {
   "nvim-telescope/telescope.nvim",
   dependencies = {
     "debugloop/telescope-undo.nvim",
-    "nvim-telescope/telescope-file-browser.nvim"
+    "nvim-telescope/telescope-file-browser.nvim",
   },
   opts = function(_, opts)
     return require("astronvim.utils").extend_tbl(opts, {
       defaults = {
+        winblend = vim.g.winblend,
         selection_caret = "  ",
         layout_config = {
           width = 0.90,
@@ -32,7 +33,7 @@ return {
   config = function(...)
     require "plugins.configs.telescope" (...)
     local telescope = require "telescope"
-    telescope.load_extension("undo")
-    telescope.load_extension("file_browser")
+    telescope.load_extension "undo"
+    telescope.load_extension "file_browser"
   end,
 }
