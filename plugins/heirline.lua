@@ -2,10 +2,10 @@ return {
   "rebelot/heirline.nvim",
   opts = function(_, opts)
     local status = {
-      user = require("user.util.statusline"),
-      astro = require("astronvim.utils.status"),
+      user = require "user.util.statusline",
+      astro = require "astronvim.utils.status",
     }
-    local icons = require("astronvim.icons.nerd_font")
+    local icons = require "astronvim.icons.nerd_font"
 
     local mode_text_color_1 = {
       "#1C2A43",
@@ -42,11 +42,10 @@ return {
           color = function()
             return {
               main = status.user.mode_color(THEME.mode),
-              right = status.user.mode_color(THEME.grapple)
+              right = status.user.mode_color(THEME.grapple),
             }
           end,
         },
-
       },
       -- Custom component for grapple
       status.astro.component.builder {
@@ -57,7 +56,7 @@ return {
           color = function()
             return {
               main = status.user.mode_color(THEME.grapple),
-              right = status.user.mode_color(THEME.tools)
+              right = status.user.mode_color(THEME.tools),
             }
           end,
         },
@@ -74,7 +73,6 @@ return {
       -------------------------------------
       ---- NOTE: Center side of neovim.----
       -------------------------------------
-
 
       -- add a component for the current git branch if it exists and use no separator for the sections
       status.astro.component.git_branch { surround = { separator = "none" } },
@@ -104,13 +102,15 @@ return {
           hl = { fg = "bg" },
           surround = {
             separator = "right",
-            color = function() return { main = THEME.folder_icon_bg } end
+            color = function() return { main = THEME.folder_icon_bg } end,
           },
         },
         status.astro.component.builder {
           { provider = "" },
-          surround = { separator = "right_accent",
-            color = function() return { main = THEME.folder_icon_bg, right = THEME.folder_bg } end },
+          surround = {
+            separator = "right_accent",
+            color = function() return { main = THEME.folder_icon_bg, right = THEME.folder_bg } end,
+          },
         },
         -- add a file information component and only show the current working directory name
         status.astro.component.file_info {
@@ -121,7 +121,7 @@ return {
           file_read_only = false,
           surround = {
             separator = "none",
-            color = function() return THEME.folder_bg end
+            color = function() return THEME.folder_bg end,
           },
         },
       },
@@ -132,14 +132,14 @@ return {
           hl = { fg = "bg" },
           surround = {
             separator = "right",
-            color = function() return { main = THEME.nav_icon_bg, left = THEME.folder_bg } end
+            color = function() return { main = THEME.nav_icon_bg, left = THEME.folder_bg } end,
           },
         },
         status.astro.component.builder {
           { provider = "" },
           surround = {
             separator = "right_accent",
-            color = function() return { main = THEME.nav_icon_bg, right = THEME.nav_bg } end
+            color = function() return { main = THEME.nav_icon_bg, right = THEME.nav_bg } end,
           },
         },
         status.astro.component.nav {
@@ -149,7 +149,7 @@ return {
           hl = function() return { fg = THEME.nav_icon_bg } end,
           surround = {
             separator = "none",
-            color = function() return THEME.nav_bg end
+            color = function() return THEME.nav_bg end,
           },
         },
       },
@@ -177,5 +177,5 @@ return {
     opts.tabline[3] = status.astro.component.fill { hl = { bg = "buffer_visible_bg" } }
 
     return opts
-  end
+  end,
 }
