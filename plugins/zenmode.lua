@@ -1,7 +1,8 @@
-local lsp = require("astronvim.utils.lsp")
+local lsp = require "astronvim.utils.lsp"
 
 return {
   "folke/zen-mode.nvim",
+  ft = "<leader>n",
   dependencies = {
     "folke/twilight.nvim",
     opts = {
@@ -13,16 +14,14 @@ return {
         "table_constructor",
         "for_statement",
         "if_statement",
-      }
+      },
     },
   },
   cmd = "ZenMode",
   opts = {
     window = {
       backdrop = 1,
-      width = function()
-        return math.min(80, vim.o.columns * 0.75)
-      end,
+      width = function() return math.min(80, vim.o.columns * 0.75) end,
       height = 0.9,
       options = {
         number = false,
@@ -58,5 +57,4 @@ return {
       pcall(vim.cmd.IndentBlanklineEnable)
     end,
   },
-
 }
