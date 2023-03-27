@@ -69,6 +69,7 @@ return {
     -- ["\\"] = { ToggleKeySet, desc = "Toggles Key Set" },
 
     -- Rename
+    ["<leader>r"] = { function() require("ssr").open() end, desc = "SSR" },
   },
   i = {
     ["<M-o>"] = { "<C-o>o" },
