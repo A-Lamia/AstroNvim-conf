@@ -6,7 +6,7 @@ return {
     neovide_cursor_vfx_particle_density = 15,
     -- neovide_transparency = 0.9,
     heirline_bufferline = true,
-    winblend = vim.g.neovide and 40 or 0,
+    winblend = vim.g.neovide and 30 or 0,
   },
   opt = {
     guifont = "VictorMono_NF,Hack_NF:h13.5:#h-normal",
@@ -17,6 +17,7 @@ return {
     winwidth = 10,
     winminwidth = 10,
     equalalways = true,
+    pumblend = vim.g.winblend,
     shell = vim.fn.executable "pwsh" and "pwsh" or "powershell",
     shellcmdflag = "-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command [Console]::InputEncoding=[Console]::OutputEncoding=[System.Text.Encoding]::UTF8;",
     shellredir = "-RedirectStandardOutput %s -NoNewWindow -Wait",

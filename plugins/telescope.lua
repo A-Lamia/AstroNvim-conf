@@ -7,7 +7,7 @@ return {
   opts = function(_, opts)
     return require("astronvim.utils").extend_tbl(opts, {
       defaults = {
-        winblend = vim.g.winblend,
+        winblend = vim.g.winblend + 10,
         selection_caret = "  ",
         layout_config = {
           width = 0.90,
