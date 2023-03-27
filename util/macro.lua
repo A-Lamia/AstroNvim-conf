@@ -23,5 +23,14 @@ function M.better_search(key)
   end
 end
 
-return M
+function M.diagnostics_next()
+  local row, _ = vim.diagnostics.get_next_pos()
+  vim.cmd(row)
+end
 
+function M.diagnostics_prev()
+  local row, _ = vim.diagnostics.get_prev_pos()
+  vim.cmd(row)
+end
+
+return M
