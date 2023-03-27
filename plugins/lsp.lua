@@ -22,7 +22,7 @@ return {
     ft = { "c", "cpp", "objc", "objcpp", "cuda", "proto" },
     opts = function()
       return {
-        server = astronvim.lsp.server_settings "clangd",
+        server = require("astronvim.utils.lsp").config "clangd",
         extensions = { autoSetHints = false },
       }
     end,
@@ -30,11 +30,8 @@ return {
   {
     "simrat39/rust-tools.nvim",
     dependencies = { "williamboman/mason-lspconfig.nvim" },
-    ft = { "rs" },
-    opts = function()
-      return {
-        server = astronvim.lsp.server_settings "rust_analyzer",
-      }
-    end,
+    ft = { "rust" },
+    opts = function() return { server = require("astronvim.utils.lsp").config "rust_analyzer" } end,
+    config = true,
   },
 }
