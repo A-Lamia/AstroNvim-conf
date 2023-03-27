@@ -12,4 +12,10 @@ function M.get_files_by_end(string) --> table
   return files
 end
 
+function M.is_win()
+  local bool = false
+  if vim.fn.has "win32" == 1 then bool = true end
+  return bool
+end
+
 return M
