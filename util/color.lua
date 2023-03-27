@@ -390,20 +390,22 @@ function M.autoValue(rgb, offset_color, max_offset)
 end
 
 function M.get_hlgroup(table)
-  local hl = {}
+  local hl
   for _, name in ipairs(table) do
     if vim.fn.hlexists(name) == 1 then
-      hl = vim.api.nvim_get_hl_by_name(name, true)
-      if not hl.foreground then goto continue end
-      if not hl.background then goto continue end
+      -- WARN: nvim_get_hl_by_name is being depricated use nvim_get_hl.
+      hl = vim.api.nvim_get_hl(0, { name = name })
+      if not hl.fg then goto continue end
+      if not hl.bg then goto continue end
       hl = {
-        fg = M.rawToRgb(hl.foreground),
-        bg = M.rawToRgb(hl.background),
+        fg = M.rawToRgb(hl.fg),
+        bg = M.rawToRgb(hl.bg),
       }
       return hl
     end
     ::continue::
   end
+  vim.print(hl)
   return hl
 end
 
