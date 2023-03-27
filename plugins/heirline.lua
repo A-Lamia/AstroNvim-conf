@@ -46,6 +46,10 @@ return {
             }
           end,
         },
+        update = {
+          "ModeChanged",
+          callback = vim.schedule_wrap(function() vim.cmd.redrawstatus() end),
+        },
       },
       -- Custom component for grapple
       status.astro.component.builder {
@@ -68,6 +72,11 @@ return {
         surround = {
           separator = "left",
           color = function() return { main = status.user.mode_color(THEME.tools), right = "bg" } end,
+        },
+        update = {
+          "RecordingEnter",
+          "RecordingLeave",
+          callback = vim.schedule_wrap(function() vim.cmd.redrawstatus() end),
         },
       },
       -------------------------------------
