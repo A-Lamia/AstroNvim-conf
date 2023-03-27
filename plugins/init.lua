@@ -156,6 +156,22 @@ return {
 
   --- Languages ---
   -----------------
+  {
+    "QuickGD/quickgd.nvim",
+    -- dev = true,
+    ft = "gdshader",
+    cmd = {
+      "GodotRun",
+      "GodotRunLast",
+      "GodotStart",
+    },
+    config = function()
+      local quickgd = require "quickgd"
+      quickgd.setup()
+      quickgd.treesitter()
+      quickgd.cmp()
+    end,
+  },
 
   { "folke/neodev.nvim" },
 
