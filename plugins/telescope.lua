@@ -5,6 +5,7 @@ return {
     "nvim-telescope/telescope-file-browser.nvim",
   },
   opts = function(_, opts)
+    local actions = require "telescope.actions"
     return require("astronvim.utils").extend_tbl(opts, {
       defaults = {
         winblend = vim.g.winblend + 10,
@@ -24,6 +25,21 @@ return {
           flex = {
             horizontal = {
               preview_width = 0.9,
+            },
+          },
+        },
+      },
+      pickers = {
+        buffers = {
+          path_display = { "smart" },
+          mappings = {
+            i = {
+              ["<c-d>"] = actions.delete_buffer,
+              ["<Tab>"] = actions.select_default,
+            },
+            n = {
+              ["d"] = actions.delete_buffer,
+              ["<Tab>"] = actions.select_default,
             },
           },
         },
