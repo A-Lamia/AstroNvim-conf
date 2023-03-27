@@ -31,7 +31,7 @@ return {
     })
   end,
   config = function(...)
-    require "plugins.configs.telescope" (...)
+    require "plugins.configs.telescope"(...)
     local telescope = require "telescope"
     telescope.load_extension "undo"
     telescope.load_extension "file_browser"

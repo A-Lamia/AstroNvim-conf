@@ -23,9 +23,9 @@ return {
             -- list of languages you want to disable the plugin for
             disable = { "jsx", "cpp" },
             -- Which query to use for finding delimiters
-            query = 'rainbow-parens',
+            query = "rainbow-parens",
             -- Highlight the entire buffer all at once
-            strategy = require 'ts-rainbow.strategy.global',
+            strategy = require "ts-rainbow.strategy.global",
           },
         }
       end
@@ -34,22 +34,22 @@ return {
       "Wansmer/treesj",
       opts = {
         use_default_keymaps = false,
-      }
+      },
     },
     {
       "Wansmer/sibling-swap.nvim",
       opts = {
         keymaps = {
-          ['sl'] = 'swap_with_right',
-          ['sh'] = 'swap_with_left',
+          ["sl"] = "swap_with_right",
+          ["sh"] = "swap_with_left",
           -- ['sL'] = 'swap_with_right_with_opp',
           -- ['sH'] = 'swap_with_left_with_opp',
-        }
-      }
+        },
+      },
     },
     {
       "nvim-treesitter/playground",
-      cmd = "TSPlaygroundToggle"
-    }
+      cmd = "TSPlaygroundToggle",
+    },
   },
 }

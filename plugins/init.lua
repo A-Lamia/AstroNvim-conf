@@ -2,7 +2,7 @@ return {
   ------ disable ------
   ---------------------
 
-  { "goolord/alpha-nvim",           enabled = false },
+  { "goolord/alpha-nvim", enabled = false },
   { "jay-babu/mason-nvim-dap.nvim", enabled = false },
 
   ------ Visuals ------
@@ -141,7 +141,7 @@ return {
         change = "sr",
       },
       aliases = {
-            ["u"] = { "}", "]", ")", ">", '"', "'", "`" },
+        ["u"] = { "}", "]", ")", ">", '"', "'", "`" },
       },
     },
   },
@@ -160,8 +160,6 @@ return {
   { "folke/neodev.nvim" },
 
   { "sbdchd/neoformat" },
-
-  { "tikhomirov/vim-glsl" },
 
   ------ fun ------
   -----------------

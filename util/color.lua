@@ -1,28 +1,20 @@
 local M = {
   data = 0,
-  luminanceMode = 1
+  luminanceMode = 1,
 }
 
-function M.round(x)
-  return x >= 0 and math.floor(x + 0.5) or math.ceil(x - 0.5)
-end
+function M.round(x) return x >= 0 and math.floor(x + 0.5) or math.ceil(x - 0.5) end
 
-local function clamp(int)
-  return math.max(math.min(int, 255), 0)
-end
+local function clamp(int) return math.max(math.min(int, 255), 0) end
 
-local function remap(int, min, max)
-  return math.max(math.min(int, max), min)
-end
+local function remap(int, min, max) return math.max(math.min(int, max), min) end
 
 function M.max(rgb)
   local max = math.max(rgb.r, rgb.g, rgb.b)
   local max_rgb = { value = max }
 
   for channel, value in pairs(rgb) do
-    if value == max then
-      max_rgb.channel = channel
-    end
+    if value == max then max_rgb.channel = channel end
   end
 
   return max_rgb
@@ -33,9 +25,7 @@ function M.min(rgb)
   local min_rgb = { value = min }
 
   for channel, value in pairs(rgb) do
-    if value == min then
-      min_rgb.channel = channel
-    end
+    if value == min then min_rgb.channel = channel end
   end
 
   return min_rgb
@@ -45,20 +35,20 @@ local function order(rgb)
   local min = M.min(rgb)
   local max = M.max(rgb)
   local mid = (function()
-        for channel, value in pairs(rgb) do
-          if max.channel ~= channel and min.channel ~= channel then
-            return {
-              value = value,
-              channel = channel,
-            }
-          end
-        end
-      end)()
+    for channel, value in pairs(rgb) do
+      if max.channel ~= channel and min.channel ~= channel then
+        return {
+          value = value,
+          channel = channel,
+        }
+      end
+    end
+  end)()
 
   return {
     min = {
       value = min.value,
-      channel = min.channel
+      channel = min.channel,
     },
     mid = {
       value = mid.value,
@@ -71,9 +61,7 @@ local function order(rgb)
   }
 end
 
-function M.rawToHex(raw)
-  return "#" .. string.format("%06x", raw)
-end
+function M.rawToHex(raw) return "#" .. string.format("%06x", raw) end
 
 function M.rawToRgb(raw)
   raw = string.format("%06x", raw)
@@ -86,12 +74,12 @@ function M.rawToRgb(raw)
 end
 
 function M.toHex(rgb)
-  return table.concat({
+  return table.concat {
     "#",
     string.format("%02x", rgb.r),
     string.format("%02x", rgb.g),
     string.format("%02x", rgb.b),
-  })
+  }
 end
 
 function M.toRgb(hex)
@@ -123,9 +111,7 @@ function M.mix(rgb1, rgb2, int)
 end
 
 function M.lerp(rgb1, rgb2, float)
-  local function lerp(c1, c2)
-    return math.floor(c1 + (c2 - c1) * float)
-  end
+  local function lerp(c1, c2) return math.floor(c1 + (c2 - c1) * float) end
 
   return {
     r = lerp(rgb1.r, rgb2.r),
@@ -166,9 +152,9 @@ end
 function M.darkenPercent(rgb, percent)
   local float = percent * 0.01
   return {
-    r = clamp((rgb.r * ( -float)) + rgb.r),
-    g = clamp((rgb.g * ( -float)) + rgb.g),
-    b = clamp((rgb.b * ( -float)) + rgb.b),
+    r = clamp((rgb.r * -float) + rgb.r),
+    g = clamp((rgb.g * -float) + rgb.g),
+    b = clamp((rgb.b * -float) + rgb.b),
   }
 end
 
@@ -226,14 +212,14 @@ function M.hue(rgb, hue)
 
   return {
     r = (0.299 + 0.701 * U + 0.168 * W) * rgb.r
-    + (.587 - .587 * U + .330 * W) * rgb.g
-    + (.114 - .114 * U - .497 * W) * rgb.b,
-    g = (.299 - .299 * U - .328 * W) * rgb.r
-    + (.587 + .413 * U + .035 * W) * rgb.g
-    + (.114 - .114 * U + .292 * W) * rgb.b,
-    b = (.299 - .3 * U + 1.25 * W) * rgb.r
-    + (.587 - .588 * U - 1.05 * W) * rgb.g
-    + (.114 + .886 * U - .203 * W) * rgb.b,
+      + (0.587 - 0.587 * U + 0.330 * W) * rgb.g
+      + (0.114 - 0.114 * U - 0.497 * W) * rgb.b,
+    g = (0.299 - 0.299 * U - 0.328 * W) * rgb.r
+      + (0.587 + 0.413 * U + 0.035 * W) * rgb.g
+      + (0.114 - 0.114 * U + 0.292 * W) * rgb.b,
+    b = (0.299 - 0.3 * U + 1.25 * W) * rgb.r
+      + (0.587 - 0.588 * U - 1.05 * W) * rgb.g
+      + (0.114 + 0.886 * U - 0.203 * W) * rgb.b,
   }
 end
 
@@ -331,7 +317,7 @@ end
 function M.toValue(rgb)
   return {
     rgb,
-    M.get_value(rgb)
+    M.get_value(rgb),
   }
 end
 
@@ -339,18 +325,14 @@ function M.valueOffsetPos(rgb, origin, amount)
   local rgb_value = M.getLuminance(rgb, M.luminanceMode)
   local origin_value = M.getLuminance(origin, M.luminanceMode)
 
-  return math.floor(
-    amount - (rgb_value - origin_value)
-  )
+  return math.floor(amount - (rgb_value - origin_value))
 end
 
 function M.valueOffsetNeg(rgb, origin, amount)
   local rgb_value = M.getLuminance(rgb, M.luminanceMode)
   local origin_value = M.getLuminance(origin, M.luminanceMode)
 
-  return math.floor(
-    amount + (rgb_value - origin_value)
-  )
+  return math.floor(amount + (rgb_value - origin_value))
 end
 
 function M.getOffset(rgb, origin, amount)

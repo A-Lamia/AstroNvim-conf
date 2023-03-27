@@ -5,5 +5,5 @@ return {
   right = { " ", "" }, -- separator for the right side of the statusline
   right_accent = { "", " " }, -- accent separator for the right side of the statusline
   space_right = { "", " " },
-  space_left = { " ", "" }
+  space_left = { " ", "" },
 }
