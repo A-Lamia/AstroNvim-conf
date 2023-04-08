@@ -1,5 +1,5 @@
 return {
   channel = "nightly",
-  branch = "v3",
+  branch = "nightly",
   skip_prompts = true,
 }
