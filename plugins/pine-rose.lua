@@ -15,7 +15,12 @@ return {
       TSRainbowOrange = { fg = "#CAE7A7" },
       TSRainbowViolet = { fg = "iris" },
       TSRainbowYellow = { fg = "gold" },
+
+      StatusNormal = { fg = "surface", bg = "rose" },
+      StatusInsert = { fg = "surface", bg = "foam" },
+      StatusVisual = { fg = "surface", bg = "iris" },
       StatusReplace = { fg = "surface", bg = "love" },
+      StatusCommand = { fg = "surface", bg = "gold" },
     },
   },
 }
