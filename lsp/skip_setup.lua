@@ -1,3 +1,3 @@
 return {
-  "rust_analyzer"
+  "rust_analyzer",
 }

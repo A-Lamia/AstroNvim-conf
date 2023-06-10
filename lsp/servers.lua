@@ -1,3 +1,4 @@
 return {
-  "gdscript"
+  "gdscript",
+  "ols",
 }
