@@ -10,7 +10,7 @@ return {
   },
   {
     "lvimuser/lsp-inlayhints.nvim",
-    -- branch = "anticonceal",
+    branch = "anticonceal",
     event = "LspAttach",
     init = function()
       vim.api.nvim_create_augroup("LspAttach_inlayhints", {})
