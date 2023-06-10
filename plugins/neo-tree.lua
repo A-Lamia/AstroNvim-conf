@@ -15,6 +15,9 @@ return {
           winbar = false,
         },
         git_status_async = false,
+        window = {
+          position = "right",
+        },
         -- log_level = "trace",
         -- log_to_file = true,
       })
