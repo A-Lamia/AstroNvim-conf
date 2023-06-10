@@ -22,12 +22,24 @@ return {
           local client = vim.lsp.get_client_by_id(args.data.client_id)
           local bufnr = args.buf
 
+          -- vim.api.nvim_buf_set_var(bufnr, "inlayhints_active", false)
           if client.server_capabilities.inlayHintProvider then
             local inlayhints = require "lsp-inlayhints"
-            inlayhints.on_attach(client, bufnr, true)
+            inlayhints.on_attach(client, bufnr, false)
+            vim.api.nvim_buf_set_var(bufnr, "inlayhints_active", true)
+            -- if not enabled then inlayhints.toggle() end
+
+            local function toggle()
+              inlayhints.toggle()
+              if vim.g.inlayhints then
+                vim.g.inlayhints = false
+              else
+                vim.g.inlayhints = true
+              end
+            end
             require("astronvim.utils").set_mappings({
               n = {
-                ["<leader>uH"] = { inlayhints.toggle, desc = "Toggle inlay hints" },
+                ["<leader>uH"] = { toggle, desc = "Toggle inlay hints" },
               },
             }, { buffer = bufnr })
           end
@@ -35,8 +47,10 @@ return {
       })
     end,
     opts = {
+      enabled_at_startup = vim.g.inlayhints,
       inlay_hints = {
         highlight = "Comment",
+        only_current_line = false,
       },
     },
   },

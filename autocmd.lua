@@ -29,3 +29,55 @@ vim.api.nvim_create_autocmd({ "ModeChanged" }, {
     if is_attached then vim.diagnostic.show() end
   end,
 })
+
+vim.api.nvim_create_augroup("InlayHints", { clear = true })
+vim.api.nvim_create_autocmd("ModeChanged", {
+  pattern = { "i", "v" },
+  group = "InlayHints",
+  callback = function(args)
+    local bufnr = args.buf
+    local is_attached = vim.lsp.buf_is_attached(bufnr, 1)
+    if is_attached then
+      local active = vim.api.nvim_buf_get_var(bufnr, "inlayhints_active") or false
+      if active then
+        require("lsp-inlayhints.core").clear(bufnr)
+        vim.api.nvim_buf_set_var(bufnr, "inlayhints_active", false)
+      end
+    end
+  end,
+})
+
+vim.api.nvim_create_autocmd({ "ModeChanged" }, {
+  pattern = "n",
+  group = "InlayHints",
+  callback = function(args)
+    local bufnr = args.buf
+    local is_attached = vim.lsp.buf_is_attached(bufnr, 1)
+    if is_attached then
+      local active = vim.api.nvim_buf_get_var(bufnr, "inlayhints_active") or false
+      if not active then
+        require("lsp-inlayhints.core").show(bufnr)
+        vim.api.nvim_buf_set_var(bufnr, "inlayhints_active", true)
+      end
+    end
+  end,
+})
+
+-- vim.o.updatetime = 250 -- global hold time setting
+-- vim.api.nvim_create_autocmd("CursorHold", {
+--   buffer = bufnr,
+--   callback = function()
+--     local opts = {
+--       focusable = false,
+--       close_events = { "BufLeave", "CursorMoved", "InsertEnter", "FocusLost" },
+--       border = "rounded",
+--       source = "always",
+--       prefix = " ",
+--       scope = "line",
+--       max_width = 70,
+--       pad_top = 1,
+--       pad_bottom = 1,
+--     }
+--     vim.diagnostic.open_float(nil, opts)
+--   end,
+-- })

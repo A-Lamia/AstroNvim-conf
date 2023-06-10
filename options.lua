@@ -7,6 +7,7 @@ return {
     -- neovide_transparency = 0.9,
     heirline_bufferline = true,
     winblend = vim.g.neovide and 30 or 0,
+    inlayhints = true,
   },
   opt = {
     guifont = "VictorMono_Nerd_Font_Propo:h13.5:#h-normal",
