@@ -22,11 +22,11 @@ function M.mode()
   local mode_text = status.env.modes[vim.fn.mode()][1]
   local get_mode = vim.fn.mode()
   local mode = get_mode:lower()
-  local icon = "ﮊ "
+  local icon = "󰚌 "
   if mode == "n" then
     icon = " "
   elseif mode == "i" then
-    icon = "ﲅ "
+    icon = "󰞇 "
   elseif mode == "v" or mode == "" or mode == "s" then
     icon = " "
   elseif mode == "r" then
@@ -47,10 +47,10 @@ end
 
 function M.grapple()
   local key_exists = require("grapple").exists()
-  local key_name = "ﰠ "
+  local key_name = "󰜢 "
   if key_exists then
     local tag = require("grapple").key()
-    key_name = "笠" .. tag .. " "
+    key_name = "󰓹 " .. tag .. " "
   end
   return key_name
 end
