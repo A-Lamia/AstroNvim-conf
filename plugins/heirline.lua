@@ -173,12 +173,12 @@ return {
 
     opts.tabline[2] = status.astro.heirline.make_buflist {
       {
-        provider = function(self) return self.is_visible and " " or " " end,
+        provider = function(self) return self.is_visible and "" or "" end,
         hl = { fg = "buffer_bg", bg = "buffer_visible_bg" },
       },
       status.astro.component.tabline_file_info { close_button = false },
       {
-        provider = function(self) return self.is_visible and " " or " " end,
+        provider = function(self) return self.is_visible and "" or "" end,
         hl = { fg = "buffer_bg", bg = "buffer_visible_bg" },
       },
     }
