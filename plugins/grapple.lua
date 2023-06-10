@@ -10,5 +10,11 @@ return {
         require("grapple").resolvers.static,
       },
     }
+    require("astronvim.utils").set_mappings {
+      n = {
+        ["gt"] = { ":GrappleToggle<cr>", desc = "Tags current buffer" },
+        ["gp"] = { ":GrapplePopup tags<cr>", desc = "Grapple tag popup menu" },
+      },
+    }
   end,
 }

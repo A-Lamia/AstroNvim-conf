@@ -85,9 +85,26 @@ return {
   {
     "preservim/tagbar",
     cmd = "TagbarToggle",
+    config = function()
+      require("astronvim.utils").set_mappings {
+        n = {
+          ["<leader>u3"] = { "<cmd>TagbarToggle<CR>", desc = "Toggle Tagbar" },
+        },
+      }
+    end,
   },
 
-  { "folke/trouble.nvim" },
+  {
+    "folke/trouble.nvim",
+    cmd = "TroubleToggle",
+    config = function()
+      require("astronvim.utils").set_mappings {
+        n = {
+          ["<leader>u2"] = { "<cmd>TroubleToggle<CR>", desc = "Toggle Trouble" },
+        },
+      }
+    end,
+  },
 
   {
     "RishabhRD/nvim-cheat.sh",
@@ -100,12 +117,27 @@ return {
 
   -- Renaming --
   --------------
-  { "windwp/nvim-spectre" },
+  {
+    "windwp/nvim-spectre",
+    keys = {
+      "<F3>",
+      "<F3><F3>",
+    },
+    config = function()
+      require("astronvim.utils").set_mappings {
+        n = {
+          ["<F3>"] = { "<cmd>lua require('spectre').open()<cr>" },
+          ["<F3><F3>"] = { "<cmd>lua require('spectre').open_visual({select_word=true})<CR>" },
+        },
+      }
+    end,
+  },
 
   -- Structual Search and Replace
   {
     "cshuaimin/ssr.nvim",
-    ft = "<leader>r",
+    -- enabled = false,
+    keys = "<leader>r",
     opts = {
       min_width = 50,
       min_height = 5,
@@ -116,6 +148,30 @@ return {
         replace_all = "<leader><cr>",
       },
     },
+    config = function()
+      require("astronvim.utils").set_mappings {
+        n = {
+          ["<leader>r"] = { function() require("ssr").open() end, desc = "SSR" },
+        },
+      }
+    end,
+  },
+
+  {
+    "AckslD/muren.nvim",
+    keys = "<leader>r",
+    enabled = false,
+    lazy = false,
+    config = function()
+      require("muren").setup()
+      require("astronvim.utils").set_mappings {
+        n = {
+          -- ["<leader>r"] = { "", desc = "Replace" },
+          ["<leader>rr"] = { ":MurenToggle<CR>", desc = "Replace" },
+          ["<leader>rf"] = { ":MurenFresh<CR>", desc = "Replace fresh" },
+        },
+      }
+    end,
   },
 
   -- Text Manipulation --
@@ -183,6 +239,12 @@ return {
   {
     "eandrju/cellular-automaton.nvim",
     cmd = "CellularAutomaton",
-    config = true,
+    config = function()
+      require("astronvim.utils").set_mappings {
+        n = {
+          ["<leader>u4"] = { "<cmd>CellularAutomaton make_it_rain<CR>", desc = "Make it rain" },
+        },
+      }
+    end,
   },
 }

@@ -2,7 +2,7 @@ local lsp = require "astronvim.utils.lsp"
 
 return {
   "folke/zen-mode.nvim",
-  ft = "<leader>n",
+  keys = "<leader>n",
   dependencies = {
     "folke/twilight.nvim",
     opts = {
@@ -40,6 +40,11 @@ return {
       gitsigns = { enabled = true },
     },
     on_open = function() -- disable diagnostics and indent blankline
+      require("astronvim.utils").set_mappings {
+        n = {
+          ["<leader>n"] = { "<cmd>ZenMode<CR>", desc = "Centers and mutes code" },
+        },
+      }
       vim.g.diagnostics_enabled_old = vim.g.diagnostics_enabled
       vim.g.status_diagnostics_enabled_old = vim.g.status_diagnostics_enabled
       vim.g.diagnostics_enabled = false
