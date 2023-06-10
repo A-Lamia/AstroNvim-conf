@@ -9,29 +9,23 @@ vim.api.nvim_create_autocmd("VimEnter", {
   end,
 })
 
--- vim.api.nvim_create_augroup("DiagnosticPopup", { clear = true })
--- vim.api.nvim_create_autocmd("CursorHold", {
---   group = "DiagnosticPopup",
---   callback = function()
---     local row, col = vim.api.nvim_win_get_cursor(0)
---     local line_diagnostic = vim.diagnostic.get(0, { lnum = row })
---     if vim.lsp.buf.server_ready() then vim.diagnostic.open_float() end
---   end,
--- })
-
 vim.api.nvim_create_augroup("DiagnosticMode", { clear = true })
 vim.api.nvim_create_autocmd("ModeChanged", {
   pattern = { "i", "v" },
   group = "DiagnosticMode",
-  callback = function()
-    if vim.lsp.buf.server_ready() then vim.diagnostic.hide() end
+  callback = function(args)
+    local bufnr = args.buf
+    local is_attached = vim.lsp.buf_is_attached(bufnr, 1)
+    if is_attached then vim.diagnostic.hide() end
   end,
 })
 
-vim.api.nvim_create_autocmd("ModeChanged", {
+vim.api.nvim_create_autocmd({ "ModeChanged" }, {
   pattern = "n",
   group = "DiagnosticMode",
-  callback = function()
-    if vim.lsp.buf.server_ready() then vim.diagnostic.show() end
+  callback = function(args)
+    local bufnr = args.buf
+    local is_attached = vim.lsp.buf_is_attached(bufnr, 1)
+    if is_attached then vim.diagnostic.show() end
   end,
 })
