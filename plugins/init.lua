@@ -51,6 +51,7 @@ return {
 
   {
     "zbirenbaum/neodim",
+    enabled = false,
     event = "User AstroFile",
     opts = {
       alpha = 0.75,
