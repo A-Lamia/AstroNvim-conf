@@ -176,13 +176,9 @@ return {
     config = true,
   },
 
-  -- Text Manipulation --
-  -----------------------
-
   {
-    "echasnovski/mini.ai",
-    event = "User AstroFile",
-    config = function() require("mini.ai").setup() end,
+    "hiphish/rainbow-delimiters.nvim",
+    lazy = false,
   },
 
   {
