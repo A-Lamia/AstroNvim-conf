@@ -21,10 +21,13 @@ return {
     -- Rename
     ["yrw"] = { "yiw:s/\\C\\<<C-R>0\\>/" },
     ["yrW"] = { "yiW:s/\\C\\<<C-R>0\\>/" },
-    ["yre"] = { "yie:s/\\C\\<<C-R>0\\>/" },
-    ["yrE"] = { "yiE:s/\\C\\<<C-R>0\\>/" },
+    ["yre"] = { "ye:s/\\C\\<<C-R>0\\>/" },
+    ["yrE"] = { "yE:s/\\C\\<<C-R>0\\>/" },
+    ["yrb"] = { "yt(:s/\\C\\<<C-R>0\\>/" },
     ["<F2>"] = { "y:%s/<C-R>0/" },
     ["<F2><F2>"] = { "y:%s/<C-R>0/" },
+    -- delete
+    ["d."] = { "viwhd" },
     ---------
     ["<leader>u1"] = { "<cmd>AerialToggle<CR>", desc = "Toggle Aerial" },
   },
