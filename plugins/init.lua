@@ -6,6 +6,7 @@ return {
 
   { "goolord/alpha-nvim", enabled = false },
   { "jay-babu/mason-nvim-dap.nvim", enabled = false },
+  { "NvChad/nvim-colorizer", enabled = false },
 
   ------ Visuals ------
   ---------------------
@@ -23,6 +24,19 @@ return {
   {
     "kvrohit/mellow.nvim",
     -- lazy = false,
+  },
+
+  -- {
+  --   "ziontee113/color-picker.nvim",
+  --   cmd = { "PickColor", "PickColorInsert" },
+  --   config = true,
+  -- },
+
+  {
+    "uga-rosa/ccc.nvim",
+    event = "User AstroFile",
+    keys = { { "<leader>uC", "<cmd>CccPick<cr>", desc = "Toggle colorizer" } },
+    opts = { highlighter = { auto_enable = true } },
   },
 
   {
