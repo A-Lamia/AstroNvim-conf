@@ -214,21 +214,24 @@ return {
 
   --- Languages ---
   -----------------
+
   {
     "QuickGD/quickgd.nvim",
-    -- dev = true,
-    ft = "gdshader",
+    dev = true,
+    ft = { "gdshader", "gdshaderinc" },
     cmd = {
       "GodotRun",
       "GodotRunLast",
       "GodotStart",
     },
-    config = function()
-      local quickgd = require "quickgd"
-      quickgd.setup()
-      quickgd.treesitter()
-      quickgd.cmp()
+    init = function()
+      vim.filetype.add {
+        extension = {
+          gdshaderinc = "gdshaderinc",
+        },
+      }
     end,
+    config = true,
   },
 
   { "sbdchd/neoformat" },
