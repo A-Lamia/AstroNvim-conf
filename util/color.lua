@@ -393,7 +393,6 @@ function M.get_hlgroup(table)
   local hl
   for _, name in ipairs(table) do
     if vim.fn.hlexists(name) == 1 then
-      -- WARN: nvim_get_hl_by_name is being depricated use nvim_get_hl.
       hl = vim.api.nvim_get_hl(0, { name = name })
       if not hl.fg then goto continue end
       if not hl.bg then goto continue end
