@@ -1,13 +1,13 @@
-vim.api.nvim_create_augroup("winblend", { clear = true })
-vim.api.nvim_create_autocmd("VimEnter", {
-  group = "winblend",
-  callback = function()
-    if vim.g.neovide then
-      vim.o.winblend = vim.g.winblend
-      vim.cmd("hi! NormalFloat blend=" .. vim.g.winblend)
-    end
-  end,
-})
+-- vim.api.nvim_create_augroup("winblend", { clear = true })
+-- vim.api.nvim_create_autocmd("VimEnter", {
+--   group = "winblend",
+--   callback = function()
+--     if vim.g.neovide then
+--       vim.o.winblend = vim.g.winblend
+--       vim.cmd("hi! NormalFloat blend=" .. vim.g.winblend)
+--     end
+--   end,
+-- })
 
 vim.api.nvim_create_augroup("DiagnosticMode", { clear = true })
 vim.api.nvim_create_autocmd("ModeChanged", {

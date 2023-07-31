@@ -26,5 +26,6 @@ return {
     shellxquote = "",
     -- spell = true,
   },
+  blend = (vim.g.neovide and 0) or (vim.env.WEZTERM and 3) or 0,
   border = "none",
 }

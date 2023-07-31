@@ -17,7 +17,7 @@ return {
     local actions = require "telescope.actions"
     return require("astronvim.utils").extend_tbl(opts, {
       defaults = {
-        winblend = vim.g.neovide and vim.g.winblend + 10 or vim.g.winblend,
+        winblend = vim.o.winblend,
         borderchars = {
           prompt = border.telescope[vim.g.border],
           results = border.telescope[vim.g.border],
