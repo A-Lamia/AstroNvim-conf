@@ -231,8 +231,6 @@ return {
     end,
   },
 
-  { "folke/neodev.nvim" },
-
   { "sbdchd/neoformat" },
 
   ------ fun ------
