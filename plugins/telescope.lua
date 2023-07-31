@@ -1,3 +1,5 @@
+local border = require "user.util.border"
+
 return {
   "nvim-telescope/telescope.nvim",
   cmd = "Telescope",
@@ -16,6 +18,11 @@ return {
     return require("astronvim.utils").extend_tbl(opts, {
       defaults = {
         winblend = vim.g.neovide and vim.g.winblend + 10 or vim.g.winblend,
+        borderchars = {
+          prompt = border.telescope[vim.g.border],
+          results = border.telescope[vim.g.border],
+          preview = border.telescope[vim.g.border],
+        },
         selection_caret = "  ",
         layout_config = {
           width = 0.90,

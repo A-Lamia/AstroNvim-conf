@@ -26,4 +26,5 @@ return {
     shellxquote = "",
     -- spell = true,
   },
+  border = "none",
 }
