@@ -28,21 +28,23 @@ return {
     },
     {
       "Wansmer/treesj",
-      keys = "sj",
-      config = function()
-        require("astronvim.utils").set_mappings {
-          n = {
-            ["sj"] = { ":TSJToggle<CR>", desc = "Treesj toggle" },
-          },
-        }
-        require("treesj").setup {
-          use_default_keymaps = false,
-        }
-      end,
+      keys = {
+        {
+          "sj",
+          desc = "Split Join Blocks Toggle",
+          function() require("treesj").toggle() end,
+        },
+      },
+      opts = {
+        use_default_keymaps = false,
+      },
     },
     {
       "Wansmer/sibling-swap.nvim",
-      keys = { "sl", "sh" },
+      keys = {
+        { "sl", desc = "Swap With Right" },
+        { "sh", desc = "Swap With Left" },
+      },
       opts = {
         keymaps = {
           ["sl"] = "swap_with_right",

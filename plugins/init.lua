@@ -119,61 +119,61 @@ return {
 
   -- Renaming --
   --------------
+  ---
   {
     "windwp/nvim-spectre",
+    cmd = { "Spectre" },
     keys = {
-      "<F3>",
-      "<F3><F3>",
+      {
+        "<F3>",
+        function()
+          local spectre = require "spectre"
+          local buffer_name = require("user.util.fn").get_buffer_name()
+          if buffer_name ~= "spectre" then
+            spectre.open()
+          else
+            spectre.close()
+          end
+        end,
+        desc = "Toggle Spectre",
+      },
     },
-    config = function()
-      require("astronvim.utils").set_mappings {
-        n = {
-          ["<F3>"] = { "<cmd>lua require('spectre').open()<cr>" },
-          ["<F3><F3>"] = { "<cmd>lua require('spectre').open_visual({select_word=true})<CR>" },
-        },
-      }
-    end,
+    config = true,
   },
 
   -- Structual Search and Replace
   {
     "cshuaimin/ssr.nvim",
-    -- enabled = false,
-    keys = "<leader>r",
-    opts = {
-      min_width = 50,
-      min_height = 5,
-      keymaps = {
-        close = "q",
-        next_match = "n",
-        prev_match = "N",
-        replace_all = "<leader><cr>",
+    keys = {
+      {
+        "<leader>r",
+        function() require("ssr").open() end,
+        desc = "Structual Search And Replace",
       },
     },
-    config = function()
-      require("astronvim.utils").set_mappings {
-        n = {
-          ["<leader>r"] = { function() require("ssr").open() end, desc = "SSR" },
-        },
-      }
-    end,
+    opts = {
+      border = border.default[vim.g.border],
+    },
   },
 
   {
     "AckslD/muren.nvim",
-    keys = "<leader>r",
     enabled = false,
     lazy = false,
-    config = function()
-      require("muren").setup()
-      require("astronvim.utils").set_mappings {
-        n = {
-          -- ["<leader>r"] = { "", desc = "Replace" },
-          ["<leader>rr"] = { ":MurenToggle<CR>", desc = "Replace" },
-          ["<leader>rf"] = { ":MurenFresh<CR>", desc = "Replace fresh" },
-        },
-      }
-    end,
+    cmd = { "MurenToggle", "MurenFresh" },
+    keys = {
+      {
+        "<leader>rr",
+        "<cmd>MurenToggle<cr>",
+        desc = "Replace",
+      },
+      {
+        "<leader>rf",
+        "<cmd>MurenFresh<cr>",
+        desc = "Replace Fresh",
+      },
+    },
+    config = true,
   },
 
   -- Text Manipulation --
@@ -241,12 +241,13 @@ return {
   {
     "eandrju/cellular-automaton.nvim",
     cmd = "CellularAutomaton",
-    config = function()
-      require("astronvim.utils").set_mappings {
-        n = {
-          ["<leader>u4"] = { "<cmd>CellularAutomaton make_it_rain<CR>", desc = "Make it rain" },
-        },
-      }
-    end,
+    keys = {
+      {
+        "<leader>u4",
+        "<cmd>CellularAutomaton make_it_rain<cr>",
+        desc = "Make It Rain",
+      },
+    },
+    config = true,
   },
 }
