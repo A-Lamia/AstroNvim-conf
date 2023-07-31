@@ -41,7 +41,6 @@ function M.macro_recording()
   local recording_register = vim.fn.reg_recording()
   local string = ""
   if #recording_register > 0 then string = "壘" .. recording_register .. " " end
-  -- vim.cmd "redrawstatus"
   return string
 end
 
@@ -60,6 +59,37 @@ function M.set_grapple_color(hl)
   local key_color = "bg"
   if key then key_color = M.mode_color(hl) end
   return key_color
+end
+
+function M.lsp_status()
+  local _, lsp = next(astronvim.lsp.progress or {})
+  if lsp ~= nil then
+    if lsp.percentage and (lsp.percentage <= 100) then
+      local message
+      if vim.o.columns <= 95 then
+        message = table.concat {
+          string.sub(lsp.title, 1, 7),
+          "...",
+        }
+      elseif vim.o.columns > 130 then
+        message = table.concat {
+          lsp.title,
+          " ",
+          lsp.message,
+        }
+      else
+        message = lsp.title
+      end
+
+      local load = require "user.util.spinner"
+      local spinner = load:new(load.style.smiley)
+      local laps = load:new(load.style.hexagon)
+
+      return spinner:prog(lsp.percentage) .. " " .. message .. " " .. laps:prog(lsp.percentage)
+    end
+  else
+    return ""
+  end
 end
 
 return M
