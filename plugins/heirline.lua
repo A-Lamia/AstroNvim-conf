@@ -1,6 +1,7 @@
 return {
   "rebelot/heirline.nvim",
   opts = function(_, opts)
+    local get_hlgroup = require("user.util.color").get_hlgroup
     local status = {
       user = require "user.util.statusline",
       astro = require "astronvim.utils.status",
@@ -23,86 +24,137 @@ return {
       command = "#FFFACD",
     }
 
+    local separator = {
+      honeycomb = {
+        left = "",
+        right = "  ",
+      },
+      half_circle = {
+        left = " ",
+        right = " ",
+      },
+      ll_triangle = {
+        left = "",
+        right = "",
+      },
+      ul_triangle = {
+        left = "",
+        right = "",
+      },
+      hard_divider = {
+        left = " ",
+        right = " ",
+      },
+    }
+
     -- the first element of the configuration table is the statusline
     opts.statusline = {
       -- default highlight for the entire statusline
       hl = { fg = "fg", bg = "bg" },
+
       -----------------------------------
       ---- NOTE: Left side of neovim.----
       -----------------------------------
+      {
+        -- Vim mode compnonent, using custom
+        status.astro.component.builder {
+          { provider = status.user.mode },
+          hl = { fg = "bg" },
+          surround = {
+            separator = { "", separator.honeycomb.right },
+            color = function()
+              return {
+                main = status.user.mode_color(THEME.mode),
+                right = status.user.mode_color(THEME.grapple),
+              }
+            end,
+          },
+          update = {
+            "ModeChanged",
+            callback = vim.schedule_wrap(function() vim.cmd.redrawstatus() end),
+          },
+        },
+        -- Custom component for grapple
+        status.astro.component.builder {
+          { provider = status.user.grapple },
+          hl = function() return { fg = status.user.set_grapple_color(mode_text_color_2) } end,
+          surround = {
+            separator = { "", separator.honeycomb.right },
+            color = function()
+              return {
+                main = status.user.mode_color(THEME.grapple),
+                right = status.user.mode_color(THEME.tools),
+              }
+            end,
+          },
+        },
+        -- Custom compnent for macro recordings
+        status.astro.component.builder {
+          { provider = status.user.macro_recording },
+          hl = function() return { fg = status.user.mode_color(mode_text_color_2), bold = true } end,
+          surround = {
+            separator = { "", separator.honeycomb.right },
+            color = function() return { main = status.user.mode_color(THEME.tools), right = "bg" } end,
+          },
+          update = {
+            "RecordingEnter",
+            "RecordingLeave",
+            callback = vim.schedule_wrap(function() vim.cmd.redrawstatus() end),
+          },
+        },
+      },
+      -- Add spacer
+      status.astro.component.builder {
+        { provider = "" },
+        surround = { separator = "left", color = { main = "blank_bg", right = "file_info_bg" } },
+      },
 
-      -- Vim mode compnonent, using custom
-      status.astro.component.builder {
-        { provider = status.user.mode },
-        -- mode_text = { icon = "test", padding = { right = 1, left = 1 } },
-        -- hl = function() return { fg = mode_color(mode_text_color_1) } end,
-        hl = { fg = "bg" },
-        surround = {
-          separator = "left",
-          color = function()
-            return {
-              main = status.user.mode_color(THEME.mode),
-              right = status.user.mode_color(THEME.grapple),
-            }
-          end,
-        },
-        update = {
-          "ModeChanged",
-          callback = vim.schedule_wrap(function() vim.cmd.redrawstatus() end),
-        },
-      },
-      -- Custom component for grapple
-      status.astro.component.builder {
-        { provider = status.user.grapple },
-        hl = function() return { fg = status.user.set_grapple_color(mode_text_color_2) } end,
-        surround = {
-          separator = "left",
-          color = function()
-            return {
-              main = status.user.mode_color(THEME.grapple),
-              right = status.user.mode_color(THEME.tools),
-            }
-          end,
-        },
-      },
-      -- Custom compnent for macro recordings
-      status.astro.component.builder {
-        { provider = status.user.macro_recording },
-        hl = function() return { fg = status.user.mode_color(mode_text_color_2), bold = true } end,
-        surround = {
-          separator = "left",
-          color = function() return { main = status.user.mode_color(THEME.tools), right = "bg" } end,
-        },
-        update = {
-          "RecordingEnter",
-          "RecordingLeave",
-          callback = vim.schedule_wrap(function() vim.cmd.redrawstatus() end),
-        },
-      },
       -------------------------------------
       ---- NOTE: Center side of neovim.----
       -------------------------------------
 
       -- add a component for the current git branch if it exists and use no separator for the sections
-      status.astro.component.git_branch { surround = { separator = "none" } },
-      -- add a component for the current git diff if it exists and use no separator for the sections
-      status.astro.component.git_diff { padding = { left = 1 }, surround = { separator = "none" } },
+      status.astro.component.git_branch { surround = { separator = { "", "" } } },
+
+      -- add a component for git diff data
+      status.astro.component.git_diff { padding = { left = 1 }, surround = { separator = { " ", "" } } },
+
       -- fill the rest of the statusline
       -- the elements after this will appear in the middle of the statusline
       status.astro.component.fill(),
+
       -- add a component to display if the LSP is loading, disable showing running client names, and use no separator
-      status.astro.component.lsp { lsp_client_names = false, surround = { separator = "none", color = "bg" } },
+      -- status.astro.component.lsp { lsp_client_names = false, surround = { separator = "none", color = "bg" } },
+      status.astro.component.builder {
+        { provider = status.user.lsp_status },
+        surround = { separator = "none", color = "bg" },
+        update = {
+          "User",
+          pattern = { "AstroLspProgress" },
+          callback = vim.schedule_wrap(function() vim.cmd.redrawstatus() end),
+        },
+      },
+
       -- fill the rest of the statusline
       -- the elements after this will appear on the right of the statusline
       status.astro.component.fill(),
+
       ------------------------------------
       ---- NOTE: Right side of neovim.----
       ------------------------------------
 
       -- add a component for the current diagnostics if it exists and use the right separator for the section
-      status.astro.component.diagnostics { surround = { separator = "space_right" } },
+      status.astro.component.diagnostics { surround = { separator = "right" } },
+
       -- add a component to display LSP clients, disable showing LSP progress, and use the right separator
-      status.astro.component.lsp { lsp_progress = false, surround = { separator = "space_right" } },
+      status.astro.component.lsp { lsp_client_names = false, lsp_progress = false, surround = { separator = "none" } },
+
+      -- Add spacer
+      status.astro.component.builder {
+        { provider = "" },
+        surround = { separator = "right", color = { main = "blank_bg", right = "file_info_bg" } },
+      },
+
       {
         -- define a simple component where the provider is just a folder icon
         status.astro.component.builder {
@@ -110,14 +162,14 @@ return {
           padding = { right = 1 },
           hl = { fg = "bg" },
           surround = {
-            separator = "right",
+            separator = { separator.half_circle.left, "" },
             color = function() return { main = THEME.folder_icon_bg } end,
           },
         },
         status.astro.component.builder {
           { provider = "" },
           surround = {
-            separator = "right_accent",
+            separator = { "", separator.hard_divider.right },
             color = function() return { main = THEME.folder_icon_bg, right = THEME.folder_bg } end,
           },
         },
@@ -134,20 +186,22 @@ return {
           },
         },
       },
+
+      -- add navigation information and show percentage
       {
         status.astro.component.builder {
           { provider = icons.DefaultFile },
           padding = { right = 1 },
           hl = { fg = "bg" },
           surround = {
-            separator = "right",
+            separator = { separator.half_circle.left, "" },
             color = function() return { main = THEME.nav_icon_bg, left = THEME.folder_bg } end,
           },
         },
         status.astro.component.builder {
           { provider = "" },
           surround = {
-            separator = "right_accent",
+            separator = { "", separator.hard_divider.right },
             color = function() return { main = THEME.nav_icon_bg, right = THEME.nav_bg } end,
           },
         },
@@ -173,12 +227,23 @@ return {
 
     opts.tabline[2] = status.astro.heirline.make_buflist {
       {
-        provider = function(self) return self.is_visible and "" or "" end,
+        provider = function(self) return not self.is_visible and "" or separator.half_circle.left end,
         hl = { fg = "buffer_bg", bg = "buffer_visible_bg" },
       },
-      status.astro.component.tabline_file_info { close_button = false },
+      status.astro.component.tabline_file_info {
+        hl = function(self)
+          local name = string.match(vim.g.colors_name, "astro")
+          local fg = name and C.ui.text_inactive or "buffer_fg"
+          if self.is_visible then
+            return { bg = "buffer_bg", italic = true, bold = true }
+          else
+            return { fg = fg, bg = "buffer_visible_bg", italic = false, bold = false }
+          end
+        end,
+        close_button = false,
+      },
       {
-        provider = function(self) return self.is_visible and "" or "" end,
+        provider = function(self) return not self.is_visible and "" or separator.half_circle.right end,
         hl = { fg = "buffer_bg", bg = "buffer_visible_bg" },
       },
     }
