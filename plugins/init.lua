@@ -155,6 +155,7 @@ return {
   },
 
   -- Structual Search and Replace
+
   {
     "cshuaimin/ssr.nvim",
     keys = {

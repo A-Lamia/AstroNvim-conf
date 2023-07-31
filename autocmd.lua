@@ -30,43 +30,40 @@ vim.api.nvim_create_autocmd({ "ModeChanged" }, {
   end,
 })
 
--- vim.api.nvim_create_augroup("InlayHints", { clear = true })
--- vim.api.nvim_create_autocmd({ "ModeChanged", "LspAttach" }, {
--- pattern = { "i", "v" },
--- group = "InlayHints",
--- callback = function(args)
--- local bufnr = args.buf
--- local is_attached = vim.lsp.buf_is_attached(bufnr, 1)
--- if vim.g.inlayhints then
--- local client = vim.lsp.get_client_by_id(args.data.client_id)
--- if client and client.server_capabilities.inlayHintProvider then
--- local active = vim.api.nvim_buf_get_var(bufnr, "inlayhints_active") or false
--- if active then
--- require("lsp-inlayhints.core").toggle()
--- vim.api.nvim_buf_set_var(bufnr, "inlayhints_active", false)
--- end
--- end
--- end
--- end,
+-- vim.api.nvim_create_augroup("KeyPress", { clear = true })
+-- vim.api.nvim_create_autocmd("ModeChanged", {
+--   pattern = { "i", "v" },
+--   group = "KeyPress",
+--   callback = function(args)
+--     local bufnr = args.buf
+--     local is_attached = vim.lsp.buf_is_attached(bufnr, 1)
+--     if is_attached then vim.diagnostic.hide() end
+--   end,
 -- })
 
+-- vim.api.nvim_create_augroup("InlayHints", { clear = true })
 -- vim.api.nvim_create_autocmd({ "ModeChanged", "LspAttach" }, {
--- pattern = "n",
--- group = "InlayHints",
--- callback = function(args)
--- local bufnr = args.buf
--- if vim.g.inlayhints then
--- local is_attached = vim.lsp.buf_is_attached(bufnr, 1)
--- local client = vim.lsp.get_client_by_id(args.data.client_id)
--- if client and client.server_capabilities.inlayHintProvider then
--- local active = vim.api.nvim_buf_get_var(bufnr, "inlayhints_active") or false
--- if not active then
--- require("lsp-inlayhints.core").toggle()
--- vim.api.nvim_buf_set_var(bufnr, "inlayhints_active", true)
--- end
--- end
--- end
--- end,
+--   pattern = { "i", "v" },
+--   group = "InlayHints",
+--   callback = function(args)
+--     local bufnr = args.buf
+--     if vim.b.inlay_hints_enabled then
+--       vim.b.inlay_hints_enabled = not vim.b.inlay_hints_enabled
+--       vim.lsp.buf.inlay_hint(bufnr or 0, vim.b.inlay_hints_enabled)
+--     end
+--   end,
+-- })
+--
+-- vim.api.nvim_create_autocmd({ "ModeChanged", "LspAttach" }, {
+--   pattern = "n",
+--   group = "InlayHints",
+--   callback = function(args)
+--     local bufnr = args.buf
+--     if vim.g.inlay_hints_enabled then
+--       vim.b.inlay_hints_enabled = not vim.b.inlay_hints_enabled
+--       vim.lsp.buf.inlay_hint(bufnr or 0, vim.b.inlay_hints_enabled)
+--     end
+--   end,
 -- })
 
 -- vim.o.updatetime = 250 -- global hold time setting
