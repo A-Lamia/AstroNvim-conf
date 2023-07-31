@@ -74,16 +74,7 @@ return {
     end,
   },
 
-  ------ movement ------
-  ----------------------
-
   {
-
-  {
-    "TheSafdarAwan/find-extender.nvim",
-    enabled = false,
-    keys = { "f", "F", "F", "T", "t", "t", "T" },
-    config = true,
   },
 
   --- Functionality ---
