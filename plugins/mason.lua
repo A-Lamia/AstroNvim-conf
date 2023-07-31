@@ -27,7 +27,9 @@ return {
       mason_null_ls.setup(opts)
       mason_null_ls.setup {
         prettierd = function()
-          null_ls.register(null_ls.builtins.formatting.prettierd.with { extra_filetypes = { "json", "markdown" } })
+          null_ls.register(null_ls.builtins.formatting.prettierd.with {
+            extra_filetypes = { "json", "markdown", "css" },
+          })
         end,
       }
     end,
