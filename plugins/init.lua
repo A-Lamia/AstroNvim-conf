@@ -1,6 +1,18 @@
 local border = require "user.util.border"
 
 return {
+
+  {
+    "dev/spotlight.nvim",
+    enabled = false,
+    lazy = false,
+    dev = true,
+    -- opts = {},
+    config = function()
+      require("spotlight").setup()
+    end,
+  },
+
   ------ disable ------
   ---------------------
 
@@ -14,6 +26,12 @@ return {
   {
     "wsdjeg/vim-fetch",
     lazy = false,
+  },
+
+  {
+    "catppuccin/nvim",
+    name = "catppuccin",
+    priority = 1000,
   },
 
   {
@@ -87,7 +105,10 @@ return {
           c = treesitter { a = "@class.outer", i = "@class.inner" },
           f = treesitter { a = "@function.outer", i = "@function.inner" },
           k = treesitter { a = "@block.outer", i = "@block.inner" },
-          o = treesitter { a = { "@conditional.outer", "@loop.outer" }, i = { "@conditional.inner", "@loop.inner" } },
+          o = treesitter {
+            a = { "@conditional.outer", "@loop.outer" },
+            i = { "@conditional.inner", "@loop.inner" },
+          },
         },
       }
     end,
@@ -161,7 +182,9 @@ return {
     keys = {
       {
         "<leader>r",
-        function() require("ssr").open() end,
+        function()
+          require("ssr").open()
+        end,
         desc = "Structual Search And Replace",
       },
     },

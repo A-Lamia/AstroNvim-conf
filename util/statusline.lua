@@ -40,7 +40,9 @@ end
 function M.macro_recording()
   local recording_register = vim.fn.reg_recording()
   local string = ""
-  if #recording_register > 0 then string = "壘" .. recording_register .. " " end
+  if #recording_register > 0 then
+    string = "壘" .. recording_register .. " "
+  end
   return string
 end
 
@@ -57,7 +59,9 @@ end
 function M.set_grapple_color(hl)
   local key = require("grapple").exists()
   local key_color = "bg"
-  if key then key_color = M.mode_color(hl) end
+  if key then
+    key_color = M.mode_color(hl)
+  end
   return key_color
 end
 
@@ -85,7 +89,11 @@ function M.lsp_status()
       local spinner = load:new(load.style.smiley)
       local laps = load:new(load.style.hexagon)
 
-      return spinner:prog(lsp.percentage) .. " " .. message .. " " .. laps:prog(lsp.percentage)
+      return spinner:prog(lsp.percentage)
+        .. " "
+        .. message
+        .. " "
+        .. laps:prog(lsp.percentage)
     end
   else
     return ""

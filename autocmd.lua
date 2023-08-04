@@ -1,32 +1,16 @@
--- vim.api.nvim_create_augroup("winblend", { clear = true })
--- vim.api.nvim_create_autocmd("VimEnter", {
---   group = "winblend",
---   callback = function()
---     if vim.g.neovide then
---       vim.o.winblend = vim.g.winblend
---       vim.cmd("hi! NormalFloat blend=" .. vim.g.winblend)
---     end
---   end,
--- })
-
 vim.api.nvim_create_augroup("DiagnosticMode", { clear = true })
 vim.api.nvim_create_autocmd("ModeChanged", {
-  pattern = { "i", "v" },
+  pattern = { "i", "v", "n" },
   group = "DiagnosticMode",
   callback = function(args)
     local bufnr = args.buf
     local is_attached = vim.lsp.buf_is_attached(bufnr, 1)
-    if is_attached then vim.diagnostic.hide() end
-  end,
-})
-
-vim.api.nvim_create_autocmd({ "ModeChanged" }, {
-  pattern = "n",
-  group = "DiagnosticMode",
-  callback = function(args)
-    local bufnr = args.buf
-    local is_attached = vim.lsp.buf_is_attached(bufnr, 1)
-    if is_attached then vim.diagnostic.show() end
+    local mode = vim.fn.mode()
+    if is_attached and mode == "n" then
+      vim.diagnostic.show()
+    else
+      vim.diagnostic.hide()
+    end
   end,
 })
 
@@ -38,31 +22,6 @@ vim.api.nvim_create_autocmd({ "ModeChanged" }, {
 --     local bufnr = args.buf
 --     local is_attached = vim.lsp.buf_is_attached(bufnr, 1)
 --     if is_attached then vim.diagnostic.hide() end
---   end,
--- })
-
--- vim.api.nvim_create_augroup("InlayHints", { clear = true })
--- vim.api.nvim_create_autocmd({ "ModeChanged", "LspAttach" }, {
---   pattern = { "i", "v" },
---   group = "InlayHints",
---   callback = function(args)
---     local bufnr = args.buf
---     if vim.b.inlay_hints_enabled then
---       vim.b.inlay_hints_enabled = not vim.b.inlay_hints_enabled
---       vim.lsp.buf.inlay_hint(bufnr or 0, vim.b.inlay_hints_enabled)
---     end
---   end,
--- })
---
--- vim.api.nvim_create_autocmd({ "ModeChanged", "LspAttach" }, {
---   pattern = "n",
---   group = "InlayHints",
---   callback = function(args)
---     local bufnr = args.buf
---     if vim.g.inlay_hints_enabled then
---       vim.b.inlay_hints_enabled = not vim.b.inlay_hints_enabled
---       vim.lsp.buf.inlay_hint(bufnr or 0, vim.b.inlay_hints_enabled)
---     end
 --   end,
 -- })
 

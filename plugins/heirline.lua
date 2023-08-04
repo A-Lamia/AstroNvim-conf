@@ -2,6 +2,7 @@ return {
   "rebelot/heirline.nvim",
   opts = function(_, opts)
     local get_hlgroup = require("user.util.color").get_hlgroup
+
     local status = {
       user = require "user.util.statusline",
       astro = require "astronvim.utils.status",
@@ -71,13 +72,17 @@ return {
           },
           update = {
             "ModeChanged",
-            callback = vim.schedule_wrap(function() vim.cmd.redrawstatus() end),
+            callback = vim.schedule_wrap(function()
+              vim.cmd.redrawstatus()
+            end),
           },
         },
         -- Custom component for grapple
         status.astro.component.builder {
           { provider = status.user.grapple },
-          hl = function() return { fg = status.user.set_grapple_color(mode_text_color_2) } end,
+          hl = function()
+            return { fg = status.user.set_grapple_color(mode_text_color_2) }
+          end,
           surround = {
             separator = { "", separator.honeycomb.right },
             color = function()
@@ -91,22 +96,31 @@ return {
         -- Custom compnent for macro recordings
         status.astro.component.builder {
           { provider = status.user.macro_recording },
-          hl = function() return { fg = status.user.mode_color(mode_text_color_2), bold = true } end,
+          hl = function()
+            return { fg = status.user.mode_color(mode_text_color_2), bold = true }
+          end,
           surround = {
             separator = { "", separator.honeycomb.right },
-            color = function() return { main = status.user.mode_color(THEME.tools), right = "bg" } end,
+            color = function()
+              return { main = status.user.mode_color(THEME.tools), right = "bg" }
+            end,
           },
           update = {
             "RecordingEnter",
             "RecordingLeave",
-            callback = vim.schedule_wrap(function() vim.cmd.redrawstatus() end),
+            callback = vim.schedule_wrap(function()
+              vim.cmd.redrawstatus()
+            end),
           },
         },
       },
       -- Add spacer
       status.astro.component.builder {
         { provider = "" },
-        surround = { separator = "left", color = { main = "blank_bg", right = "file_info_bg" } },
+        surround = {
+          separator = "left",
+          color = { main = "blank_bg", right = "file_info_bg" },
+        },
       },
 
       -------------------------------------
@@ -117,7 +131,10 @@ return {
       status.astro.component.git_branch { surround = { separator = { "", "" } } },
 
       -- add a component for git diff data
-      status.astro.component.git_diff { padding = { left = 1 }, surround = { separator = { " ", "" } } },
+      status.astro.component.git_diff {
+        padding = { left = 1 },
+        surround = { separator = { " ", "" } },
+      },
 
       -- fill the rest of the statusline
       -- the elements after this will appear in the middle of the statusline
@@ -131,7 +148,9 @@ return {
         update = {
           "User",
           pattern = { "AstroLspProgress" },
-          callback = vim.schedule_wrap(function() vim.cmd.redrawstatus() end),
+          callback = vim.schedule_wrap(function()
+            vim.cmd.redrawstatus()
+          end),
         },
       },
 
@@ -147,12 +166,19 @@ return {
       status.astro.component.diagnostics { surround = { separator = "right" } },
 
       -- add a component to display LSP clients, disable showing LSP progress, and use the right separator
-      status.astro.component.lsp { lsp_client_names = false, lsp_progress = false, surround = { separator = "none" } },
+      status.astro.component.lsp {
+        lsp_client_names = false,
+        lsp_progress = false,
+        surround = { separator = "none" },
+      },
 
       -- Add spacer
       status.astro.component.builder {
         { provider = "" },
-        surround = { separator = "right", color = { main = "blank_bg", right = "file_info_bg" } },
+        surround = {
+          separator = "right",
+          color = { main = "blank_bg", right = "file_info_bg" },
+        },
       },
 
       {
@@ -163,26 +189,39 @@ return {
           hl = { fg = "bg" },
           surround = {
             separator = { separator.half_circle.left, "" },
-            color = function() return { main = THEME.folder_icon_bg } end,
+            color = function()
+              return { main = THEME.folder_icon_bg }
+            end,
           },
         },
         status.astro.component.builder {
           { provider = "" },
           surround = {
             separator = { "", separator.hard_divider.right },
-            color = function() return { main = THEME.folder_icon_bg, right = THEME.folder_bg } end,
+            color = function()
+              return { main = THEME.folder_icon_bg, right = THEME.folder_bg }
+            end,
           },
         },
         -- add a file information component and only show the current working directory name
         status.astro.component.file_info {
-          filename = { fname = function() return vim.fn.getcwd() end, padding = { left = 0 } },
-          hl = function() return { fg = THEME.folder_icon_bg } end,
+          filename = {
+            fname = function()
+              return vim.fn.getcwd()
+            end,
+            padding = { left = 0 },
+          },
+          hl = function()
+            return { fg = THEME.folder_icon_bg }
+          end,
           file_icon = false,
           file_modified = false,
           file_read_only = false,
           surround = {
             separator = "none",
-            color = function() return THEME.folder_bg end,
+            color = function()
+              return THEME.folder_bg
+            end,
           },
         },
       },
@@ -195,24 +234,32 @@ return {
           hl = { fg = "bg" },
           surround = {
             separator = { separator.half_circle.left, "" },
-            color = function() return { main = THEME.nav_icon_bg, left = THEME.folder_bg } end,
+            color = function()
+              return { main = THEME.nav_icon_bg, left = THEME.folder_bg }
+            end,
           },
         },
         status.astro.component.builder {
           { provider = "" },
           surround = {
             separator = { "", separator.hard_divider.right },
-            color = function() return { main = THEME.nav_icon_bg, right = THEME.nav_bg } end,
+            color = function()
+              return { main = THEME.nav_icon_bg, right = THEME.nav_bg }
+            end,
           },
         },
         status.astro.component.nav {
           percentage = { padding = { left = 0, right = 1 } },
           ruler = false,
           scrollbar = false,
-          hl = function() return { fg = THEME.nav_icon_bg } end,
+          hl = function()
+            return { fg = THEME.nav_icon_bg }
+          end,
           surround = {
             separator = "none",
-            color = function() return THEME.nav_bg end,
+            color = function()
+              return THEME.nav_bg
+            end,
           },
         },
       },
@@ -227,7 +274,9 @@ return {
 
     opts.tabline[2] = status.astro.heirline.make_buflist {
       {
-        provider = function(self) return not self.is_visible and "" or separator.half_circle.left end,
+        provider = function(self)
+          return not self.is_visible and "" or separator.half_circle.left
+        end,
         hl = { fg = "buffer_bg", bg = "buffer_visible_bg" },
       },
       status.astro.component.tabline_file_info {
@@ -243,7 +292,9 @@ return {
         close_button = false,
       },
       {
-        provider = function(self) return not self.is_visible and "" or separator.half_circle.right end,
+        provider = function(self)
+          return not self.is_visible and "" or separator.half_circle.right
+        end,
         hl = { fg = "buffer_bg", bg = "buffer_visible_bg" },
       },
     }

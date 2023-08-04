@@ -1,5 +1,5 @@
--- local fn = require "user.util.fn"
--- local telescope = require "user.util.telescope"
+local fn = require "user.util.fn"
+local telescope = require "user.util.telescope"
 
 return {
   "mfussenegger/nvim-dap",
@@ -11,9 +11,11 @@ return {
     local dap = require "dap"
     local CODELLDB_DIR = require("mason-registry").get_package("codelldb"):get_install_path()
       .. "/extension/adapter/codelldb"
-    local PYTHON_DIR = require("mason-registry").get_package("debugpy"):get_install_path() .. "/venv/Scripts/python"
-    local NODE_DIR = require("mason-registry").get_package("node-debug2-adapter"):get_install_path()
-      .. "/out/src/nodeDebug.js"
+    local PYTHON_DIR = require("mason-registry").get_package("debugpy"):get_install_path()
+      .. "/venv/Scripts/python"
+    local NODE_DIR = require("mason-registry")
+      .get_package("node-debug2-adapter")
+      :get_install_path() .. "/out/src/nodeDebug.js"
 
     dap.adapters.codelldb = {
       name = "codelldb",
@@ -51,7 +53,7 @@ return {
     }
 
     local function set_program()
-      local function run_scene(prompt_bufnr, map)
+      local function set_path(prompt_bufnr, map)
         telescope.actions.select_default:replace(function()
           telescope.actions.close(prompt_bufnr)
           local selected = telescope.actions_state.get_selected_entry()
@@ -61,9 +63,9 @@ return {
       end
       telescope.run_func_on_file {
         name = "Executable",
-        attach_mappings = run_scene,
+        attach_mappings = set_path,
         results = fn.get_files_by_end,
-        results_args = fn.is_win() and ".exe" or "",
+        results_args = fn.is_win() and "exe" or "",
       }
       return true
     end
@@ -80,7 +82,8 @@ return {
       request = "launch",
       program = function()
         if not vim.g.dap_program or #vim.g.dap_program == 0 then
-          vim.g.dap_program = vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
+          vim.g.dap_program =
+            vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
         end
         return vim.g.dap_program
       end,

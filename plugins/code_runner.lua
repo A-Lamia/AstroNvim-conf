@@ -1,24 +1,22 @@
 return {
   "CRAG666/code_runner.nvim",
-  -- lazy = false,
+  cmd = "RunCode",
   keys = {
-    "<leader>a",
+    {
+      "<leader>a",
+      "<cmd>RunCode<cr>",
+      desc = "Run Code",
+    },
   },
-  -- cmd = {
-  --   "RunCode",
-  -- },
-  config = function()
-    require("code_runner").setup {
-      -- mode = "toggleterm",
-      focus = false,
-      filetype = {
-        odin = "odin run .",
+  opts = {
+    -- mode = "toggleterm",
+    focus = false,
+    filetype = {
+      odin = "odin run .",
+      cpp = {
+        "cd $dir &&",
+        "xmake run",
       },
-    }
-    require("astronvim.utils").set_mappings {
-      n = {
-        ["<leader>a"] = { ":RunCode<cr>", desc = "Runs code based on file type." },
-      },
-    }
-  end,
+    },
+  },
 }

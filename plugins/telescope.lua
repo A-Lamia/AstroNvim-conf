@@ -17,6 +17,12 @@ return {
     local actions = require "telescope.actions"
     return require("astronvim.utils").extend_tbl(opts, {
       defaults = {
+        file_ignore_patterns = {
+          "%.jpg",
+          "%.gif",
+          "%.png",
+          "%.tga",
+        },
         winblend = vim.o.winblend,
         borderchars = {
           prompt = border.telescope[vim.g.border],
@@ -68,8 +74,14 @@ return {
     require("astronvim.utils").set_mappings {
       n = {
         ["<C-p>"] = { "<cmd>Telescope fd<CR>", desc = "Activates Telescope fd" },
-        ["<C-S-p>"] = { "<cmd>Telescope commands<CR>", desc = "Activates Telescope commands" },
-        ["<C-f>"] = { "<cmd>Telescope live_grep<CR>", desc = "Activates Telescope live_grep" },
+        ["<C-S-p>"] = {
+          "<cmd>Telescope commands<CR>",
+          desc = "Activates Telescope commands",
+        },
+        ["<C-f>"] = {
+          "<cmd>Telescope live_grep<CR>",
+          desc = "Activates Telescope live_grep",
+        },
         ["<Tab>"] = {
           function()
             if #vim.t.bufs > 1 then

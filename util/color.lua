@@ -3,18 +3,26 @@ local M = {
   luminanceMode = 1,
 }
 
-function M.round(x) return x >= 0 and math.floor(x + 0.5) or math.ceil(x - 0.5) end
+function M.round(x)
+  return x >= 0 and math.floor(x + 0.5) or math.ceil(x - 0.5)
+end
 
-local function clamp(int) return math.max(math.min(int, 255), 0) end
+local function clamp(int)
+  return math.max(math.min(int, 255), 0)
+end
 
-local function remap(int, min, max) return math.max(math.min(int, max), min) end
+local function remap(int, min, max)
+  return math.max(math.min(int, max), min)
+end
 
 function M.max(rgb)
   local max = math.max(rgb.r, rgb.g, rgb.b)
   local max_rgb = { value = max }
 
   for channel, value in pairs(rgb) do
-    if value == max then max_rgb.channel = channel end
+    if value == max then
+      max_rgb.channel = channel
+    end
   end
 
   return max_rgb
@@ -25,7 +33,9 @@ function M.min(rgb)
   local min_rgb = { value = min }
 
   for channel, value in pairs(rgb) do
-    if value == min then min_rgb.channel = channel end
+    if value == min then
+      min_rgb.channel = channel
+    end
   end
 
   return min_rgb
@@ -61,7 +71,9 @@ local function order(rgb)
   }
 end
 
-function M.rawToHex(raw) return "#" .. string.format("%06x", raw) end
+function M.rawToHex(raw)
+  return "#" .. string.format("%06x", raw)
+end
 
 function M.rawToRgb(raw)
   raw = string.format("%06x", raw)
@@ -111,7 +123,9 @@ function M.mix(rgb1, rgb2, int)
 end
 
 function M.lerp(rgb1, rgb2, float)
-  local function lerp(c1, c2) return math.floor(c1 + (c2 - c1) * float) end
+  local function lerp(c1, c2)
+    return math.floor(c1 + (c2 - c1) * float)
+  end
 
   return {
     r = lerp(rgb1.r, rgb2.r),
@@ -394,8 +408,12 @@ function M.get_hlgroup(table)
   for _, name in ipairs(table) do
     if vim.fn.hlexists(name) == 1 then
       hl = vim.api.nvim_get_hl(0, { name = name })
-      if not hl.fg then goto continue end
-      if not hl.bg then goto continue end
+      if not hl.fg then
+        goto continue
+      end
+      if not hl.bg then
+        goto continue
+      end
       hl = {
         fg = M.rawToRgb(hl.fg),
         bg = M.rawToRgb(hl.bg),

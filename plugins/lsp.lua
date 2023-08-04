@@ -10,8 +10,19 @@ return {
   },
   {
     "Maan2003/lsp_lines.nvim",
+    key = {
+      {
+        "<leader>uD",
+        desc = "Disable lsp lines",
+        function()
+          require("lsp_lines").toggle()
+        end,
+      },
+    },
     event = "User AstroFile",
-    config = function() require("lsp_lines").setup() end,
+    config = function()
+      require("lsp_lines").setup()
+    end,
   },
 
   {

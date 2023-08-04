@@ -3,7 +3,14 @@ local util = require "user.util.fn"
 return {
   "folke/flash.nvim",
   event = "VeryLazy",
-  opts = {},
+  opts = {
+    modes = {
+      char = {
+        multi_line = false,
+        jump_labels = true,
+      },
+    },
+  },
   keys = {
     {
       "s;",

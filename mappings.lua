@@ -14,10 +14,30 @@ return {
     ["<C-u>"] = { "<C-u>zz" },
     ["n"] = { macro.better_search "n", desc = "Next search with center and unfold" },
     ["N"] = { macro.better_search "N", desc = "previous search with center and unfold" },
-    ["<S-l>"] = { function() buffer.nav(vim.v.count > 0 and vim.v.count or 1) end, desc = "Next buffer" },
-    ["<S-h>"] = { function() buffer.nav(-(vim.v.count > 0 and vim.v.count or 1)) end, desc = "Previous buffer" },
-    ["<M-l>"] = { function() buffer.move(vim.v.count > 0 and vim.v.count or 1) end, desc = "Next buffer" },
-    ["<M-h>"] = { function() buffer.move(-(vim.v.count > 0 and vim.v.count or 1)) end, desc = "Previous buffer" },
+    ["<S-l>"] = {
+      function()
+        buffer.nav(vim.v.count > 0 and vim.v.count or 1)
+      end,
+      desc = "Next buffer",
+    },
+    ["<S-h>"] = {
+      function()
+        buffer.nav(-(vim.v.count > 0 and vim.v.count or 1))
+      end,
+      desc = "Previous buffer",
+    },
+    ["<M-l>"] = {
+      function()
+        buffer.move(vim.v.count > 0 and vim.v.count or 1)
+      end,
+      desc = "Next buffer",
+    },
+    ["<M-h>"] = {
+      function()
+        buffer.move(-(vim.v.count > 0 and vim.v.count or 1))
+      end,
+      desc = "Previous buffer",
+    },
     -- Rename
     ["yrw"] = { "yiw:s/\\C\\<<C-R>0\\>/" },
     ["yrW"] = { "yiW:s/\\C\\<<C-R>0\\>/" },
@@ -27,7 +47,9 @@ return {
     ["<F2>"] = { "y:%s/<C-R>0/" },
     ["<F2><F2>"] = { "y:%s/<C-R>0/" },
     -- delete
-    ["d."] = { "viwhd" },
+    ["d."] = { "viwhd", desc = "Delete extra space" },
+    -- redo
+    ["U"] = { "<cmd>redo<CR>", desc = "Redo" },
     ---------
     ["<leader>u1"] = { "<cmd>AerialToggle<CR>", desc = "Toggle Aerial" },
   },

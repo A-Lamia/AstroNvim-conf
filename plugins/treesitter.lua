@@ -20,7 +20,9 @@ return {
         {
           "sj",
           desc = "Split Join Blocks Toggle",
-          function() require("treesj").toggle() end,
+          function()
+            require("treesj").toggle()
+          end,
         },
       },
       opts = {

@@ -3,11 +3,15 @@ local lsp = require "astronvim.utils.lsp"
 return {
   "folke/zen-mode.nvim",
   cmd = "ZenMode",
-  keys = { {
-    "<leader>z",
-    function() require("zen-mode").toggle() end,
-    desc = "ZenMode",
-  } },
+  keys = {
+    {
+      "<leader>z",
+      function()
+        require("zen-mode").toggle()
+      end,
+      desc = "ZenMode",
+    },
+  },
   dependencies = {
     "folke/twilight.nvim",
     opts = {
@@ -25,7 +29,9 @@ return {
   opts = {
     window = {
       backdrop = 1,
-      width = function() return math.min(80, vim.o.columns * 0.75) end,
+      width = function()
+        return math.min(80, vim.o.columns * 0.75)
+      end,
       height = 0.9,
       options = {
         number = false,

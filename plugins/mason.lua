@@ -4,10 +4,10 @@ return {
     opts = {
       ensure_installed = {
         "clangd",
-        "html",
         "neocmake",
+        "html",
+        "cssls",
         "jsonls",
-        "pyright",
         "lua_ls",
       },
     },
@@ -16,9 +16,11 @@ return {
     "jay-babu/mason-null-ls.nvim",
     opts = {
       ensure_installed = {
-        "stylua",
-        "black",
+        "codelldb",
         "prettierd",
+        "stylua",
+        -- "ruff",
+        "ruff-lsp",
       },
     },
     config = function(_, opts)

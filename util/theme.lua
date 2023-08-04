@@ -44,23 +44,40 @@ function M.setup()
     command = modeAutoColor("#C3A940", mode_value),
   }
 
-  hl.folder = color.get_hlgroup({ "MiniStatusLineModeReplace", "StatusReplace" }).bg or color.toRgb(fallback.replace)
-  hl.nav = color.get_hlgroup({ "MiniStatusLineModeInsert", "StatusInsert" }).bg or color.toRgb(fallback.insert)
+  hl.folder = color.get_hlgroup({ "MiniStatusLineModeReplace", "StatusReplace" }).bg
+    or color.toRgb(fallback.replace)
+  hl.nav = color.get_hlgroup({ "MiniStatusLineModeInsert", "StatusInsert" }).bg
+    or color.toRgb(fallback.insert)
 
-  hl.normal = color.get_hlgroup({ "MiniStatuslineModeNormal", "HeirlineNormal", "StatusNormal" }).bg
-    or color.toRgb(status.hl.lualine_mode("normal", fallback.normal))
+  hl.normal = color.get_hlgroup({
+    "MiniStatuslineModeNormal",
+    "HeirlineNormal",
+    "StatusNormal",
+  }).bg or color.toRgb(status.hl.lualine_mode("normal", fallback.normal))
 
-  hl.insert = color.get_hlgroup({ "MiniStatuslineModeInsert", "HeirlineInsert", "StatusInsert" }).bg
-    or color.toRgb(status.hl.lualine_mode("insert", fallback.insert))
+  hl.insert = color.get_hlgroup({
+    "MiniStatuslineModeInsert",
+    "HeirlineInsert",
+    "StatusInsert",
+  }).bg or color.toRgb(status.hl.lualine_mode("insert", fallback.insert))
 
-  hl.visual = color.get_hlgroup({ "MiniStatuslineModeVisual", "HeirlineVisual", "StatusVisual" }).bg
-    or color.toRgb(status.hl.lualine_mode("visual", fallback.visual))
+  hl.visual = color.get_hlgroup({
+    "MiniStatuslineModeVisual",
+    "HeirlineVisual",
+    "StatusVisual",
+  }).bg or color.toRgb(status.hl.lualine_mode("visual", fallback.visual))
 
-  hl.replace = color.get_hlgroup({ "MiniStatuslineModeReplace", "HeirlineReplace", "StatusReplace" }).bg
-    or color.toRgb(status.hl.lualine_mode("replace", fallback.replace))
+  hl.replace = color.get_hlgroup({
+    "MiniStatuslineModeReplace",
+    "HeirlineReplace",
+    "StatusReplace",
+  }).bg or color.toRgb(status.hl.lualine_mode("replace", fallback.replace))
 
-  hl.command = color.get_hlgroup({ "MiniStatuslineModeCommand", "HeirlineCommand", "StatusCommand" }).bg
-    or color.toRgb(status.hl.lualine_mode("command", fallback.command))
+  hl.command = color.get_hlgroup({
+    "MiniStatuslineModeCommand",
+    "HeirlineCommand",
+    "StatusCommand",
+  }).bg or color.toRgb(status.hl.lualine_mode("command", fallback.command))
 
   local c = {}
 

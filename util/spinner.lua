@@ -37,6 +37,8 @@ function M:prog(percent)
   return spinner[frame]
 end
 
-function M:len() return #self.func.kind end
+function M:len()
+  return #self.func.kind
+end
 
 return M

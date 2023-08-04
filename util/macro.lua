@@ -5,8 +5,10 @@ local notify = require("astronvim.utils").notify
 function M.better_search(key)
   return function()
     -- attempt to search
-    local searched, error =
-      pcall(vim.cmd.normal, { args = { (vim.v.count > 0 and vim.v.count or "") .. key }, bang = true })
+    local searched, error = pcall(
+      vim.cmd.normal,
+      { args = { (vim.v.count > 0 and vim.v.count or "") .. key }, bang = true }
+    )
     -- if search successful
     if searched then
       -- center and unfold with protection from errors
