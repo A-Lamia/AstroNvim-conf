@@ -1,7 +1,12 @@
 vim.api.nvim_create_autocmd("ColorScheme", {
   callback = function()
-    _G.THEME = require("user.util.theme").setup()
+    _G.THEME = require("util.theme").setup()
   end,
 })
+-- vim.api.nvim_command "<cmd>colors astrodark<cr>"
 
-return {}
+require "config.lazy"
+
+require "config.keymaps"
+require "config.autocmd"
+require "config.polish"

@@ -1,3 +1,0 @@
-return {
-  LspInlayHint = { link = "Comment" },
-}
