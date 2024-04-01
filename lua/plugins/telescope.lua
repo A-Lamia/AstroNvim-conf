@@ -29,14 +29,24 @@ return {
           "%.jpg",
           "%.gif",
           "%.png",
+          "%.tif",
+          "%.tiff",
           "%.tga",
+          "%.o$",
+          "%.dll",
+          "%.pyc",
+          "%.exe",
+          "%.fbx",
+          "%.obj",
+          "%.gltf",
+          "%.glb",
         },
         winblend = vim.o.winblend,
-        borderchars = {
-          prompt = border.telescope[vim.g.border],
-          results = border.telescope[vim.g.border],
-          preview = border.telescope[vim.g.border],
-        },
+        -- borderchars = {
+        --   prompt = border.telescope[vim.g.border],
+        --   results = border.telescope[vim.g.border],
+        --   preview = border.telescope[vim.g.border],
+        -- },
         prompt_title = false,
         results_title = false,
         dynamic_preview_title = true,
@@ -45,30 +55,30 @@ return {
         path_display = { "truncate" },
         sorting_strategy = "ascending",
         layout_strategy = "flex",
-        layout_config = {
-          -- width = 0.90,
-          -- height = 0.85,
-
-          horizontal = {
-            prompt_position = "top",
-            preview_width = 0.6,
-            preview_cutoff = 120,
-          },
-          vertical = {
-            width = 0.9,
-            height = 0.9,
-            -- preview_cutoff = 0,
-            -- preview_height = 0.5,
-            prompt_position = "top",
-            -- mirror = true,
-          },
-          flex = {
-            flip_columns = 120,
-            -- horizontal = {
-            --   preview_width = 0.9,
-            -- },
-          },
-        },
+        -- layout_config = {
+        --   -- width = 0.90,
+        --   -- height = 0.85,
+        --
+        --   horizontal = {
+        --     prompt_position = "top",
+        --     preview_width = 0.6,
+        --     preview_cutoff = 120,
+        --   },
+        --   vertical = {
+        --     width = 0.9,
+        --     height = 0.9,
+        --     -- preview_cutoff = 0,
+        --     -- preview_height = 0.5,
+        --     prompt_position = "top",
+        --     -- mirror = true,
+        --   },
+        --   flex = {
+        --     flip_columns = 120,
+        --     -- horizontal = {
+        --     --   preview_width = 0.9,
+        --     -- },
+        --   },
+        -- },
       },
       pickers = {
         buffers = {
