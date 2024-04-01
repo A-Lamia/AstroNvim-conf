@@ -1,5 +1,6 @@
 return {
   "nvim-neo-tree/neo-tree.nvim",
+  enabled = false,
   branch = "main",
   opts = function(_, opts)
     return vim.tbl_deep_extend("force", (opts or {}), {
