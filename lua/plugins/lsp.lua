@@ -4,7 +4,15 @@ return {
     opts = {
       config = {
         clangd = { capabilities = { offsetEncoding = "utf-8" } },
-        gdscript = { cmd = { "ncat", "120.0.0.1", "6008" } },
+        gdscript = {
+          -- cmd = { "ncat", "127.0.0.1", "-P", "6008" },
+          cmd = { "ncat", "127.0.0.1", "6008" },
+          root_dir = require("lspconfig.util").root_pattern(
+            "project.godot",
+            ".git",
+            ".godot"
+          ),
+        },
         gopls = {
           settings = {
             gopls = {
