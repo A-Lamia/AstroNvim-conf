@@ -50,13 +50,9 @@ function M.macro_recording()
 end
 
 function M.grapple()
-  local key_exists = require("grapple").exists()
-  local output = icons.addtag
-  if key_exists then
-    local key = require("grapple").key()
-    output = icons.tag .. key .. " "
-  end
-  return output
+  local ok, grapple = pcall(require, "grapple")
+  local statusline = ok and grapple.statusline() or nil
+  return statusline and statusline .. " " or icons.addtag
 end
 
 function M.set_grapple_color(hl)

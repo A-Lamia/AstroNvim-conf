@@ -2,24 +2,30 @@ local border = require "util.border"
 
 return {
   "cbochs/grapple.nvim",
-  -- branch = "dev",
+  enabled = true,
   lazy = false,
   config = function()
     require("grapple").setup {
-      popup_options = {
-        border = border.default[vim.g.border],
-      },
-      setup = require("grapple.scope").fallback {
-        require("grapple").resolvers.lsp_fallback,
-        require("grapple").resolvers.git_fallback,
-        require("grapple").resolvers.static,
-      },
+      -- popup_options = {
+      --   border = border.default[vim.g.border],
+      -- },
+      scope = (function()
+        local lsp_ok, _ = pcall(vim.lsp.get_clients)
+        local git_ok = #vim.fs.find(".git", {}) == 1
+        if git_ok then
+          return "git_branch"
+        elseif lsp_ok then
+          return "lsp"
+        else
+          return "static"
+        end
+      end)(),
     }
 
     require("util.map").set_keymaps {
       n = {
-        ["gt"] = { ":GrappleToggle<cr>", desc = "Tags current buffer" },
-        ["gp"] = { ":GrapplePopup tags<cr>", desc = "Grapple tag popup menu" },
+        ["gt"] = { ":Grapple toggle<cr>", desc = "Tags current buffer" },
+        ["gp"] = { ":Grapple open_tags<cr>", desc = "Grapple tag popup menu" },
       },
     }
   end,
