@@ -36,6 +36,22 @@ return {
           root_dir = require("lspconfig.util").root_pattern("ols.json", ".git"),
           single_file_support = true,
         },
+        pyright = {
+          settings = {
+            python = {
+              analysis = {
+                typeCheckingMode = "off",
+              },
+            },
+          },
+        },
+        ruff_lsp = {
+          on_attach = function(client, buffer)
+            client.server_capabilities.documentFormattingProvider = true
+            client.server_capabilities.hoverProvider = false
+            client.server_capabilities.renameProvider = false
+          end,
+        },
         rust = {
           settings = {
             rust = {
