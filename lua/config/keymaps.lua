@@ -2,6 +2,20 @@ local macro = require "util.macro"
 
 require("util.map").set_keymaps {
   n = {
+    ["<M-f>"] = {
+      function()
+        local lnum = vim.api.nvim_win_get_cursor(0)
+        if vim.fn.foldclosed(lnum[1]) ~= -1 then
+          print "Close"
+          vim.cmd "foldopen"
+        else
+          print "Open"
+          vim.cmd "foldclose"
+        end
+      end,
+      desc = "Fold toggle",
+    },
+
     -- Movement
     -- ["j"] = { "v:count == 0 ? 'gj' : 'j'", desc = "Move cursor down" },
     -- ["k"] = { "v:count == 0 ? 'gk' : 'k'", desc = "Move cursor up" },
