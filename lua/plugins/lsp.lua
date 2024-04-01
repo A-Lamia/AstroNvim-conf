@@ -155,6 +155,9 @@ return {
         },
       },
       formatting = {
+        format_on_save = {
+          enabled = false,
+        },
         disabled = { "lua_ls" },
       },
       on_attach = function(client, bufnr)
