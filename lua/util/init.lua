@@ -81,6 +81,7 @@ function M.get_hl(hilights)
         end
       end
     end
+    break
   end
   return hl or false
 end
