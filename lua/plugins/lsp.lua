@@ -182,7 +182,8 @@ return {
     },
   },
   {
-    "Maan2003/lsp_lines.nvim",
+    "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+    -- pin = true,
     key = {
       {
         "<leader>uD",
