@@ -33,7 +33,7 @@ return {
         ols = {
           cmd = { "ols" },
           filetypes = { "odin" },
-          root_dir = require("lspconfig.util").root_pattern("ols.json", ".git"),
+          root_dir = require("lspconfig.util").root_pattern("ols.json", ".git", "main.odin"),
           single_file_support = true,
         },
         pyright = {
