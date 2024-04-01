@@ -1,3 +1,4 @@
+local cwd = vim.fn.getcwd()
 return {
   {
     "AstroNvim/astrolsp",
