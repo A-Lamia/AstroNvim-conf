@@ -1,19 +1,17 @@
 return {
   "rebelot/heirline.nvim",
+  enabled = true,
   opts = function(_, opts)
     local icons = require "util.icons"
     local separator = require("util.icons").separator
-    local get_hl = require("util").get_hl
 
     local status = {
       user = require "util.statusline",
       astro = require "astroui.status",
     }
 
-    local colors = require("astroui.config").status.colors
-    colors.tabline_bg = "none"
-    colors.scrollbar = get_hl({ "AstroYellow", "TypeDef" }).fg
-    colors.treesitter_bg = get_hl({ "AstroGreen", "String" }).fg
+    -- require("astroui.status").heirline.refresh_colors()
+    -- redraw
 
     local mode_text_color_2 = {
       normal = "#E0FFFF",
@@ -183,8 +181,8 @@ return {
         -- add a file information component and only show the current working directory name
         status.astro.component.file_info {
           filename = {
-            fname = function()
-              return vim.fn.getcwd()
+            fname = function(nr)
+              return vim.fn.getcwd(nr)
             end,
             padding = { left = 0 },
           },
@@ -194,6 +192,7 @@ return {
           file_icon = false,
           file_modified = false,
           file_read_only = false,
+          filetype = false,
           surround = {
             separator = "none",
             color = function()
@@ -248,6 +247,7 @@ return {
     -- }
 
     opts.winbar = nil
+    opts.foldcolumn = false
 
     opts.tabline[2] = status.astro.heirline.make_buflist {
       {
@@ -259,13 +259,15 @@ return {
 
       status.astro.component.tabline_file_info {
         hl = function(self)
-          local name = string.match(vim.g.colors_name, "astro")
-          local fg = name and C.ui.text_inactive or "buffer_fg"
-
           if self.is_visible then
             return { bg = "buffer_bg", italic = true, bold = true }
           else
-            return { fg = fg, bg = "buffer_visible_bg", italic = false, bold = false }
+            return {
+              fg = "buffer_fg",
+              bg = "buffer_visible_bg",
+              italic = false,
+              bold = false,
+            }
           end
         end,
         close_button = false,

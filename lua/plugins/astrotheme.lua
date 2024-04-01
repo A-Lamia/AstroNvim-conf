@@ -3,8 +3,7 @@ return {
     "AstroNvim/astrotheme",
     dev = true,
     lazy = false,
-    priority = 1000,
-    -- config = true,
+    -- priority = 1000,
     opts = {
       dev = true,
       style = (function()
@@ -19,39 +18,43 @@ return {
             title_invert = true,
           }
         end
-        -- vim.g.border = "round"
         return {
           border = false,
-          -- inactive = false,
+          inactive = false,
           title_invert = true,
         }
       end)(),
+      palettes = {
+        global = {},
+      },
       highlights = {
         global = {
           modify_hl_groups = function(hl, C)
             hl.Title.italic = true
-            hl.PopupTitle.italic = true
-
-            local blend_fix = (vim.g.neovide and vim.o.winblend and 100)
+            hl.FloatTitle.italic = true
+            hl.TelescopePromptTitle.italic = true
+            hl.TelescopePreviewTitle.italic = true
+            --
+            local blend_fix = (vim.o.winblend == 0 and 0)
+              or (vim.g.neovide and 100)
               or (vim.env.WEZTERM and vim.o.winblend)
               or 0
             hl.TelescopePromptNormal.blend = blend_fix
             hl.TelescopeResultsNormal.blend = blend_fix
             hl.TelescopePreviewNormal.blend = blend_fix
 
-            -- hl.NotifyERRORBorder = (vim.g.neovide and vim.o.winbar and 100) or 0
-            -- hl.NotifyWARNBorder = (vim.g.neovide and vim.o.winbar and 100) or 0
-            -- hl.NotifyINFOBorder = (vim.g.neovide and vim.o.winbar and 100) or 0
-            -- hl.NotifyDEBUGBorder = (vim.g.neovide and vim.o.winbar and 100) or 0
-            -- hl.NotifyTRACERBorder = (vim.g.neovide and vim.o.winbar and 100) or 0
-            -- hl.NotifyERRORBorder = (vim.g.neovide and vim.o.winbar and 100) or 0
+            -- hl.SpotlightNormalNC.bg = C.ui.tabline
 
-            hl.AstroYellow.fg = C.ui.yellow
-            hl.AstroGreen.fg = C.ui.green
+            hl.HeirlineYellow = { fg = C.ui.yellow }
+            hl.HeirlineGreen = { fg = C.ui.green }
+            hl.HeirlineTextInactive = { fg = C.ui.text_inactive }
+
+            hl.PmenuSel = { fg = C.ui.base, bg = C.ui.accent, bold = true, blend = 0 }
+            return hl
           end,
         },
-        astrodark = {},
       },
     },
+    -- config = true,
   },
 }
