@@ -105,6 +105,15 @@ return {
             },
           },
         },
+        asm_lsp = {
+          filetypes = { "asm", "vmasm", "s" },
+          root_dir = require("lspconfig.util").root_pattern(
+            ".asm-lsp.toml",
+            ".git",
+            "main.asm",
+            cwd
+          ),
+        },
       },
       servers = { "gdscript", "ols" },
       handlers = {
