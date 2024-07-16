@@ -9,7 +9,7 @@ vim.opt.rtp:prepend(vim.env.LAZY or lazypath)
 
 require("lazy").setup {
   spec = {
-    { "AstroNvim/AstroNvim", branch = "v4", version = nil, import = "astronvim.plugins" },
+    { "AstroNvim/AstroNvim", branch = "main", version = nil, import = "astronvim.plugins" },
     { import = "plugins" },
   },
   change_detection = {
