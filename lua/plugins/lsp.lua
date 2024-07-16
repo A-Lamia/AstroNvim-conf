@@ -179,8 +179,7 @@ return {
     "williamboman/mason-lspconfig.nvim",
     opts = {
       ensure_installed = {
-        "lua-language-server",
-        "rust_analyzer",
+        "lua_ls",
       },
     },
   },
