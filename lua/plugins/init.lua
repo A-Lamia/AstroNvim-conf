@@ -253,8 +253,6 @@ return {
     config = true,
   },
 
-  { "sbdchd/neoformat" },
-
   ------ fun ------
   -----------------
 
