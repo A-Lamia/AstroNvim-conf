@@ -98,31 +98,33 @@ return {
     }) or opts
 
     require("util.map").set_keymaps {
-      n = {
-        ["<C-p>"] = { "<cmd>Telescope fd<CR>", desc = "Activates Telescope fd" },
-        ["<C-S-p>"] = {
-          "<cmd>Telescope commands<CR>",
-          desc = "Activates Telescope commands",
-        },
-        ["<C-f>"] = {
-          "<cmd>Telescope live_grep<CR>",
-          desc = "Activates Telescope live_grep",
-        },
-        ["<Tab>"] = {
-          function()
-            if #vim.t.bufs > 1 then
-              require("telescope.builtin").buffers {
-                sort_mru = true,
-                ignore_current_buffer = true,
-              }
-            else
-              require "notify" { "No other buffers open" }
-            end
-          end,
-          desc = "Switch Buffers",
-        },
-        -- ["<C-z>"] = { "<cmd>Telescope undo<CR>" },
+      mode = "n",
+      { "<C-p>", "<cmd>Telescope fd<CR>", desc = "Activates Telescope fd" },
+      {
+        "<C-S-p>",
+        "<cmd>Telescope commands<CR>",
+        desc = "Activates Telescope commands",
       },
+      {
+        "<C-f>",
+        "<cmd>Telescope live_grep<CR>",
+        desc = "Activates Telescope live_grep",
+      },
+      {
+        "<Tab>",
+        function()
+          if #vim.t.bufs > 1 then
+            require("telescope.builtin").buffers {
+              sort_mru = true,
+              ignore_current_buffer = true,
+            }
+          else
+            require "notify" { "No other buffers open" }
+          end
+        end,
+        desc = "Switch Buffers",
+      },
+      -- {"<C-z>", "<cmd>Telescope undo<CR>" },
     }
 
     return tbl
