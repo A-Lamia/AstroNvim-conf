@@ -211,6 +211,7 @@ return {
   {
     "hiphish/rainbow-delimiters.nvim",
     lazy = false,
+    enabled = false,
   },
 
   -- Text Manipulation --
