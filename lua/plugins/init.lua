@@ -20,6 +20,7 @@ return {
   { "jay-babu/mason-nvim-dap.nvim", enabled = false },
   { "NvChad/nvim-colorizer", enabled = false },
   { "lukas-reineke/indent-blankline.nvim", enabled = false },
+  { "echasnovski/mini.indentscope", enabled = false },
 
   ------ Visuals ------
   ---------------------
