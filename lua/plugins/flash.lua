@@ -8,6 +8,12 @@ return {
       char = {
         multi_line = false,
         jump_labels = true,
+        jump = {
+          autojump = true,
+        },
+      },
+      search = {
+        enabled = true,
       },
     },
   },
