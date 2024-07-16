@@ -1,5 +1,5 @@
 vim.api.nvim_create_augroup("DiagnosticMode", { clear = true })
-vim.api.nvim_create_autocmd("ModeChanged", {
+vim.api.nvim_create_autocmd({ "ModeChanged" }, {
   pattern = { "i", "v", "n" },
   group = "DiagnosticMode",
   callback = function(args)
@@ -7,9 +7,9 @@ vim.api.nvim_create_autocmd("ModeChanged", {
     local is_attached = vim.lsp.buf_is_attached(bufnr, 1)
     local mode = vim.fn.mode()
     if is_attached and mode == "n" then
-      vim.diagnostic.show()
+      vim.diagnostic.enable()
     else
-      vim.diagnostic.hide()
+      vim.diagnostic.disable()
     end
   end,
 })
@@ -30,17 +30,6 @@ vim.api.nvim_create_autocmd("BufEnter", {
     end)
   end,
 })
-
--- vim.api.nvim_create_augroup("KeyPress", { clear = true })
--- vim.api.nvim_create_autocmd("ModeChanged", {
---   pattern = { "i", "v" },
---   group = "KeyPress",
---   callback = function(args)
---     local bufnr = args.buf
---     local is_attached = vim.lsp.buf_is_attached(bufnr, 1)
---     if is_attached then vim.diagnostic.hide() end
---   end,
--- })
 
 -- vim.o.updatetime = 250 -- global hold time setting
 -- vim.api.nvim_create_autocmd("CursorHold", {
