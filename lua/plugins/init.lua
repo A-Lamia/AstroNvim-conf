@@ -138,9 +138,15 @@ return {
   },
 
   {
-    "RishabhRD/nvim-cheat.sh",
+    "siawkz/nvim-cheatsh",
+    cmd = { "Cheat", "CheatList" },
     dependencies = {
-      "RishabhRD/popfix",
+      "nvim-telescope/telescope.nvim",
+    },
+    opts = {
+      position = "bottom",
+      height = 20,
+      width = 100,
     },
   },
 
