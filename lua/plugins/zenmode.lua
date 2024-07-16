@@ -39,32 +39,25 @@ return {
         foldcolumn = "0",
         list = false,
         showbreak = "NONE",
-        -- signcolumn = "no"
       },
     },
+
     plugins = {
       options = {
-        cmdheight = 1,
+        cmdheight = 0,
         laststatus = 0,
       },
       gitsigns = { enabled = true },
     },
+
     on_open = function() -- disable diagnostics and indent blankline
-      vim.g.diagnostics_enabled_old = vim.g.diagnostics_enabled
-      vim.g.status_diagnostics_enabled_old = vim.g.status_diagnostics_enabled
-      vim.g.diagnostics_enabled = false
-      vim.g.status_diagnostics_enabled = false
-      vim.diagnostic.config(lsp.diagnostics["off"])
-      -- vim.g.indent_blankline_enabled_old = vim.g.indent_blankline_enabled
-      -- vim.g.indent_blankline_enabled = false
       pcall(vim.cmd.IndentBlanklineDisable)
+      pcall(vim.cmd "DisableHL")
+      pcall(vim.cmd "w")
     end,
+
     on_close = function() -- restore diagnostics and indent blankline
-      vim.g.diagnostics_enabled = vim.g.diagnostics_enabled_old
-      vim.g.status_diagnostics_enabled = vim.g.status_diagnostics_enabled_old
-      vim.diagnostic.config(lsp.diagnostics[vim.g.diagnostics_enabled and "on" or "off"])
-      -- vim.g.indent_blankline_enabled = vim.g.indent_blankline_enabled_old
-      pcall(vim.cmd.IndentBlanklineEnable)
+      pcall(vim.cmd "EnableHL")
     end,
   },
 }
