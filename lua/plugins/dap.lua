@@ -1,4 +1,5 @@
-local fn = require "util.fn"
+local fn = require "util"
+local map = require "util.map"
 local telescope = require "util.telescope"
 
 return {
