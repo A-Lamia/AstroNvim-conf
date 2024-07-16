@@ -101,6 +101,10 @@ return {
     dap.configurations.rust = {
       lldb,
     }
+
+    dap.configurations.odin = {
+      lldb,
+    }
     dap.configurations.javascript = {
       {
         name = "Launch",
