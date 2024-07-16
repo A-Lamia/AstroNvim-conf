@@ -56,7 +56,8 @@ function M.grapple()
 end
 
 function M.set_grapple_color(hl)
-  local key = require("grapple").exists()
+  local ok, grapple = pcall(require, "grapple")
+  local key = ok and grapple.exists() or nil
   local key_color = "bg"
   if key then
     key_color = M.mode_color(hl)
