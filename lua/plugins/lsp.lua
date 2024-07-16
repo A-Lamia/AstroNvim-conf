@@ -142,18 +142,24 @@ return {
         },
       },
       servers = { "gdscript", "ols" },
+
       handlers = {
         rust_analyzer = false,
       },
+
       features = {
+        autoformat = false,
         diagnostics_mode = 2,
       },
+
       diagnostics = {
         update_in_insert = false,
+
         virtual_lines = {
           only_current_line = true,
         },
       },
+
       formatting = {
         format_on_save = {
           enabled = false,
