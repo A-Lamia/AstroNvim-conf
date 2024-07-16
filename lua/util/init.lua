@@ -14,7 +14,7 @@ function M.get_files_by_end(fileType, path)
   local find = vim.fs.find(match_file, { type = "file", limit = math.huge })
   local files = {}
 
-  if #find > 1 then
+  if #find > 0 then
     if path then
       for _, value in ipairs(find) do
         local name = vim.fs.basename(value)
