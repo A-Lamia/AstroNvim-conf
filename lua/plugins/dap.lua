@@ -54,7 +54,7 @@ return {
     }
 
     local function set_program()
-      local function set_path(prompt_bufnr, map)
+      local function set_path(prompt_bufnr, _)
         telescope.actions.select_default:replace(function()
           telescope.actions.close(prompt_bufnr)
           local selected = telescope.actions_state.get_selected_entry()
@@ -62,6 +62,7 @@ return {
         end)
         return true
       end
+
       telescope.run_func_on_file {
         name = "Executable",
         attach_mappings = set_path,
