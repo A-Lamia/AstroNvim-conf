@@ -67,7 +67,7 @@ end
 
 --- Iterates over a list of highlight names till one is found.
 --- @param hilights table<string> list of highlights to try.
---- @return Color|boolean
+--- @return table<string,string> hilights fg, bg
 function M.get_hl(hilights)
   local hl
   for _, name in ipairs(hilights) do
@@ -83,7 +83,7 @@ function M.get_hl(hilights)
     end
     break
   end
-  return hl or false
+  return hl or { fg = "#FF0000", bg = "#FF0000" }
 end
 
 return M
