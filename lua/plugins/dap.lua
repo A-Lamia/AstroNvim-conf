@@ -72,11 +72,7 @@ return {
       return true
     end
 
-    require("util.map").set_keymaps {
-      n = {
-        ["<leader>de"] = { set_program, desc = "Set program path" },
-      },
-    }
+    map.set { "<leader>de", set_program, desc = "Set program path" }
 
     local lldb = {
       name = "Launch",

@@ -1,61 +1,69 @@
 local M = {}
 
-function M._which_key(mode, key, command, desc, name, opts)
-  command = command or ""
-  desc = desc or ""
-  name = name or nil
-  local options = { silent = true, noremap = true, desc = desc }
-
-  local wk = require "which-key"
-
-  options.mode = mode
-  if opts then
-    options = vim.tbl_extend("force", options, opts)
-  end
-
-  local reg = { [key] = (name and { name = name }) or { command, desc } }
-  wk.register(reg, options)
+function M._which_key_add(tbl)
+  require("which-key").add(tbl)
 end
 
-function M._default(mode, key, command, desc, name, opts)
-  command = command or ""
-  desc = desc or ""
-  name = name or nil
+function M._key_add(tbl)
+  local options = { silent = true, noremap = true }
 
-  local options = { silent = true, noremap = true, desc = desc }
-  if type(command) == "function" then
-    options.callback = command
-    command = ""
+  for key, value in pairs(tbl) do
+    if key ~= 1 or key ~= 2 or key ~= "mode" then
+      options[key] = value
+    end
   end
 
-  if opts then
-    options = vim.tbl_extend("force", options, opts)
-  end
-
-  vim.api.nvim_set_keymap(mode, key, command, options)
+  vim.keymap.set(tbl["mode"] or "n", tbl[1], tbl[2], options)
 end
 
-function M.set(...)
-  local value = { ... }
+function M.set(tbl)
   local func
   local has_wk, _ = pcall(require, "which-key")
 
   if has_wk then
-    func = M._which_key
+    func = M._which_key_add
   else
-    func = M._default
+    func = M._key_add
   end
 
-  func(value[1], value[2], value[3], value[4], value[5], value[6])
+  func(tbl)
 end
 
-function M.set_keymaps(tbl)
-  for mode, keymaps in pairs(tbl) do
-    for key, value in pairs(keymaps) do
-      local is_value_empty = vim.tbl_isempty(value)
+-- recursive function for adding keymaps and overrides.
+function M.set_keymaps(tbl, perant_override)
+  perant_override = perant_override or {}
+  local override = {}
 
-      if not is_value_empty then
-        M.set(tostring(mode), tostring(key), value[1], value.desc, value.name, value.opts)
+  -- build overrides
+  for key, value in pairs(tbl) do
+    if type(key) ~= "number" then
+      override[key] = value
+    end
+  end
+
+  local options = vim.tbl_extend("force", perant_override, override)
+
+  for key, value in pairs(tbl) do
+    if type(key) == "number" then
+      local has_tbl = false
+      local is_group = false
+
+      for k, v in pairs(value) do
+        if type(v) == "table" then
+          has_tbl = true
+          break
+        elseif k == "group" then
+          is_group = true
+        end
+      end
+
+      if has_tbl then
+        M.set_keymaps(value, options)
+      elseif is_group then -- don't add options to which-key groups
+        M.set(value)
+      else
+        local map = vim.tbl_extend("keep", value, options)
+        M.set(map)
       end
     end
   end

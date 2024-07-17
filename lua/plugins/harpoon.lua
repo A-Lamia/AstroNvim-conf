@@ -8,14 +8,17 @@ return {
     -- harpoon:setup()
 
     require("util.map").set_keymaps {
-      n = {
-        ["gt"] = {
+      {
+        mode = "n",
+        {
+          "gt",
           function()
             harpoon:list():append()
           end,
           desc = "Tags current buffer",
         },
-        ["gp"] = {
+        {
+          "gp",
           function()
             harpoon.ui:toggle_quick_menu(harpoon:list())
           end,

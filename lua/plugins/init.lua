@@ -113,12 +113,12 @@ return {
     "preservim/tagbar",
     cmd = "TagbarToggle",
     opts = function()
-      require("util.map").set_keymaps {
-        n = {
-          ["<leader>u3"] = { "<cmd>TagbarToggle<CR>", desc = "Toggle Tagbar" },
-        },
+      require("util.map").set {
+        "<leader>u3",
+        "<cmd>TagbarToggle<CR>",
+        desc = "Toggle Tagbar",
+        mode = "n",
       }
-
       return {}
     end,
   },
@@ -127,12 +127,11 @@ return {
     "folke/trouble.nvim",
     cmd = "TroubleToggle",
     opts = function()
-      require("util.map").set_keymaps {
-        n = {
-          ["<leader>u2"] = { "<cmd>TroubleToggle<CR>", desc = "Toggle Trouble" },
-        },
+      require("util.map").set {
+        "<leader>u2",
+        "<cmd>TroubleToggle<CR>",
+        desc = "Toggle Trouble",
       }
-
       return {}
     end,
   },
