@@ -1,25 +1,17 @@
 local M = {}
 
--- local notify = require("astronvim.utils").notify
+M.replace = require "macro.replace"
 
 function M.better_search(key)
   return function()
-    -- attempt to search
-    local searched, error = pcall(
+    local searched, _ = pcall(
       vim.cmd.normal,
       { args = { (vim.v.count > 0 and vim.v.count or "") .. key }, bang = true }
     )
-    -- if search successful
     if searched then
-      -- center and unfold with protection from errors
       pcall(vim.cmd.normal, "zzzv")
-      -- set hlsearch to true
       vim.opt.hlsearch = true
-      -- if search unsuccessful (if match not found)
     else
-      -- show error as notification
-      -- notify(error, "error", { timeout = 0 })
-      -- disable hlsearch
       vim.opt.hlsearch = false
     end
   end
@@ -33,6 +25,24 @@ end
 function M.diagnostics_prev()
   local row, _ = vim.diagnostics.get_prev_pos()
   vim.cmd(row)
+end
+
+function M.toggle_fold()
+  local lnum = vim.api.nvim_win_get_cursor(0)
+  if vim.fn.foldclosed(lnum[1]) ~= -1 then
+    print "Close"
+    vim.cmd "foldopen"
+  else
+    print "Open"
+    vim.cmd "foldclose"
+  end
+end
+
+function M.focus_left_buffer()
+  require("astrocore.buffer").nav(-(vim.v.count > 0 and vim.v.count or 1))
+end
+function M.focus_right_buffer()
+  require("astrocore.buffer").nav(vim.v.count > 0 and vim.v.count or 1)
 end
 
 return M
