@@ -73,15 +73,17 @@ function M.get_hl(hilights)
   for _, name in ipairs(hilights) do
     if vim.fn.hlexists(name) == 1 then
       hl = vim.api.nvim_get_hl(0, { name = name })
-      for key, value in pairs(hl) do
-        if type(value) == "number" then
-          hl[key] = "#" .. string.format("%06x", value)
-        else
-          hl[key] = value
+      if not vim.tbl_isempty(hl) then
+        for key, value in pairs(hl) do
+          if type(value) == "number" then
+            hl[key] = "#" .. string.format("%06x", value)
+          else
+            hl[key] = value
+          end
         end
+        break
       end
     end
-    break
   end
   return hl or { fg = "#FF0000", bg = "#FF0000" }
 end
