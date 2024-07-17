@@ -16,7 +16,7 @@ return {
       "c",
       "lua",
       "vim",
-      "help",
+      "vimdoc",
       "rust",
       "cpp",
       "python",
