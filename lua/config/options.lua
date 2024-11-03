@@ -18,12 +18,9 @@ vim.g.neovide_light_radius = 25
 -- vim.g.neovide_text_contrast = 0.5
 
 --  Neovim
+vim.g.default_heirline = false
 vim.g.blend = (vim.g.neovide and 0) or (vim.env.WEZTERM and 3) or 0
 vim.g.border = "none_cmp_fix"
-
--- vim.opt.guifont = "VictorMono_Nerd_Font,Symbols_Nerd_Font:h13.5:#e-subpixelantialias:#h-full"
--- vim.opt.guifont =
---   "VictorMono_Nerd_Font_medium,Symbols_Nerd_Font:h13.5:m:#e-subpixelantialias:#h-full"
 
 vim.opt.foldcolumn = "0"
 vim.opt.autoread = true
