@@ -27,15 +27,15 @@ return {
       end,
       desc = "Flash",
     },
-    {
-      "S",
-      mode = { "n", "o", "x" },
-      function()
-        util.clear_extmark "vim_lsp_references"
-        require("flash").treesitter()
-      end,
-      desc = "Flash Treesitter",
-    },
+    -- {
+    --   "S",
+    --   mode = { "n", "o", "x" },
+    --   function()
+    --     util.clear_extmark "vim_lsp_references"
+    --     require("flash").treesitter()
+    --   end,
+    --   desc = "Flash Treesitter",
+    -- },
     {
       "r",
       mode = "o",
