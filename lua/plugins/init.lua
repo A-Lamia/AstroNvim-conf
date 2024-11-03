@@ -262,6 +262,14 @@ return {
       }
     end,
     config = true,
+    dependencies = {
+      "hrsh7th/nvim-cmp",
+      opts = {
+        sources = {
+          { name = "quickgd", priority = 750 },
+        },
+      },
+    },
   },
 
   ------ fun ------
