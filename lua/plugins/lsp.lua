@@ -48,6 +48,12 @@ return {
           root_dir = require("lspconfig.util").root_pattern("ols.json", ".git", "main.odin"),
           single_file_support = true,
         },
+        nushell = {
+          cmd = { "nu", "--lsp", "--no-config-file" },
+          filetypes = { "nu" },
+          root_dir = require("lspconfig.util").root_pattern(".git", "config.nu", "env.nu"),
+          single_file_support = true,
+        },
         pyright = {
           settings = {
             python = {
@@ -143,7 +149,7 @@ return {
           ),
         },
       },
-      servers = { "gdscript", "ols", "gopls" },
+      servers = { "gdscript", "ols", "gopls", "nushell" },
 
       handlers = {
         rust_analyzer = false,
