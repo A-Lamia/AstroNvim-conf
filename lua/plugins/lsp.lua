@@ -54,17 +54,49 @@ return {
           root_dir = require("lspconfig.util").root_pattern(".git", "config.nu", "env.nu"),
           single_file_support = true,
         },
-        pyright = {
+        basedpyright = {
           settings = {
-            python = {
+            basedpyright = {
               analysis = {
                 typeCheckingMode = "off",
+                disableOrganizeImports = true,
+              },
+            },
+          },
+        },
+        pyright = {
+          capabilities = {
+            textDocument = {
+              publishDiagnostics = {
+                tagSupport = {
+                  valueSet = { 2 },
+                },
+              },
+            },
+          },
+          settings = {
+            pyright = {
+              disableOrganizeImports = true,
+              disableTaggedHints = true,
+            },
+            python = {
+              analysis = {
+                ignore = { "*" },
+                typeCheckingMode = "off",
+                reportUndefinedVariable = "none",
               },
             },
           },
         },
         ruff_lsp = {
-          on_attach = function(client, buffer)
+          init_options = {
+            settings = {
+              args = {
+                "--ignore=F821",
+              },
+            },
+          },
+          on_attach = function(client)
             client.server_capabilities.documentFormattingProvider = true
             client.server_capabilities.hoverProvider = false
             client.server_capabilities.renameProvider = false
