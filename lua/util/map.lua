@@ -13,7 +13,7 @@ function M._key_add(tbl)
     end
   end
 
-  vim.keymap.set(tbl["mode"] or "n", tbl[1], tbl[2], options)
+  vim.keymap.set(tbl["mode"] or "n", tbl[1], tbl[2] or "", options)
 end
 
 function M.set(tbl)
@@ -53,6 +53,8 @@ function M.set_keymaps(tbl, perant_override)
           has_tbl = true
           break
         elseif k == "group" then
+          is_group = true
+        elseif k == "mode" then
           is_group = true
         end
       end
