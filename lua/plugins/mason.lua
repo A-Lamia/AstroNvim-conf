@@ -3,12 +3,12 @@ return {
     "williamboman/mason-lspconfig.nvim",
     opts = {
       ensure_installed = {
-        "clangd",
-        "neocmake",
-        "html",
-        "cssls",
-        "jsonls",
-        "lua_ls",
+        -- "clangd",
+        -- "neocmake",
+        -- "html",
+        -- "cssls",
+        -- "jsonls",
+        -- "lua_ls",
       },
     },
   },
