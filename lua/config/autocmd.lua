@@ -14,16 +14,18 @@ vim.api.nvim_create_autocmd({ "ModeChanged" }, {
   end,
 })
 
-vim.api.nvim_create_autocmd("BufLeave", {
+local timer = 0
+vim.api.nvim_create_autocmd("BufEnter", {
   callback = function()
     vim.g.neovide_scroll_animation_length = 0
     vim.g.neovide_cursor_animation_length = 0
     vim.g.neovide_cursor_vfx_particle_lifetime = 0
-  end,
-})
-vim.api.nvim_create_autocmd("BufEnter", {
-  callback = function()
-    vim.fn.timer_start(70, function()
+
+    if vim.tbl_isempty(vim.fn.timer_info(timer)) then
+      vim.fn.timer_stop(timer)
+    end
+
+    timer = vim.fn.timer_start(200, function()
       vim.g.neovide_cursor_vfx_particle_lifetime = 1.5
       vim.g.neovide_scroll_animation_length = 0.25
       vim.g.neovide_cursor_animation_length = 0.06
