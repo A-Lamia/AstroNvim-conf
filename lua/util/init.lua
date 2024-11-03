@@ -72,10 +72,12 @@ function M.get_hl(hilights)
   local hl
   for _, name in ipairs(hilights) do
     if vim.fn.hlexists(name) == 1 then
-      hl = vim.api.nvim_get_hl(0, { name = name })
+      hl = vim.api.nvim_get_hl(0, { name = name, link = false, create = false })
       if not vim.tbl_isempty(hl) then
         for key, value in pairs(hl) do
-          if type(value) == "number" then
+          if key == "Link" then
+            hl = nil
+          elseif type(value) == "number" then
             hl[key] = "#" .. string.format("%06x", value)
           else
             hl[key] = value
