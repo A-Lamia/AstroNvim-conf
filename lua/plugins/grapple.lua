@@ -2,7 +2,7 @@ local border = require "util.border"
 
 return {
   "cbochs/grapple.nvim",
-  enabled = false,
+  enabled = true,
   lazy = false,
   config = function()
     require("grapple").setup {
@@ -23,11 +23,8 @@ return {
     }
 
     require("util.map").set_keymaps {
-      {
-        mode = "n",
-        { "gt", ":Grapple toggle<cr>", desc = "Tags current buffer" },
-        { "gp", ":Grapple open_tags<cr>", desc = "Grapple tag popup menu" },
-      },
+      { "gt", ":Grapple toggle<cr>", desc = "Tags current buffer" },
+      { "gp", ":Grapple open_tags<cr>", desc = "Grapple tag popup menu" },
     }
   end,
 }
