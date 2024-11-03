@@ -2,14 +2,20 @@ return {
   "rebelot/heirline.nvim",
   enabled = true,
   init = function()
-    vim.api.nvim_create_autocmd("ColorScheme", {
-      callback = function()
-        _G.THEME = require("util.theme").setup()
-      end,
-    })
+    if not vim.g.default_heirline then
+      _G.THEME = require("util.theme").setup()
+
+      vim.api.nvim_create_autocmd("ColorScheme", {
+        callback = function()
+          _G.THEME = require("util.theme").setup()
+        end,
+      })
+    end
   end,
   opts = function(_, opts)
-    if not _G.THEME then
+    if not _G.THEME or vim.g.default_heirline then
+      opts.winbar = nil
+      opts.foldcolumn = false
       return
     end
 
