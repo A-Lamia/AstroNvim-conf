@@ -7,10 +7,22 @@ return {
     enabled = false,
     lazy = false,
     dev = true,
-    -- opts = {},
-    config = function()
-      require("spotlight").setup()
-    end,
+    opts = {
+      on_init = function()
+        vim.api.nvim_set_hl(0, "TelescopeResultsNormal", { link = "SpotlightNormal" })
+        vim.api.nvim_set_hl(0, "TelescopeResultsTitle", { link = "SpotlightTitle" })
+        vim.api.nvim_set_hl(0, "TelescopeResultsBorder", { link = "SpotlightBorder" })
+        vim.api.nvim_set_hl(0, "TelescopePreviewNormal", { link = "SpotlightNormal" })
+        vim.api.nvim_set_hl(0, "TelescopePreviewTitle", { link = "SpotlightTitle" })
+        vim.api.nvim_set_hl(0, "TelescopePreviewBorder", { link = "SpotlightBorder" })
+      end,
+      on_open = function()
+        pcall(require("astroui.status").heirline.refresh_colors)
+      end,
+      on_close = function()
+        pcall(require("astroui.status").heirline.refresh_colors)
+      end,
+    },
   },
 
   ------ disable ------

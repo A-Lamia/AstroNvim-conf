@@ -15,6 +15,8 @@ return {
           ),
         },
         gopls = {
+          cmd = { "C:/Users/Abdul/AppData/Local/nvim-data/mason/bin/gopls.cmd" },
+          root_dir = require("lspconfig.util").root_pattern("go.mod", "go.work", ".git"),
           settings = {
             gopls = {
               hints = {
@@ -141,7 +143,7 @@ return {
           ),
         },
       },
-      servers = { "gdscript", "ols" },
+      servers = { "gdscript", "ols", "gopls" },
 
       handlers = {
         rust_analyzer = false,

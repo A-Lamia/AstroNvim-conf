@@ -22,4 +22,16 @@ return {
   --     }
   --   end,
   -- },
+
+  {
+    "yorickpeterse/nvim-pqf",
+    opts = {
+      signs = {
+        error = "",
+        warning = "",
+        info = "",
+        hint = "",
+      },
+    },
+  },
 }

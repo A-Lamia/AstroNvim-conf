@@ -2,7 +2,7 @@ local border = require "util.border"
 
 return {
   "cbochs/grapple.nvim",
-  enabled = true,
+  enabled = false,
   lazy = false,
   config = function()
     require("grapple").setup {

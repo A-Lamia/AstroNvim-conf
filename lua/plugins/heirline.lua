@@ -1,7 +1,18 @@
 return {
   "rebelot/heirline.nvim",
   enabled = true,
+  init = function()
+    vim.api.nvim_create_autocmd("ColorScheme", {
+      callback = function()
+        _G.THEME = require("util.theme").setup()
+      end,
+    })
+  end,
   opts = function(_, opts)
+    if not _G.THEME then
+      return
+    end
+
     local icons = require "util.icons"
     local separator = require("util.icons").separator
 
