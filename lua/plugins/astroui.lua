@@ -9,11 +9,12 @@ return {
         status = {
           foldcolumn = false,
           colors = function(hl)
-            hl.tabline_bg = "none"
-            hl.scrollbar = get_hl({ "HeirlineYellow", "TypeDef" }).fg
-            hl.treesitter_bg = get_hl({ "HeirlineGreen", "String" }).fg
-            hl.buffer_fg = get_hl({ "HeirlineTextInactive", "NonText" }).fg
-            return hl
+            if not vim.g.default_heirline then
+              hl.tabline_bg = "none"
+              hl.scrollbar = get_hl({ "HeirlineYellow", "TypeDef" }).fg
+              hl.treesitter_bg = get_hl({ "HeirlineGreen", "String" }).fg
+              hl.buffer_fg = get_hl({ "HeirlineTextInactive", "NonText" }).fg
+            end
           end,
         },
       })
