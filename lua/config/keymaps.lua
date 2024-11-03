@@ -1,6 +1,7 @@
 local macro = require "macro"
 
 require("util.map").set_keymaps {
+  { "s", group = "Surround / Search / Split", icon = "" },
   {
     mode = "n",
     { "<M-f>", macro.toggle_fold, desc = "Fold toggle" },
