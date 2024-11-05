@@ -102,74 +102,10 @@ return {
             client.server_capabilities.renameProvider = false
           end,
         },
-        rust = {
-          settings = {
-            rust = {
-              inlayHints = {
-                bindingModeHints = {
-                  enable = false,
-                },
-                chainingHints = {
-                  enable = true,
-                },
-                closingBraceHints = {
-                  enable = true,
-                  minLines = 25,
-                },
-                closureReturnTypeHints = {
-                  enable = "never",
-                },
-                lifetimeElisionHints = {
-                  enable = "never",
-                  useParameterNames = false,
-                },
-                maxLength = 25,
-                parameterHints = {
-                  enable = true,
-                },
-                reborrowHints = {
-                  enable = "never",
-                },
-                renderColons = true,
-                typeHints = {
-                  enable = true,
-                  hideClosureInitialization = false,
-                  hideNamedConstructor = false,
-                },
-              },
-            },
-          },
-        },
         sqls = {
           on_attach = function(...)
             require("sqls").on_attach(...)
           end,
-        },
-        tsserver = {
-          settings = {
-            javascript = {
-              inlayHints = {
-                includeInlayEnumMemberValueHints = true,
-                includeInlayFunctionLikeReturnTypeHints = true,
-                includeInlayFunctionParameterTypeHints = true,
-                includeInlayParameterNameHints = "all", -- 'none' | 'literals' | 'all';
-                includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-                includeInlayPropertyDeclarationTypeHints = true,
-                includeInlayVariableTypeHints = true,
-              },
-            },
-            typescript = {
-              inlayHints = {
-                includeInlayEnumMemberValueHints = true,
-                includeInlayFunctionLikeReturnTypeHints = true,
-                includeInlayFunctionParameterTypeHints = true,
-                includeInlayParameterNameHints = "all", -- 'none' | 'literals' | 'all';
-                includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-                includeInlayPropertyDeclarationTypeHints = true,
-                includeInlayVariableTypeHints = true,
-              },
-            },
-          },
         },
         asm_lsp = {
           filetypes = { "asm", "vmasm", "s" },
@@ -182,10 +118,6 @@ return {
         },
       },
       servers = { "gdscript", "ols", "gopls", "nushell" },
-
-      handlers = {
-        rust_analyzer = false,
-      },
 
       features = {
         autoformat = false,
@@ -261,17 +193,6 @@ return {
       return {
         server = require("astrolsp.config").config.clangd,
         extensions = { autoSetHints = false },
-      }
-    end,
-  },
-  {
-    "simrat39/rust-tools.nvim",
-    dependencies = { "williamboman/mason-lspconfig.nvim" },
-    ft = { "rust" },
-    opts = function()
-      return {
-        server = require("astrolsp.config").config.rust_analyzer,
-        tools = { inlay_hints = { auto = false } },
       }
     end,
   },
