@@ -31,7 +31,7 @@ return {
             },
           },
         },
-        lus_ls = {
+        lua_ls = {
           root_dir = require("lspconfig.util").root_pattern(".git", cwd),
           settings = {
             Lua = {
