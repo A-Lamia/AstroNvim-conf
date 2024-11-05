@@ -152,6 +152,13 @@ return {
         }
       end,
     },
+    config = function(_, opts)
+      local lspconfig = require "lspconfig"
+      for server, config in pairs(opts.config) do
+        config.capabilities = require("blink.cmp").get_lsp_capabilities(config.capabilities)
+        lspconfig[server].setup(config)
+      end
+    end,
   },
   {
     "williamboman/mason-lspconfig.nvim",
