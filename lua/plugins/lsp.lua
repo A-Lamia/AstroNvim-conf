@@ -8,11 +8,7 @@ return {
         gdscript = {
           -- cmd = { "ncat", "127.0.0.1", "-P", "6008" },
           cmd = { "ncat", "127.0.0.1", "6008" },
-          root_dir = require("lspconfig.util").root_pattern(
-            "project.godot",
-            ".git",
-            ".godot"
-          ),
+          root_dir = require("lspconfig.util").root_pattern("project.godot", ".git", ".godot"),
         },
         gopls = {
           cmd = { "C:/Users/Abdul/AppData/Local/nvim-data/mason/bin/gopls.cmd" },
@@ -57,38 +53,21 @@ return {
         basedpyright = {
           settings = {
             basedpyright = {
+              disableOrganizeImports = true,
+              disableTaggedHints = true,
               analysis = {
-                typeCheckingMode = "off",
-                disableOrganizeImports = true,
-              },
-            },
-          },
-        },
-        pyright = {
-          capabilities = {
-            textDocument = {
-              publishDiagnostics = {
-                tagSupport = {
-                  valueSet = { 2 },
+                typeCheckingMode = "standard",
+                diagnosticSeverityOverrides = {
+                  reportUndefinedVariable = "none",
+                  reportUnusedExpression = "none",
+                  reportOptionalMemberAccess = "none",
                 },
               },
             },
           },
-          settings = {
-            pyright = {
-              disableOrganizeImports = true,
-              disableTaggedHints = true,
-            },
-            python = {
-              analysis = {
-                ignore = { "*" },
-                typeCheckingMode = "off",
-                reportUndefinedVariable = "none",
-              },
-            },
-          },
         },
-        ruff_lsp = {
+        ruff = {
+          cmd = { "ruff", "server" },
           init_options = {
             settings = {
               args = {
@@ -138,6 +117,7 @@ return {
         },
         disabled = { "lua_ls" },
       },
+
       on_attach = function(client, bufnr)
         local border = require "util.border"
         vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
@@ -151,20 +131,36 @@ return {
           float = { border = border.default[vim.g.border] },
         }
       end,
-    },
-    config = function(_, opts)
-      local lspconfig = require "lspconfig"
-      for server, config in pairs(opts.config) do
-        config.capabilities = require("blink.cmp").get_lsp_capabilities(config.capabilities)
-        lspconfig[server].setup(config)
-      end
-    end,
-  },
-  {
-    "williamboman/mason-lspconfig.nvim",
-    opts = {
-      ensure_installed = {
-        "lua_ls",
+      capabilities = {
+        textDocument = {
+          completion = {
+            completionItem = {
+              commitCharactersSupport = false,
+              deprecatedSupport = true,
+              documentationFormat = { "markdown", "plaintext" },
+              insertReplaceSupport = true,
+              insertTextModeSupport = {
+                valueSet = { 1 },
+              },
+              labelDetailsSupport = true,
+              preselectSupport = false,
+              resolveSupport = { properties = { "documentation", "detail", "additionalTextEdits" } },
+              snippetSupport = true,
+              tagSupport = { valueSet = { 1 } },
+            },
+            completionList = {
+              itemDefaults = {
+                "commitCharacters",
+                "editRange",
+                "insertTextFormat",
+                "insertTextMode",
+                "data",
+              },
+            },
+            contextSupport = true,
+            insertTextMode = 1,
+          },
+        },
       },
     },
   },
