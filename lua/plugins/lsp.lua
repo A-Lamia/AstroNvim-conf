@@ -11,7 +11,6 @@ return {
           root_dir = require("lspconfig.util").root_pattern("project.godot", ".git", ".godot"),
         },
         gopls = {
-          cmd = { "C:/Users/Abdul/AppData/Local/nvim-data/mason/bin/gopls.cmd" },
           root_dir = require("lspconfig.util").root_pattern("go.mod", "go.work", ".git"),
           settings = {
             gopls = {
@@ -131,6 +130,7 @@ return {
           float = { border = border.default[vim.g.border] },
         }
       end,
+
       capabilities = {
         textDocument = {
           completion = {
