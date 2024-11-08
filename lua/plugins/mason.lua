@@ -1,26 +1,11 @@
 return {
   {
-    "williamboman/mason-lspconfig.nvim",
-    opts = {
-      ensure_installed = {
-        -- "clangd",
-        -- "neocmake",
-        -- "html",
-        -- "cssls",
-        -- "jsonls",
-        -- "lua_ls",
-      },
-    },
-  },
-  {
     "jay-babu/mason-null-ls.nvim",
     opts = {
       ensure_installed = {
-        "codelldb",
         "prettierd",
         "stylua",
-        -- "ruff",
-        "ruff-lsp",
+        "lua_ls",
       },
     },
     config = function(_, opts)
