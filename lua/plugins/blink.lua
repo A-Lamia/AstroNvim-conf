@@ -34,7 +34,6 @@ return {
         },
       },
       ghost_text = {
-        border = vim.g.border,
         enabled = true,
       },
     },
