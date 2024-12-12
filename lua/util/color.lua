@@ -413,6 +413,8 @@ function M.get_hlgroup(names)
           fg = M.rawToRgb(hl.fg),
           bg = M.rawToRgb(hl.bg),
         }
+      elseif hl.link then
+        return M.get_hlgroup { hl.link }
       end
     end
   end
