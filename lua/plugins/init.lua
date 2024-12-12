@@ -248,6 +248,7 @@ return {
   {
     "QuickGD/quickgd.nvim",
     dev = true,
+    enabled = false,
     ft = { "gdshader", "gdshaderinc" },
     cmd = {
       "GodotRun",
