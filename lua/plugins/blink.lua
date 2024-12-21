@@ -4,6 +4,16 @@ return {
   dependencies = { "rafamadriz/friendly-snippets" },
   version = "v0.*",
   opts = {
+    sources = {
+      default = { "lazydev", "lsp", "path", "snippets", "buffer" },
+      providers = {
+        lazydev = {
+          name = "LazyDev",
+          module = "lazydev.integrations.blink",
+          score_offset = 100,
+        },
+      },
+    },
     keymap = {
       preset = "default",
       ["<C-Space>"] = { "show", "show_documentation", "hide_documentation", "fallback" },
@@ -18,23 +28,23 @@ return {
     },
     completion = {
       menu = {
-        border = vim.g.border,
+        -- border = vim.g.border,
         winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder,CursorLine:PmenuSel,Search:None",
       },
       documentation = {
-        border = vim.g.border,
         window = {
-          winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder,CursorLine:PmenuSel,Search:None",
-        },
-      },
-      signature = {
-        border = vim.g.border,
-        window = {
+          border = vim.g.border,
           winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder,CursorLine:PmenuSel,Search:None",
         },
       },
       ghost_text = {
         enabled = true,
+      },
+    },
+    signature = {
+      window = {
+        border = vim.g.border,
+        winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder,CursorLine:PmenuSel,Search:None",
       },
     },
   },
