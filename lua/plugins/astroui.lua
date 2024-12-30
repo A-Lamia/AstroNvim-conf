@@ -14,6 +14,11 @@ return {
               hl.scrollbar = get_hl({ "HeirlineYellow", "TypeDef" }).fg
               hl.treesitter_bg = get_hl({ "HeirlineGreen", "String" }).fg
               hl.buffer_fg = get_hl({ "HeirlineTextInactive", "NonText" }).fg
+
+              if vim.version().minor >= 11 then
+                local norm = get_hl { "Normal" }
+                vim.api.nvim_set_hl(0, "TabLineFill", { fg = norm.fg, bg = norm.bg })
+              end
             end
           end,
         },
