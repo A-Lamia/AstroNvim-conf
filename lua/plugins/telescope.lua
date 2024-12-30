@@ -47,6 +47,7 @@ return {
         --   results = border.telescope[vim.g.border],
         --   preview = border.telescope[vim.g.border],
         -- },
+        borderchars = border.telescope[vim.g.border],
         prompt_title = false,
         results_title = false,
         dynamic_preview_title = true,
