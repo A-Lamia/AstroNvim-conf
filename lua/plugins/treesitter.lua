@@ -26,10 +26,6 @@ return {
     },
     dependencies = {
       {
-        "nushell/tree-sitter-nu",
-        build = ":TSUpdate nu",
-      },
-      {
         "rush-rs/tree-sitter-asm",
         ft = "asm",
       },
