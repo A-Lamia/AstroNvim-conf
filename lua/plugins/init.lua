@@ -72,16 +72,6 @@ return {
   },
 
   {
-    "gen740/SmoothCursor.nvim",
-    cond = vim.g.neovide == nil,
-    lazy = false,
-    opts = {
-      autostart = true,
-      fancy = { enable = true },
-    },
-  },
-
-  {
     "zbirenbaum/neodim",
     enabled = false,
     event = "User AstroFile",
