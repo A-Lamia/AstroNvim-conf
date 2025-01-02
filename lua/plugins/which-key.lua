@@ -4,6 +4,7 @@ return {
     return vim.tbl_deep_extend("force", opts, {
       triggers = {
         { "s", mode = { "n", "v" } },
+        { "g", mode = { "n", "v" } },
         { "<leader>", mode = { "n", "v" } },
       },
     })
