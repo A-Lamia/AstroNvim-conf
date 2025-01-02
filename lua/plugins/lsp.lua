@@ -117,17 +117,18 @@ return {
         disabled = { "lua_ls" },
       },
 
+      lsp_handlers = {
+        ["textDocument/hover"] = vim.lsp.with(
+          vim.lsp.handlers.hover,
+          { border = vim.g.border, silent = true }
+        ),
+      },
+
       on_attach = function(client, bufnr)
-        local border = require "util.border"
-        vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-          border = border.default[vim.g.border],
-        })
-        vim.lsp.handlers["textDocument/signatureHelp"] =
-          vim.lsp.with(vim.lsp.handlers.signature_help, {
-            border = border.default[vim.g.border],
-          })
         vim.diagnostic.config {
-          float = { border = border.default[vim.g.border] },
+          float = {
+            border = vim.g.border,
+          },
         }
       end,
 
@@ -164,6 +165,7 @@ return {
       },
     },
   },
+
   {
     "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
     -- pin = true,
