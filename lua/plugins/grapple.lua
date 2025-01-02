@@ -6,9 +6,9 @@ return {
   lazy = false,
   config = function()
     require("grapple").setup {
-      -- popup_options = {
-      --   border = border.default[vim.g.border],
-      -- },
+      win_opts = {
+        border = vim.g.border,
+      },
       scope = (function()
         local lsp_ok, _ = pcall(vim.lsp.get_clients)
         local git_ok = #vim.fs.find(".git", {}) == 1

@@ -19,6 +19,9 @@ require("lazy").setup {
   dev = {
     path = data .. "/dev",
   },
+  ui = {
+    border = vim.g.border,
+  },
   defaults = {},
   install = { colorscheme = { "astrodark", "habamax" } },
   checker = { enabled = false }, -- automatically check for plugin updates

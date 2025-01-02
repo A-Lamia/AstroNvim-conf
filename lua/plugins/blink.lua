@@ -28,7 +28,7 @@ return {
     },
     completion = {
       menu = {
-        -- border = vim.g.border,
+        border = vim.g.border,
         winhighlight = "Normal:NormalFloat,FloatBorder:FloatBorder,CursorLine:PmenuSel,Search:None",
       },
       documentation = {

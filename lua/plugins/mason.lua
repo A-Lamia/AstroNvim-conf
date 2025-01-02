@@ -1,5 +1,16 @@
 return {
   {
+    "williamboman/mason.nvim",
+    opts = function(_, opts)
+      return vim.tbl_deep_extend("force", opts, {
+        ui = {
+          border = vim.g.border,
+        },
+      })
+    end,
+  },
+
+  {
     "jay-babu/mason-null-ls.nvim",
     opts = {
       ensure_installed = {
